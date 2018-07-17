@@ -1,0 +1,31 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <PackageId>NHibernate.AspNetCore.Identity</PackageId>
+    <PackageVersion>1.0.0</PackageVersion>
+    <Authors>beginor</Authors>
+    <Owners>beginor</Owners>
+    <PackageProjectUrl>https://github.com/beginor/nhibernate-extensions</PackageProjectUrl>
+    <PackageReleaseNotes>1.0.0: Initial release.</PackageReleaseNotes>
+    <Title>NHibernate.AspNetCore.Identity</Title>
+    <Description>ASPNET Core Identity provider that uses NHibernate for storage</Description>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|AnyCPU'">
+    <PackOnBuild>true</PackOnBuild>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.Identity" Version="2.1.0">
+    </PackageReference>
+    <PackageReference Include="Microsoft.Extensions.Identity.Stores" Version="2.1.0">
+    </PackageReference>
+    <PackageReference Include="NHibernate" Version="5.1.2">
+    </PackageReference>
+    <PackageReference Include="NuGet.Build.Packaging" Version="0.2.0" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Remove="**/*.hbm.xml" />
+    <EmbeddedResource Include="**/*.hbm.xml" />
+  </ItemGroup>
+</Project>

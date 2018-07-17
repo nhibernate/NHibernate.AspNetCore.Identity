@@ -1,0 +1,30 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFramework>netcoreapp2.1</TargetFramework>
+    <IsPackable>false</IsPackable>
+  </PropertyGroup>
+  <ItemGroup>
+    <PackageReference Include="Microsoft.Extensions.Logging.Console" Version="2.1.0" />
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="15.7.0" />
+    <PackageReference Include="Npgsql" Version="4.0.0" />
+    <PackageReference Include="xunit" Version="2.3.1" />
+    <PackageReference Include="xunit.runner.visualstudio" Version="2.3.1" />
+    <PackageReference Include="Microsoft.AspNetCore.Identity" Version="2.1.0" />
+    <PackageReference Include="Microsoft.Extensions.Identity.Stores" Version="2.1.0" />
+    <PackageReference Include="NHibernate" Version="5.1.2" />
+    <DotNetCliToolReference Include="dotnet-xunit" Version="2.3.1" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Remove="**/*.hbm.xml" />
+    <EmbeddedResource Include="**/*.hbm.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Update="hibernate.config">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\src\NHibernate.AspNetCore.Identity\NHibernate.AspNetCore.Identity.csproj" />
+    <ProjectReference Include="..\..\src\NHibernate.NetCore\NHibernate.NetCore.csproj" />
+  </ItemGroup>
+</Project>

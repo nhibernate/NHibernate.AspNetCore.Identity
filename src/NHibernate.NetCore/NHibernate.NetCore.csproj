@@ -1,0 +1,27 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <Authors>beginor</Authors>
+    <Description>Extensions for NHibernate when used in dotnet core.
+For examples, visit https://github.com/beginor/nhibernate-extensions/tree/master/test/WebTest</Description>
+    <PackageId>NHibernate.NetCore</PackageId>
+    <PackageVersion>1.0.0</PackageVersion>
+    <Owners>beginor</Owners>
+    <Title>NHibernate.NetCore</Title>
+    <PackageProjectUrl>https://github.com/beginor/nhibernate-extensions</PackageProjectUrl>
+    <PackageReleaseNotes>1.0.0: Initial Release</PackageReleaseNotes>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|AnyCPU'">
+    <PackOnBuild>true</PackOnBuild>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.Extensions.Logging" Version="2.1.0" />
+    <PackageReference Include="NHibernate" Version="5.1.2" />
+    <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="2.1.0" />
+    <PackageReference Include="NuGet.Build.Packaging" Version="0.2.0" />
+  </ItemGroup>
+
+</Project>
