@@ -4,12 +4,12 @@
     <TargetFramework>netstandard2.0</TargetFramework>
     <Authors>beginor</Authors>
     <Description>Extensions for NHibernate when used in dotnet core.
-For examples, visit https://github.com/beginor/nhibernate-extensions/tree/master/test/WebTest</Description>
+For examples, visit https://github.com/nhibernate/NHibernate.AspNetCore.Identity/tree/master/test/WebTest</Description>
     <PackageId>NHibernate.NetCore</PackageId>
     <PackageVersion>1.0.0</PackageVersion>
     <Owners>beginor</Owners>
     <Title>NHibernate.NetCore</Title>
-    <PackageProjectUrl>https://github.com/beginor/nhibernate-extensions</PackageProjectUrl>
+    <PackageProjectUrl>https://github.com/nhibernate/NHibernate.AspNetCore.Identity</PackageProjectUrl>
     <PackageReleaseNotes>1.0.0: Initial Release</PackageReleaseNotes>
   </PropertyGroup>
 
