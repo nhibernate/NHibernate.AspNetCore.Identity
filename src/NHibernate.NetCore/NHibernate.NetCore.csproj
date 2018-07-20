@@ -6,11 +6,11 @@
     <Description>Extensions for NHibernate when used in dotnet core.
 For examples, visit https://github.com/nhibernate/NHibernate.AspNetCore.Identity/tree/master/test/WebTest</Description>
     <PackageId>NHibernate.NetCore</PackageId>
-    <PackageVersion>1.0.0</PackageVersion>
+    <PackageVersion>1.0.1</PackageVersion>
     <Owners>beginor</Owners>
     <Title>NHibernate.NetCore</Title>
     <PackageProjectUrl>https://github.com/nhibernate/NHibernate.AspNetCore.Identity</PackageProjectUrl>
-    <PackageReleaseNotes>1.0.0: Initial Release</PackageReleaseNotes>
+    <PackageReleaseNotes>1.0.1: Fix nuget metadata url.</PackageReleaseNotes>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|AnyCPU'">
