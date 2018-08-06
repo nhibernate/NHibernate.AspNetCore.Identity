@@ -25,7 +25,7 @@ namespace NHibernate.AspNetCore.Identity {
                 var userStoreImplType = typeof(UserStore);
                 services.AddScoped(userStoreServiceType, userStoreImplType);
                 // add role store type
-                var roleStoreSvcType = typeof(IUserStore<>)
+                var roleStoreSvcType = typeof(IRoleStore<>)
                     .MakeGenericType(roleType);
                 var roleStoreImplType = typeof(RoleStore);
                 services.AddScoped(roleStoreSvcType, roleStoreImplType);
