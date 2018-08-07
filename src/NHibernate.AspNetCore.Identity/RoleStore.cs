@@ -9,16 +9,24 @@ using Microsoft.AspNetCore.Identity;
 using NHibernate.Linq;
 
 namespace NHibernate.AspNetCore.Identity {
-    
-    public class RoleStore
-        : IQueryableRoleStore<IdentityRole>, IRoleClaimStore<IdentityRole> {
+
+    public class RoleStore : RoleStore<IdentityRole> {
+        public RoleStore(
+            ISession session,
+            IdentityErrorDescriber describer = null
+        ) : base(session, describer) {
+        }
+    }
+
+    public class RoleStore<TRole>
+        : IQueryableRoleStore<TRole>, IRoleClaimStore<TRole> where TRole : IdentityRole {
 
         private bool disposed;
-        
+
         public ISession Session { get; }
-        
+
         public IdentityErrorDescriber ErrorDescriber { get; set; }
-        
+
         public bool AutoFlushChanges { get; set; } = true;
 
         public RoleStore(
@@ -38,7 +46,7 @@ namespace NHibernate.AspNetCore.Identity {
         }
 
         public virtual async Task<IdentityResult> CreateAsync(
-            IdentityRole role,
+            TRole role,
             CancellationToken cancellationToken
         ) {
             cancellationToken.ThrowIfCancellationRequested();
@@ -52,7 +60,7 @@ namespace NHibernate.AspNetCore.Identity {
         }
 
         public virtual async Task<IdentityResult> UpdateAsync(
-            IdentityRole role,
+            TRole role,
             CancellationToken cancellationToken
         ) {
             cancellationToken.ThrowIfCancellationRequested();
@@ -60,7 +68,7 @@ namespace NHibernate.AspNetCore.Identity {
             if (role == null) {
                 throw new ArgumentNullException(nameof(role));
             }
-            var candidate = await Session.GetAsync<IdentityRole>(
+            var candidate = await Session.GetAsync<TRole>(
                 role.Id,
                 cancellationToken
             );
@@ -76,7 +84,7 @@ namespace NHibernate.AspNetCore.Identity {
         }
 
         public virtual async Task<IdentityResult> DeleteAsync(
-            IdentityRole role,
+            TRole role,
             CancellationToken cancellationToken
         ) {
             cancellationToken.ThrowIfCancellationRequested();
@@ -90,7 +98,7 @@ namespace NHibernate.AspNetCore.Identity {
         }
 
         public virtual Task<string> GetRoleIdAsync(
-            IdentityRole role,
+            TRole role,
             CancellationToken cancellationToken
         ) {
             cancellationToken.ThrowIfCancellationRequested();
@@ -102,7 +110,7 @@ namespace NHibernate.AspNetCore.Identity {
         }
 
         public virtual Task<string> GetRoleNameAsync(
-            IdentityRole role,
+            TRole role,
             CancellationToken cancellationToken
         ) {
             cancellationToken.ThrowIfCancellationRequested();
@@ -114,7 +122,7 @@ namespace NHibernate.AspNetCore.Identity {
         }
 
         public Task SetRoleNameAsync(
-            IdentityRole role,
+            TRole role,
             string roleName,
             CancellationToken cancellationToken
         ) {
@@ -128,7 +136,7 @@ namespace NHibernate.AspNetCore.Identity {
         }
 
         public Task<string> GetNormalizedRoleNameAsync(
-            IdentityRole role,
+            TRole role,
             CancellationToken cancellationToken
         ) {
             cancellationToken.ThrowIfCancellationRequested();
@@ -140,7 +148,7 @@ namespace NHibernate.AspNetCore.Identity {
         }
 
         public Task SetNormalizedRoleNameAsync(
-            IdentityRole role,
+            TRole role,
             string normalizedName,
             CancellationToken cancellationToken
         ) {
@@ -153,18 +161,18 @@ namespace NHibernate.AspNetCore.Identity {
             return Task.CompletedTask;
         }
 
-        public async Task<IdentityRole> FindByIdAsync(
+        public async Task<TRole> FindByIdAsync(
             string roleId,
             CancellationToken cancellationToken
         ) {
             cancellationToken.ThrowIfCancellationRequested();
             ThrowIfDisposed();
             var id = roleId;
-            var role = await Session.GetAsync<IdentityRole>(id, cancellationToken);
+            var role = await Session.GetAsync<TRole>(id, cancellationToken);
             return role;
         }
 
-        public async Task<IdentityRole> FindByNameAsync(
+        public async Task<TRole> FindByNameAsync(
             string normalizedRoleName,
             CancellationToken cancellationToken
         ) {
@@ -178,12 +186,12 @@ namespace NHibernate.AspNetCore.Identity {
             return role;
         }
 
-        public virtual IQueryable<IdentityRole> Roles => Session.Query<IdentityRole>();
+        public virtual IQueryable<TRole> Roles => Session.Query<TRole>();
 
         private IQueryable<IdentityRoleClaim> RoleClaims => Session.Query<IdentityRoleClaim>();
 
         public virtual async Task<IList<Claim>> GetClaimsAsync(
-            IdentityRole role,
+            TRole role,
             CancellationToken cancellationToken
         ) {
             cancellationToken.ThrowIfCancellationRequested();
@@ -191,7 +199,7 @@ namespace NHibernate.AspNetCore.Identity {
             if (role == null) {
                 throw new ArgumentNullException(nameof(role));
             }
-            
+
             var claims = await RoleClaims
                 .Where(rc => rc.RoleId == role.Id)
                 .Select(c => new Claim(c.ClaimType, c.ClaimValue))
@@ -200,7 +208,7 @@ namespace NHibernate.AspNetCore.Identity {
         }
 
         public virtual async Task AddClaimAsync(
-            IdentityRole role,
+            TRole role,
             Claim claim,
             CancellationToken cancellationToken
         ) {
@@ -218,7 +226,7 @@ namespace NHibernate.AspNetCore.Identity {
         }
 
         public virtual async Task RemoveClaimAsync(
-            IdentityRole role,
+            TRole role,
             Claim claim,
             CancellationToken cancellationToken = default(CancellationToken)
         ) {
@@ -247,16 +255,16 @@ namespace NHibernate.AspNetCore.Identity {
                 throw new ObjectDisposedException(GetType().Name);
             }
         }
-        
+
         protected virtual IdentityRoleClaim CreateRoleClaim(
-            IdentityRole role,
+            TRole role,
             Claim claim
         ) => new IdentityRoleClaim {
             RoleId = role.Id,
             ClaimType = claim.Type,
             ClaimValue = claim.Value
         };
-        
+
         private async Task FlushChanges(CancellationToken cancellationToken) {
             if (AutoFlushChanges) {
                 await Session.FlushAsync(cancellationToken);

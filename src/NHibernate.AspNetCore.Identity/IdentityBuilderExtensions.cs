@@ -1,5 +1,4 @@
-﻿using System;
-using Microsoft.AspNetCore.Identity;
+﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace NHibernate.AspNetCore.Identity {
@@ -22,12 +21,12 @@ namespace NHibernate.AspNetCore.Identity {
                 // register user store type
                 var userStoreServiceType = typeof(IUserStore<>)
                     .MakeGenericType(userType);
-                var userStoreImplType = typeof(UserStore);
+                var userStoreImplType = typeof(UserStore<,>).MakeGenericType(userType, roleType);
                 services.AddScoped(userStoreServiceType, userStoreImplType);
                 // add role store type
                 var roleStoreSvcType = typeof(IRoleStore<>)
                     .MakeGenericType(roleType);
-                var roleStoreImplType = typeof(RoleStore);
+                var roleStoreImplType = typeof(RoleStore<>).MakeGenericType(roleType);
                 services.AddScoped(roleStoreSvcType, roleStoreImplType);
             }
             else {
@@ -38,7 +37,5 @@ namespace NHibernate.AspNetCore.Identity {
                 services.AddScoped(userStoreServiceType, userStoreImplType);
             }
         }
-
     }
-
 }
