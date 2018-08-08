@@ -48,7 +48,7 @@ namespace NHibernate.AspNetCore.Identity {
             if (obj.GetType() != GetType()) {
                 return false;
             }
-            return Equals((IdentityUser)obj);
+            return Equals((IdentityUserRole)obj);
         }
 
         public override int GetHashCode() {
