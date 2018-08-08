@@ -7,6 +7,8 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using NHibernate.NetCore;
 using NHibernate.AspNetCore.Identity;
+using NHibernate.Cfg;
+using System.IO;
 
 namespace WebTest {
 
@@ -37,12 +39,15 @@ namespace WebTest {
 //            services.AddDefaultIdentity<IdentityUser>()
 //                .AddEntityFrameworkStores<ApplicationDbContext>();
 
-            var path = System.IO.Path.Combine(
+            var cfg = new Configuration();
+            var file = Path.Combine(
                 AppDomain.CurrentDomain.BaseDirectory,
                 "hibernate.config"
             );
+            cfg.Configure(file);
+            cfg.AddIdentityMappingsForPostgres();
 
-            services.AddHibernate(path);
+            services.AddHibernate(cfg);
             services.AddDefaultIdentity<NHibernate.AspNetCore.Identity.IdentityUser>()
                 .AddRoles<NHibernate.AspNetCore.Identity.IdentityRole>()
                 .AddHibernateStores();
