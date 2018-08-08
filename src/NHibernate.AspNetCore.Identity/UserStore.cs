@@ -9,14 +9,11 @@ using NHibernate.Linq;
 
 namespace NHibernate.AspNetCore.Identity {
 
-    public class UserStore : UserStore<IdentityUser, IdentityRole>
-    {
+    public class UserStore : UserStore<IdentityUser, IdentityRole> {
         public UserStore(
             ISession session,
             IdentityErrorDescriber errorDescriber = null
-        ) : base(session, errorDescriber) {
-
-        }
+        ) : base(session, errorDescriber) { }
     }
 
     public class UserStore<TUser, TRole> :
