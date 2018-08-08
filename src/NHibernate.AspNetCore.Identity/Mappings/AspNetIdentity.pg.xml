@@ -1,87 +1,87 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <hibernate-mapping
-    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xmlns:xsd="http://www.w3.org/2001/XMLSchema"
-    xmlns="urn:nhibernate-mapping-2.2">
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+  xmlns="urn:nhibernate-mapping-2.2">
 
-    <class name="NHibernate.AspNetCore.Identity.IdentityRole,NHibernate.AspNetCore.Identity" schema="public" table="aspnet_roles">
-        <id name="Id" column="id" type="String" length="32">
-            <generator class="uuid.hex">
-                <param name="format">N</param>
-            </generator>
-        </id>
-        <property name="Name" column="name" type="string" length="64" not-null="true" unique="true" />
-        <property name="NormalizedName" column="normalized_name" type="string" length="64" not-null="true" unique="true" />
-        <property name="ConcurrencyStamp" column="concurrency_stamp" type="string" length="32" not-null="false" />
-    </class>
+  <class name="NHibernate.AspNetCore.Identity.IdentityRole,NHibernate.AspNetCore.Identity" schema="public" table="aspnet_roles">
+    <id name="Id" column="id" type="String" length="32">
+      <generator class="uuid.hex">
+        <param name="format">N</param>
+      </generator>
+    </id>
+    <property name="Name" column="name" type="string" length="64" not-null="true" unique="true" />
+    <property name="NormalizedName" column="normalized_name" type="string" length="64" not-null="true" unique="true" />
+    <property name="ConcurrencyStamp" column="concurrency_stamp" type="string" length="32" not-null="false" />
+  </class>
 
-    <class name="NHibernate.AspNetCore.Identity.IdentityRoleClaim,NHibernate.AspNetCore.Identity" schema="public" table="aspnet_role_claims">
-        <id name="Id" column="id" type="int">
-          <generator class="sequence">
-            <param name="sequence">aspnet_role_claims_id_seq</param>
-          </generator>
-        </id>
-        <property name="ClaimType" column="claim_type" type="string" length="1024" not-null="true" />
-        <property name="ClaimValue" column="claim_value" type="string" length="1024" not-null="true" />
-        <property name="RoleId" column="role_id" type="string" length="32" not-null="true" />
-    </class>
+  <class name="NHibernate.AspNetCore.Identity.IdentityRoleClaim,NHibernate.AspNetCore.Identity" schema="public" table="aspnet_role_claims">
+    <id name="Id" column="id" type="int">
+      <generator class="sequence">
+      <param name="sequence">aspnet_role_claims_id_seq</param>
+      </generator>
+    </id>
+    <property name="ClaimType" column="claim_type" type="string" length="1024" not-null="true" />
+    <property name="ClaimValue" column="claim_value" type="string" length="1024" not-null="true" />
+    <property name="RoleId" column="role_id" type="string" length="32" not-null="true" />
+  </class>
 
-    <class name="NHibernate.AspNetCore.Identity.IdentityUser,NHibernate.AspNetCore.Identity" schema="public" table="aspnet_users">
-        <id name="Id" type="string" length="32">
-            <generator class="uuid.hex">
-                <param name="format">N</param>
-            </generator>
-        </id>
-        <property name="AccessFailedCount" column="access_failed_count" type="int" not-null="true" />
-        <property name="ConcurrencyStamp" column="concurrency_stamp" type="string" length="32" not-null="false" />
-        <property name="Email" column="email" type="string" length="256" not-null="true" />
-        <property name="NormalizedEmail" column="normalized_email" type="string" length="256" not-null="true" />
-        <property name="EmailConfirmed" column="email_confirmed" type="bool" not-null="true" />
-        <property name="LockoutEnabled" column="lockout_enabled" type="bool" not-null="true" />
-        <property name="LockoutEndUnixTimeMilliseconds" column="lockout_end_unix_time_milliseconds" type="long" not-null="false" />
-        <property name="PasswordHash" column="password_hash" type="string" length="256" not-null="false" />
-        <property name="PhoneNumber" column="phone_number" type="string" length="128" not-null="false" />
-        <property name="PhoneNumberConfirmed" column="phone_number_confirmed" type="bool" not-null="true" />
-        <property name="TwoFactorEnabled" column="two_factor_enabled" type="bool" not-null="true" />
-        <property name="UserName" column="user_name" type="string" length="64" not-null="true" unique="true" />
-        <property name="NormalizedUserName" column="normalized_user_name" type="string" length="256" not-null="true" unique="true" />
-        <property name="SecurityStamp" column="security_stamp" type="string" length="64" not-null="false" />
-    </class>
+  <class name="NHibernate.AspNetCore.Identity.IdentityUser,NHibernate.AspNetCore.Identity" schema="public" table="aspnet_users">
+    <id name="Id" type="string" length="32">
+      <generator class="uuid.hex">
+        <param name="format">N</param>
+      </generator>
+    </id>
+    <property name="AccessFailedCount" column="access_failed_count" type="int" not-null="true" />
+    <property name="ConcurrencyStamp" column="concurrency_stamp" type="string" length="32" not-null="false" />
+    <property name="Email" column="email" type="string" length="256" not-null="true" />
+    <property name="NormalizedEmail" column="normalized_email" type="string" length="256" not-null="true" />
+    <property name="EmailConfirmed" column="email_confirmed" type="bool" not-null="true" />
+    <property name="LockoutEnabled" column="lockout_enabled" type="bool" not-null="true" />
+    <property name="LockoutEndUnixTimeMilliseconds" column="lockout_end_unix_time_milliseconds" type="long" not-null="false" />
+    <property name="PasswordHash" column="password_hash" type="string" length="256" not-null="false" />
+    <property name="PhoneNumber" column="phone_number" type="string" length="128" not-null="false" />
+    <property name="PhoneNumberConfirmed" column="phone_number_confirmed" type="bool" not-null="true" />
+    <property name="TwoFactorEnabled" column="two_factor_enabled" type="bool" not-null="true" />
+    <property name="UserName" column="user_name" type="string" length="64" not-null="true" unique="true" />
+    <property name="NormalizedUserName" column="normalized_user_name" type="string" length="256" not-null="true" unique="true" />
+    <property name="SecurityStamp" column="security_stamp" type="string" length="64" not-null="false" />
+  </class>
 
-    <class name="NHibernate.AspNetCore.Identity.IdentityUserClaim,NHibernate.AspNetCore.Identity" schema="public" table="aspnet_user_claims">
-        <id name="Id" column="id" type="int">
-            <generator class="sequence">
-              <param name="sequence">aspnet_user_claims_id_seq</param>
-            </generator>
-        </id>
-        <property name="ClaimType" column="claim_type" type="string" length="1024" not-null="true" />
-        <property name="ClaimValue" column="claim_value" type="string" length="1024" not-null="true" />
-        <property name="UserId" column="user_id" type="string" length="32" not-null="true" />
-    </class>
+  <class name="NHibernate.AspNetCore.Identity.IdentityUserClaim,NHibernate.AspNetCore.Identity" schema="public" table="aspnet_user_claims">
+    <id name="Id" column="id" type="int">
+      <generator class="sequence">
+        <param name="sequence">aspnet_user_claims_id_seq</param>
+      </generator>
+    </id>
+    <property name="ClaimType" column="claim_type" type="string" length="1024" not-null="true" />
+    <property name="ClaimValue" column="claim_value" type="string" length="1024" not-null="true" />
+    <property name="UserId" column="user_id" type="string" length="32" not-null="true" />
+  </class>
 
-    <class name="NHibernate.AspNetCore.Identity.IdentityUserLogin,NHibernate.AspNetCore.Identity" schema="public" table="aspnet_user_logins">
-        <composite-id>
-            <key-property name="LoginProvider" column="login_provider" type="string" length="32" />
-            <key-property name="ProviderKey" column="provider_key" type="string" length="32" />
-        </composite-id>
-        <property name="ProviderDisplayName" column="provider_display_name" type="string" length="32" />
-        <property name="UserId" column="user_id" type="string" length="32" not-null="true" />
-    </class>
+  <class name="NHibernate.AspNetCore.Identity.IdentityUserLogin,NHibernate.AspNetCore.Identity" schema="public" table="aspnet_user_logins">
+    <composite-id>
+      <key-property name="LoginProvider" column="login_provider" type="string" length="32" />
+      <key-property name="ProviderKey" column="provider_key" type="string" length="32" />
+    </composite-id>
+    <property name="ProviderDisplayName" column="provider_display_name" type="string" length="32" />
+    <property name="UserId" column="user_id" type="string" length="32" not-null="true" />
+  </class>
 
-    <class name="NHibernate.AspNetCore.Identity.IdentityUserRole,NHibernate.AspNetCore.Identity" schema="public" table="aspnet_user_roles">
-        <composite-id>
-            <key-property name="UserId" column="user_id" type="string" length="32" />
-            <key-property name="RoleId" column="role_id" type="string" length="32" />
-        </composite-id>
-    </class>
+  <class name="NHibernate.AspNetCore.Identity.IdentityUserRole,NHibernate.AspNetCore.Identity" schema="public" table="aspnet_user_roles">
+    <composite-id>
+      <key-property name="UserId" column="user_id" type="string" length="32" />
+      <key-property name="RoleId" column="role_id" type="string" length="32" />
+    </composite-id>
+  </class>
 
-    <class name="NHibernate.AspNetCore.Identity.IdentityUserToken,NHibernate.AspNetCore.Identity" table="aspnet_user_tokens" schema="public">
-        <composite-id>
-            <key-property name="UserId" column="user_id" type="string" length="32" />
-            <key-property name="LoginProvider" column="login_provider" type="string" length="32" />
-            <key-property name="Name" column="name" type="string" length="32" />
-        </composite-id>
-        <property name="Value" column="value" type="string" length="256" />
-    </class>
+  <class name="NHibernate.AspNetCore.Identity.IdentityUserToken,NHibernate.AspNetCore.Identity" table="aspnet_user_tokens" schema="public">
+    <composite-id>
+      <key-property name="UserId" column="user_id" type="string" length="32" />
+      <key-property name="LoginProvider" column="login_provider" type="string" length="32" />
+      <key-property name="Name" column="name" type="string" length="32" />
+    </composite-id>
+    <property name="Value" column="value" type="string" length="256" />
+  </class>
 
 </hibernate-mapping>
