@@ -5,8 +5,6 @@ VisualStudioVersion = 15.0.26124.0
 MinimumVisualStudioVersion = 15.0.26124.0
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{F3163BF6-ECA8-42B4-8598-CB14BFA10C33}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NHibernate.NetCore", "src\NHibernate.NetCore\NHibernate.NetCore.csproj", "{63281D08-715F-445A-8AFB-285D7BF0CDAF}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NHibernate.AspNetCore.Identity", "src\NHibernate.AspNetCore.Identity\NHibernate.AspNetCore.Identity.csproj", "{93F4EE4A-8B7D-4642-9054-1977139EFBC1}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "test", "test", "{D3B53431-049A-4787-B4C6-8BD74C6D465A}"
@@ -15,12 +13,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UnitTest", "test\UnitTest\U
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebTest", "test\WebTest\WebTest.csproj", "{D8A02F5F-B979-4C86-936E-7260867AC0E4}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "database", "database", "{D554AA6C-0FDC-4C4E-AA8F-A3C2D27C1A6B}"
-EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "postgres", "postgres", "{17CDA147-2514-4932-875F-DFCA5371B316}"
-ProjectSection(SolutionItems) = preProject
-	database\postgres\00_aspnet_core_identity.sql = database\postgres\00_aspnet_core_identity.sql
-EndProjectSection
+	ProjectSection(SolutionItems) = preProject
+		database\postgres\00_aspnet_core_identity.sql = database\postgres\00_aspnet_core_identity.sql
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -35,18 +31,6 @@ Global
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{63281D08-715F-445A-8AFB-285D7BF0CDAF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{63281D08-715F-445A-8AFB-285D7BF0CDAF}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{63281D08-715F-445A-8AFB-285D7BF0CDAF}.Debug|x64.ActiveCfg = Debug|Any CPU
-		{63281D08-715F-445A-8AFB-285D7BF0CDAF}.Debug|x64.Build.0 = Debug|Any CPU
-		{63281D08-715F-445A-8AFB-285D7BF0CDAF}.Debug|x86.ActiveCfg = Debug|Any CPU
-		{63281D08-715F-445A-8AFB-285D7BF0CDAF}.Debug|x86.Build.0 = Debug|Any CPU
-		{63281D08-715F-445A-8AFB-285D7BF0CDAF}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{63281D08-715F-445A-8AFB-285D7BF0CDAF}.Release|Any CPU.Build.0 = Release|Any CPU
-		{63281D08-715F-445A-8AFB-285D7BF0CDAF}.Release|x64.ActiveCfg = Release|Any CPU
-		{63281D08-715F-445A-8AFB-285D7BF0CDAF}.Release|x64.Build.0 = Release|Any CPU
-		{63281D08-715F-445A-8AFB-285D7BF0CDAF}.Release|x86.ActiveCfg = Release|Any CPU
-		{63281D08-715F-445A-8AFB-285D7BF0CDAF}.Release|x86.Build.0 = Release|Any CPU
 		{93F4EE4A-8B7D-4642-9054-1977139EFBC1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{93F4EE4A-8B7D-4642-9054-1977139EFBC1}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{93F4EE4A-8B7D-4642-9054-1977139EFBC1}.Debug|x64.ActiveCfg = Debug|Any CPU
@@ -85,10 +69,8 @@ Global
 		{D8A02F5F-B979-4C86-936E-7260867AC0E4}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
-		{63281D08-715F-445A-8AFB-285D7BF0CDAF} = {F3163BF6-ECA8-42B4-8598-CB14BFA10C33}
 		{93F4EE4A-8B7D-4642-9054-1977139EFBC1} = {F3163BF6-ECA8-42B4-8598-CB14BFA10C33}
 		{7DE3A254-F192-4EE0-8BC2-970BE87A1996} = {D3B53431-049A-4787-B4C6-8BD74C6D465A}
 		{D8A02F5F-B979-4C86-936E-7260867AC0E4} = {D3B53431-049A-4787-B4C6-8BD74C6D465A}
-		{17CDA147-2514-4932-875F-DFCA5371B316} = {D554AA6C-0FDC-4C4E-AA8F-A3C2D27C1A6B}
 	EndGlobalSection
 EndGlobal
