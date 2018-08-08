@@ -23,7 +23,7 @@
     <PackageReference Include="NuGet.Build.Packaging" Version="0.2.0" />
   </ItemGroup>
   <ItemGroup>
-    <None Remove="**/*.hbm.xml" />
-    <EmbeddedResource Include="**/*.hbm.xml" />
+    <None Remove="Mappings/*.hbm.xml" />
+    <EmbeddedResource Include="Mappings/*.hbm.xml" />
   </ItemGroup>
 </Project>
