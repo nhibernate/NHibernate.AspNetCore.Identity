@@ -28,6 +28,7 @@ namespace UnitTest.Identity {
                 "hibernate.config"
             );
             cfg.Configure(file);
+            cfg.AddIdentityMappingsForPostgres();
             sessionFactory = cfg.BuildSessionFactory();
         }
 

@@ -2,16 +2,21 @@
 using NHibernate.Cfg;
 using NHibernate.Mapping.ByCode;
 
-namespace NHibernate.AspNetCore.Identity
-{
-    public static class ConfigurationExtensions
-    {
-        public static Configuration AddIdentityMappings(this Configuration cfg)
-        {
-            var mapper = new ModelMapper();
-            mapper.AddMappings(Assembly.GetExecutingAssembly().GetExportedTypes());
-            cfg.AddMapping(mapper.CompileMappingForAllExplicitlyAddedEntities());
+namespace NHibernate.AspNetCore.Identity {
+
+    public static class ConfigurationExtensions {
+
+        public static Configuration AddIdentityMappingsForPostgres(
+            this Configuration cfg
+        ) {
+            var asm = typeof(IdentityUser).Assembly;
+            var stream = asm.GetManifestResourceStream(
+                "NHibernate.AspNetCore.Identity.Mappings.AspNetIdentity.pg.xml"
+            );
+            cfg.AddInputStream(stream);
             return cfg;
         }
+
     }
+
 }
