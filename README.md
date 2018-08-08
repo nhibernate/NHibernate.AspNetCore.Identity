@@ -3,7 +3,6 @@
 Nuget packages:
 
 - [NHibernate.AspNetCore.Identity](https://www.nuget.org/packages/NHibernate.AspNetCore.Identity/)
-- [NHibernate.NetCore](https://www.nuget.org/packages/NHibernate.NetCore/)
 
 ## NHibernate.AspNetCore.Identity
 
