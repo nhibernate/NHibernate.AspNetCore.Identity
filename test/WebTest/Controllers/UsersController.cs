@@ -4,16 +4,16 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using NHibernate;
 using NHibernate.AspNetCore.Identity;
-using NHIdentityUser = NHibernate.AspNetCore.Identity.IdentityUser;
+using WebTest.Entities;
 
 namespace WebTest.Controllers {
 
     [Route("api/[controller]")]
     public class UsersController : Controller {
 
-        private UserManager<NHIdentityUser> manager;
+        private UserManager<ApplicationUser> manager;
 
-        public UsersController(UserManager<NHIdentityUser> session) {
+        public UsersController(UserManager<ApplicationUser> session) {
             this.manager = session;
         }
 

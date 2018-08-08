@@ -13,9 +13,14 @@
     <ProjectReference Include="..\..\src\NHibernate.AspNetCore.Identity\NHibernate.AspNetCore.Identity.csproj" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="..\UnitTest\hibernate.config">
-      <Link>hibernate.config</Link>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
+    <None Remove="Entities\*.hbm.xml" />
+    <EmbeddedResource Include="Entities\*.hbm.xml" />
   </ItemGroup>
+
+  <ItemGroup>
+    <Content Update="hibernate.config">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+
 </Project>
