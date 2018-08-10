@@ -18,7 +18,7 @@
   <class name="NHibernate.AspNetCore.Identity.IdentityRoleClaim,NHibernate.AspNetCore.Identity" schema="public" table="aspnet_role_claims">
     <id name="Id" column="id" type="int">
       <generator class="sequence">
-      <param name="sequence">aspnet_role_claims_id_seq</param>
+        <param name="sequence">aspnet_role_claims_id_seq</param>
       </generator>
     </id>
     <property name="ClaimType" column="claim_type" type="string" length="1024" not-null="true" />
