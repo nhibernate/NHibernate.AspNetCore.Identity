@@ -9,12 +9,13 @@ using NHibernate.AspNetCore.Identity;
 using NHibernate.NetCore;
 using NHibernate.Linq;
 using System.Threading;
+using NHIdentityRole = NHibernate.AspNetCore.Identity.IdentityRole;
 
 namespace UnitTest.Identity {
 
     public class RoleStoreTest : IDisposable {
 
-        private RoleStore store;
+        private RoleStore<NHIdentityRole> store;
 
         public RoleStoreTest() {
             var loggerFactory = new LoggerFactory();
@@ -31,7 +32,9 @@ namespace UnitTest.Identity {
             cfg.Configure(file);
             cfg.AddIdentityMappingsForPostgres();
             var sessionFactory = cfg.BuildSessionFactory();
-            store = new RoleStore(sessionFactory.OpenSession());
+            store = new RoleStore<NHIdentityRole>(
+                sessionFactory.OpenSession()
+            );
         }
 
         public void Dispose() {

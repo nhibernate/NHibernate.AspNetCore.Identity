@@ -9,14 +9,6 @@ using NHibernate.Linq;
 
 namespace NHibernate.AspNetCore.Identity {
 
-    public class RoleStore : RoleStore<IdentityRole> {
-        public RoleStore(
-            ISession session,
-            IdentityErrorDescriber describer = null
-        ) : base(session, describer) {
-        }
-    }
-
     public class RoleStore<TRole>
         : IQueryableRoleStore<TRole>, IRoleClaimStore<TRole> where TRole : IdentityRole {
 

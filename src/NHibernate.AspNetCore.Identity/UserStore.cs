@@ -9,13 +9,6 @@ using NHibernate.Linq;
 
 namespace NHibernate.AspNetCore.Identity {
 
-    public class UserStore : UserStore<IdentityUser, IdentityRole> {
-        public UserStore(
-            ISession session,
-            IdentityErrorDescriber errorDescriber = null
-        ) : base(session, errorDescriber) { }
-    }
-
     public class UserStore<TUser, TRole> :
         UserStoreBase<TUser, TRole, string, IdentityUserClaim, IdentityUserRole, IdentityUserLogin, IdentityUserToken, IdentityRoleClaim>,
         IProtectedUserStore<TUser> where TUser : IdentityUser where TRole : IdentityRole {

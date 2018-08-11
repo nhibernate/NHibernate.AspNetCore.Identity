@@ -21,19 +21,22 @@ namespace NHibernate.AspNetCore.Identity {
                 // register user store type
                 var userStoreServiceType = typeof(IUserStore<>)
                     .MakeGenericType(userType);
-                var userStoreImplType = typeof(UserStore<,>).MakeGenericType(userType, roleType);
+                var userStoreImplType = typeof(UserStore<,>)
+                    .MakeGenericType(userType, roleType);
                 services.AddScoped(userStoreServiceType, userStoreImplType);
                 // add role store type
                 var roleStoreSvcType = typeof(IRoleStore<>)
                     .MakeGenericType(roleType);
-                var roleStoreImplType = typeof(RoleStore<>).MakeGenericType(roleType);
+                var roleStoreImplType = typeof(RoleStore<>)
+                    .MakeGenericType(roleType);
                 services.AddScoped(roleStoreSvcType, roleStoreImplType);
             }
             else {
                 // register user only store type
                 var userStoreServiceType = typeof(IUserStore<>)
                     .MakeGenericType(userType);
-                var userStoreImplType = typeof(UserOnlyStore);
+                var userStoreImplType = typeof(UserOnlyStore<>)
+                    .MakeGenericType(userType);
                 services.AddScoped(userStoreServiceType, userStoreImplType);
             }
         }
