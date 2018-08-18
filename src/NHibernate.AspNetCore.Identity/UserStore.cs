@@ -69,7 +69,7 @@ namespace NHibernate.AspNetCore.Identity {
             if (!exists) {
                 return IdentityResult.Failed();
             }
-            await session.UpdateAsync(user, cancellationToken);
+            await session.MergeAsync(user, cancellationToken);
             await FlushChanges(cancellationToken);
             return IdentityResult.Success;
         }

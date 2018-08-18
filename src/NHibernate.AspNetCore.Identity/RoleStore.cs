@@ -59,17 +59,15 @@ namespace NHibernate.AspNetCore.Identity {
             if (role == null) {
                 throw new ArgumentNullException(nameof(role));
             }
-            var candidate = await Session.GetAsync<TRole>(
-                role.Id,
+            var exists = await Roles.AnyAsync<TRole>(
+                r => r.Id == role.Id,
                 cancellationToken
             );
-            if (candidate == null) {
+            if (exists) {
                 return IdentityResult.Failed();
             }
-            candidate.Name = role.Name;
-            candidate.NormalizedName = role.NormalizedName;
-            candidate.ConcurrencyStamp = Guid.NewGuid().ToString("N");
-            await Session.UpdateAsync(candidate, cancellationToken);
+            role.ConcurrencyStamp = Guid.NewGuid().ToString("N");
+            await Session.MergeAsync(role, cancellationToken);
             await FlushChanges(cancellationToken);
             return IdentityResult.Success;
         }
