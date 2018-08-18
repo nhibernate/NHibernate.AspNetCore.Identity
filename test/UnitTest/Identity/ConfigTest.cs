@@ -1,7 +1,7 @@
 using System;
 using System.IO;
 using System.Linq;
-using Xunit;
+using NUnit.Framework;
 using Microsoft.Extensions.Logging;
 using NHibernate;
 using NHibernate.Cfg;
@@ -10,6 +10,7 @@ using NHibernate.NetCore;
 
 namespace UnitTest.Identity {
 
+    [TestFixture]
     public class ConfigTest : IDisposable {
 
         private ISessionFactory sessionFactory;
@@ -36,66 +37,66 @@ namespace UnitTest.Identity {
             sessionFactory.Dispose();
         }
 
-        [Fact]
+        [Test]
         public void _01_CanQueryUsers() {
             using (var session = sessionFactory.OpenSession()) {
                 var query = session.Query<IdentityUser>();
                 var count = query.ToList().Count;
-                Assert.True(count >= 0);
+                Assert.GreaterOrEqual(count, 0);
             }
         }
 
-        [Fact]
+        [Test]
         public void _02_CanQueryRoles() {
             using (var session = sessionFactory.OpenSession()) {
                 var query = session.Query<IdentityRole>();
                 var count = query.ToList().Count;
-                Assert.True(count >= 0);
+                Assert.GreaterOrEqual(count, 0);
             }
         }
 
-        [Fact]
+        [Test]
         public void _03_CanQueryRoleClaims() {
             using (var session = sessionFactory.OpenSession()) {
                 var query = session.Query<IdentityRoleClaim>();
                 var count = query.ToList().Count;
-                Assert.True(count >= 0);
+                Assert.GreaterOrEqual(count, 0);
             }
         }
 
-        [Fact]
+        [Test]
         public void _04_CanQueryUserClaims() {
             using (var session = sessionFactory.OpenSession()) {
                 var query = session.Query<IdentityUserClaim>();
                 var count = query.ToList().Count;
-                Assert.True(count >= 0);
+                Assert.GreaterOrEqual(count, 0);
             }
         }
 
-        [Fact]
+        [Test]
         public void _05_CanQueryUserLogins() {
             using (var session = sessionFactory.OpenSession()) {
                 var query = session.Query<IdentityUserLogin>();
                 var count = query.ToList().Count;
-                Assert.True(count >= 0);
+                Assert.GreaterOrEqual(count, 0);
             }
         }
 
-        [Fact]
+        [Test]
         public void _06_CanQueryUserTokens() {
             using (var session = sessionFactory.OpenSession()) {
                 var query = session.Query<IdentityUserToken>();
                 var count = query.ToList().Count;
-                Assert.True(count >= 0);
+                Assert.GreaterOrEqual(count, 0);
             }
         }
 
-        [Fact]
+        [Test]
         public void _07_CanQueryUserRoles() {
             using (var session = sessionFactory.OpenSession()) {
                 var query = session.Query<IdentityUserRole>();
                 var count = query.ToList().Count;
-                Assert.True(count >= 0);
+                Assert.GreaterOrEqual(count, 0);
             }
         }
 

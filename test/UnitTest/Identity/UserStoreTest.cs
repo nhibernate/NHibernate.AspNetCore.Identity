@@ -4,7 +4,7 @@ using System.Linq;
 using System.Security.Claims;
 using System.Threading;
 using System.Threading.Tasks;
-using Xunit;
+using NUnit.Framework;
 using Microsoft.Extensions.Logging;
 using NHibernate.Cfg;
 using NHibernate.AspNetCore.Identity;
@@ -16,6 +16,7 @@ using NHIdentityRole = NHibernate.AspNetCore.Identity.IdentityRole;
 
 namespace UnitTest.Identity {
 
+    [TestFixture]
     public class UserStoreTest : IDisposable {
 
         private readonly UserStore<NHIdentityUser, NHIdentityRole> store;
@@ -42,14 +43,14 @@ namespace UnitTest.Identity {
             store?.Dispose();
         }
 
-        [Fact]
+        [Test]
         public async Task _01_CanQueryAllUsers() {
             var users = await store.Users.ToListAsync();
             Assert.NotNull(users);
             Assert.True(users.Count >= 0);
         }
 
-        [Fact]
+        [Test]
         public async Task _02_CanDoCurd() {
             var user = new IdentityUser {
                 UserName = "Beginor",
@@ -67,8 +68,8 @@ namespace UnitTest.Identity {
             var result = await store.CreateAsync(user);
             Assert.True(result.Succeeded);
             var id = user.Id;
-            Assert.NotEmpty(id);
-            Assert.NotEmpty(user.ConcurrencyStamp);
+            Assert.IsNotEmpty(id);
+            Assert.IsNotEmpty(user.ConcurrencyStamp);
 
             user.LockoutEnabled = true;
             user.LockoutEnd = DateTimeOffset.UtcNow.AddMinutes(20);
@@ -95,7 +96,7 @@ namespace UnitTest.Identity {
             Assert.True(claims.Count > 0);
 
             var users = await store.GetUsersForClaimAsync(claim);
-            Assert.NotEmpty(users);
+            Assert.IsNotEmpty(users);
 
             await store.RemoveClaimsAsync(user, claims);
 
