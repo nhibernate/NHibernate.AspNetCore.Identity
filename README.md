@@ -22,14 +22,17 @@ public class Startup {
         //     .AddEntityFrameworkStores<ApplicationDbContext>();
 
         // Add Hibernate stores
-        var path = System.IO.Path.Combine(
+        var cfg = new Configuration();
+        var file = Path.Combine(
             AppDomain.CurrentDomain.BaseDirectory,
             "hibernate.config"
         );
+        cfg.Configure(file);
+        cfg.AddIdentityMappingsForPostgres();
 
-        services.AddHibernate(path);
-        services.AddDefaultIdentity<NHibernate.AspNetCore.Identity.IdentityUser>()
-            .AddRoles<NHibernate.AspNetCore.Identity.IdentityRole>()
+        services.AddHibernate(cfg);
+        services.AddDefaultIdentity<WebTest.Entities.ApplicationUser>()
+            .AddRoles<WebTest.Entities.ApplicationRole>()
             .AddHibernateStores();
 
     }
