@@ -19,7 +19,7 @@
     <EmbeddedResource Include="**/*.hbm.xml" />
   </ItemGroup>
   <ItemGroup>
-    <None Update="hibernate.config">
+    <None Update="hibernate.pg.config">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
   </ItemGroup>
