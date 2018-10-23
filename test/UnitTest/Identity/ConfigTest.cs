@@ -7,34 +7,40 @@ using NHibernate;
 using NHibernate.Cfg;
 using NHibernate.AspNetCore.Identity;
 using NHibernate.NetCore;
+using NHibernate.Tool.hbm2ddl;
 
 namespace UnitTest.Identity {
 
     [TestFixture]
-    public class ConfigTest : IDisposable {
+    public abstract class ConfigTest : IDisposable {
 
         private ISessionFactory sessionFactory;
+        private Configuration cfg;
 
-        public ConfigTest() {
+        [OneTimeSetUp]
+        public void OneTimeSetUp() {
             var loggerFactory = new LoggerFactory();
             loggerFactory.AddConsole(
                 minLevel: LogLevel.Error,
                 includeScopes: false
             );
             loggerFactory.UseAsHibernateLoggerFactory();
-            //
-            var cfg = new Configuration();
-            var file = Path.Combine(
-                AppDomain.CurrentDomain.BaseDirectory,
-                "hibernate.config"
-            );
-            cfg.Configure(file);
-            cfg.AddIdentityMappingsForPostgres();
-            sessionFactory = cfg.BuildSessionFactory();
+            var config = new Configuration();
+            ConfigNHibernate(config);
+            sessionFactory = config.BuildSessionFactory();
+            cfg = config;
         }
+
+        protected abstract void ConfigNHibernate(Configuration cfg);
 
         public void Dispose() {
             sessionFactory.Dispose();
+        }
+
+        [Test]
+        public void _00_CanDoExport() {
+            var export = new SchemaExport(cfg);
+            export.Execute(true, false, false);
         }
 
         [Test]
@@ -98,6 +104,34 @@ namespace UnitTest.Identity {
                 var count = query.ToList().Count;
                 Assert.GreaterOrEqual(count, 0);
             }
+        }
+
+    }
+
+    [TestFixture]
+    public class PgConfigTest : ConfigTest {
+
+        protected override void ConfigNHibernate(Configuration cfg) {
+            var file = Path.Combine(
+                AppDomain.CurrentDomain.BaseDirectory,
+                "hibernate.pg.config"
+            );
+            cfg.Configure(file);
+            cfg.AddIdentityMappingsForPostgres();
+        }
+
+    }
+
+    [TestFixture]
+    public class MsSqlConfigTest : ConfigTest {
+
+        protected override void ConfigNHibernate(Configuration cfg) {
+            var file = Path.Combine(
+                AppDomain.CurrentDomain.BaseDirectory,
+                "hibernate.mssql.config"
+            );
+            cfg.Configure(file);
+            cfg.AddIdentityMappingsForSqlServer();
         }
 
     }

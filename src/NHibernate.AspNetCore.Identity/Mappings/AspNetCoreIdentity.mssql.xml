@@ -37,7 +37,7 @@
     <property name="NormalizedEmail" column="NormalizedEmail" type="string" length="256" not-null="true" />
     <property name="EmailConfirmed" column="EmailConfirmed" type="bool" not-null="true" />
     <property name="LockoutEnabled" column="LockoutEnabled" type="bool" not-null="true" />
-    <property name="LockoutEndUnixTimeMilliseconds" column="LockoutEndUnixTimeMilliseconds" type="long" not-null="false" />
+    <property name="LockoutEnd" column="LockoutEnd" type="datetimeoffset" not-null="false" />
     <property name="PasswordHash" column="PasswordHash" type="string" length="256" not-null="false" />
     <property name="PhoneNumber" column="PhoneNumber" type="string" length="128" not-null="false" />
     <property name="PhoneNumberConfirmed" column="PhoneNumberConfirmed" type="bool" not-null="true" />
