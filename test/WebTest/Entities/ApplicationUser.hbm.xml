@@ -5,9 +5,9 @@
   xmlns="urn:nhibernate-mapping-2.2"
   namespace="WebTest.Entities" assembly="WebTest">
 
-  <joined-subclass name="ApplicationUser" extends="NHibernate.AspNetCore.Identity.IdentityUser,NHibernate.AspNetCore.Identity" table="application_users" schema="public">
-    <key column="id" />
-    <property name="CustomProperty" column="custom_property" type="string" length="256" />
+  <joined-subclass name="ApplicationUser" extends="NHibernate.AspNetCore.Identity.IdentityUser,NHibernate.AspNetCore.Identity" table="ApplicationUsers" schema="dbo">
+    <key column="Id" />
+    <property name="CustomProperty" column="CustomProperty" type="string" length="256" />
   </joined-subclass>
 
 </hibernate-mapping>
