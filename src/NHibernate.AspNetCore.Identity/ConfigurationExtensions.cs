@@ -11,11 +11,13 @@ namespace NHibernate.AspNetCore.Identity {
         ) {
             var asm = typeof(IdentityUser).Assembly;
             var stream = asm.GetManifestResourceStream(
-                "NHibernate.AspNetCore.Identity.Mappings.AspNetIdentity.pg.xml"
+                "NHibernate.AspNetCore.Identity.Mappings.AspNetCoreIdentity.pg.xml"
             );
             cfg.AddInputStream(stream);
             return cfg;
         }
+
+        public static Configuration AddIdentityMappingsForMsSqlServer
 
     }
 
