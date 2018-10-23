@@ -17,7 +17,16 @@ namespace NHibernate.AspNetCore.Identity {
             return cfg;
         }
 
-        public static Configuration AddIdentityMappingsForMsSqlServer
+        public static Configuration AddIdentityMappingsForSqlServer(
+            this Configuration cfg
+        ) {
+            var asm = typeof(IdentityUser).Assembly;
+            var stream = asm.GetManifestResourceStream(
+                "NHibernate.AspNetCore.Identity.Mappings.AspNetCoreIdentity.mssql.xml"
+            );
+            cfg.AddInputStream(stream);
+            return cfg;
+        }
 
     }
 
