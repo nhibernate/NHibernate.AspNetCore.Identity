@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using NHibernate;
 using WebTest.Models;
@@ -8,7 +9,7 @@ using WebTest.Models;
 namespace WebTest.Controllers {
 
     [Route("api/[controller]")]
-    public class TodoController : ControllerBase {
+    public class TodoController : Controller {
 
         private static IList<ToDoItemModel> items;
 
@@ -36,13 +37,15 @@ namespace WebTest.Controllers {
 
         [HttpGet("")]
         [ProducesResponseType(200)]
-        public ActionResult<IList<ToDoItemModel>> GetAll() {
-            return new ObjectResult(items);
+        [Authorize(Roles = "todo.read")]
+        public ActionResult<List<ToDoItemModel>> GetAll() {
+            return Ok(items);
         }
 
         [HttpGet("{id:int}")]
         [ProducesResponseType(200)]
         [ProducesResponseType(404)]
+        [Authorize(Roles = "todo.read")]
         public ActionResult<ToDoItemModel> GetById(int id) {
             var item = items.FirstOrDefault(i => i.Id == id);
             if (item == null) {
@@ -52,6 +55,7 @@ namespace WebTest.Controllers {
         }
 
         [HttpPost("")]
+        [Authorize(Roles = "todo.save")]
         public ActionResult<ToDoItemModel> Save([FromBody]ToDoItemModel item) {
             item.Id = items.Max(i => i.Id) + 1;
             items.Add(item);
@@ -63,6 +67,7 @@ namespace WebTest.Controllers {
         [HttpPut("{id:int}")]
         [ProducesResponseType(404)]
         [ProducesResponseType(200)]
+        [Authorize(Roles = "todo.update")]
         public ActionResult<ToDoItemModel> Update(int id, [FromBody]ToDoItemModel item) {
             var todo = items.FirstOrDefault(i => i.Id == id);
             if (todo == null) {
@@ -77,6 +82,7 @@ namespace WebTest.Controllers {
 
         [HttpDelete("{id:int}")]
         [ProducesResponseType(204)]
+        [Authorize(Roles = "todo.delete")]
         public IActionResult Delete(int id) {
             var item = items.FirstOrDefault(i => i.Id == id);
             if (item != null) {
