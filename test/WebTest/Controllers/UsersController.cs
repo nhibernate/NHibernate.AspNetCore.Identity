@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -13,8 +14,8 @@ namespace WebTest.Controllers {
 
         private UserManager<ApplicationUser> manager;
 
-        public UsersController(UserManager<ApplicationUser> session) {
-            this.manager = session;
+        public UsersController(UserManager<ApplicationUser> manager) {
+            this.manager = manager;
         }
 
         protected override void Dispose(bool disposing) {
@@ -24,10 +25,17 @@ namespace WebTest.Controllers {
         }
 
         [HttpGet("")]
-        public ActionResult GetAll() {
+        public ActionResult<IList<ApplicationUser>> GetAll() {
             var users = manager.Users.ToList();
-            return Ok(users);
+            return (users);
         }
+
+        [HttpPost]
+        public ActionResult<ApplicationUser> Create() {
+            return null;
+        }
+        
+        
 
     }
 
