@@ -7,7 +7,7 @@
 
   <joined-subclass name="ApplicationRole" extends="NHibernate.AspNetCore.Identity.IdentityRole,NHibernate.AspNetCore.Identity" table="application_users" schema="public">
     <key column="id" />
-    <property name="CustomProperty" column="custom_property" type="string" length="256" />
+    <property name="Description" column="description" type="string" length="256" />
   </joined-subclass>
 
 </hibernate-mapping>

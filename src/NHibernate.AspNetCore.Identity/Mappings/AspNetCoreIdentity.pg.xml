@@ -6,9 +6,7 @@
 
   <class name="NHibernate.AspNetCore.Identity.IdentityRole,NHibernate.AspNetCore.Identity" schema="public" table="aspnet_roles">
     <id name="Id" column="id" type="String" length="32">
-      <generator class="uuid.hex">
-        <param name="format">N</param>
-      </generator>
+      <generator class="trigger-identity" />
     </id>
     <property name="Name" column="name" type="string" length="64" not-null="true" unique="true" />
     <property name="NormalizedName" column="normalized_name" type="string" length="64" not-null="true" unique="true" />
@@ -18,7 +16,7 @@
   <class name="NHibernate.AspNetCore.Identity.IdentityRoleClaim,NHibernate.AspNetCore.Identity" schema="public" table="aspnet_role_claims">
     <id name="Id" column="id" type="int">
       <generator class="sequence">
-        <param name="sequence">aspnet_role_claims_id_seq</param>
+        <param name="sequence">snow_flake_id_seq</param>
       </generator>
     </id>
     <property name="ClaimType" column="claim_type" type="string" length="1024" not-null="true" />
@@ -28,9 +26,7 @@
 
   <class name="NHibernate.AspNetCore.Identity.IdentityUser,NHibernate.AspNetCore.Identity" schema="public" table="aspnet_users">
     <id name="Id" type="string" length="32">
-      <generator class="uuid.hex">
-        <param name="format">N</param>
-      </generator>
+      <generator class="trigger-identity" />
     </id>
     <property name="AccessFailedCount" column="access_failed_count" type="int" not-null="true" />
     <property name="ConcurrencyStamp" column="concurrency_stamp" type="string" length="32" not-null="false" />
@@ -51,7 +47,7 @@
   <class name="NHibernate.AspNetCore.Identity.IdentityUserClaim,NHibernate.AspNetCore.Identity" schema="public" table="aspnet_user_claims">
     <id name="Id" column="id" type="int">
       <generator class="sequence">
-        <param name="sequence">aspnet_user_claims_id_seq</param>
+        <param name="sequence">snow_flake_id_seq</param>
       </generator>
     </id>
     <property name="ClaimType" column="claim_type" type="string" length="1024" not-null="true" />

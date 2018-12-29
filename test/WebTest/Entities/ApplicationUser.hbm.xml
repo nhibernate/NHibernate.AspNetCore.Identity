@@ -7,7 +7,10 @@
 
   <joined-subclass name="ApplicationUser" extends="NHibernate.AspNetCore.Identity.IdentityUser,NHibernate.AspNetCore.Identity" table="application_users" schema="public">
     <key column="id" />
-    <property name="CustomProperty" column="custom_property" type="string" length="256" />
+    <property name="CreateTime" column="create_time" type="datetime" not-null="true" generated="insert" update="false" />
+    <property name="LastLogin" column="last_login" type="datetime" not-null="false" />
+    <property name="LoginCount" column="login_count" type="int" not-null="true" />
   </joined-subclass>
 
 </hibernate-mapping>
+
