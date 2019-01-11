@@ -9,10 +9,10 @@ CREATE TABLE public.application_users
     last_login timestamp without time zone,
     login_count integer DEFAULT 0,
     CONSTRAINT pk_application_users PRIMARY KEY (id),
-    CONSTRAINT fk_application_users_id_aspnet_users_id FOREIGN KEY (id)
+    CONSTRAINT fk_aspnet_users_id FOREIGN KEY (id)
         REFERENCES public.aspnet_users (id) MATCH SIMPLE
-        ON UPDATE NO ACTION
-        ON DELETE NO ACTION
+        ON UPDATE CASCADE
+        ON DELETE CASCADE
 )
 WITH (
     OIDS = FALSE

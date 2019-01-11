@@ -11,8 +11,7 @@ ALTER SEQUENCE public.snow_flake_id_seq
 
 -- DROP FUNCTION public.snow_flake_id();
 
-CREATE OR REPLACE FUNCTION public.snow_flake_id(
-	)
+CREATE OR REPLACE FUNCTION public.snow_flake_id()
     RETURNS bigint
     LANGUAGE 'sql'
     COST 100
@@ -43,10 +42,8 @@ CREATE TABLE public.aspnet_roles
     normalized_name character varying(64) COLLATE pg_catalog."default" NOT NULL,
     concurrency_stamp character(36) COLLATE pg_catalog."default",
     CONSTRAINT pk_aspnet_roles PRIMARY KEY (id),
-    CONSTRAINT u_aspnet_roles_name UNIQUE (name)
-,
+    CONSTRAINT u_aspnet_roles_name UNIQUE (name),
     CONSTRAINT u_aspnet_roles_normalized_name UNIQUE (normalized_name)
-
 )
 WITH (
     OIDS = FALSE
@@ -76,7 +73,7 @@ CREATE TABLE public.aspnet_role_claims
     claim_type character varying(1024) COLLATE pg_catalog."default" NOT NULL,
     claim_value character varying(1024) COLLATE pg_catalog."default" NOT NULL,
     CONSTRAINT pk_aspnet_role_claims PRIMARY KEY (id),
-    CONSTRAINT fk_aspnet_role_claims_role_id FOREIGN KEY (role_id)
+    CONSTRAINT fk_aspnet_roles_id FOREIGN KEY (role_id)
         REFERENCES public.aspnet_roles (id) MATCH SIMPLE
         ON UPDATE CASCADE
         ON DELETE CASCADE
@@ -122,10 +119,8 @@ CREATE TABLE public.aspnet_users
     two_factor_enabled boolean NOT NULL,
     concurrency_stamp character(36) COLLATE pg_catalog."default",
     CONSTRAINT pk_aspnet_users PRIMARY KEY (id),
-    CONSTRAINT u_aspnet_users_normalized_user_name UNIQUE (normalized_user_name)
-,
+    CONSTRAINT u_aspnet_users_normalized_user_name UNIQUE (normalized_user_name),
     CONSTRAINT u_aspnet_users_username UNIQUE (user_name)
-
 )
 WITH (
     OIDS = FALSE
@@ -166,7 +161,7 @@ CREATE TABLE public.aspnet_user_claims
     claim_type character varying(1024) COLLATE pg_catalog."default" NOT NULL,
     claim_value character varying(1024) COLLATE pg_catalog."default" NOT NULL,
     CONSTRAINT pk_aspnet_user_claims PRIMARY KEY (id),
-    CONSTRAINT fk_aspnet_user_claims_user_id FOREIGN KEY (user_id)
+    CONSTRAINT fk_aspnet_users_id FOREIGN KEY (user_id)
         REFERENCES public.aspnet_users (id) MATCH SIMPLE
         ON UPDATE CASCADE
         ON DELETE CASCADE
@@ -236,7 +231,7 @@ CREATE TABLE public.aspnet_user_tokens
     name character varying(32) COLLATE pg_catalog."default" NOT NULL,
     value character varying(256) COLLATE pg_catalog."default",
     CONSTRAINT pk_aspnet_user_tokens PRIMARY KEY (user_id, login_provider, name),
-    CONSTRAINT fk_aspnet_user_tokens_user_id FOREIGN KEY (user_id)
+    CONSTRAINT fk_aspnet_users_id FOREIGN KEY (user_id)
         REFERENCES public.aspnet_users (id) MATCH SIMPLE
         ON UPDATE CASCADE
         ON DELETE CASCADE
@@ -269,13 +264,13 @@ CREATE TABLE public.aspnet_user_roles
     user_id character(32) COLLATE pg_catalog."default" NOT NULL,
     role_id character(32) COLLATE pg_catalog."default" NOT NULL,
     CONSTRAINT pk_aspnet_user_roles PRIMARY KEY (user_id, role_id),
-    CONSTRAINT fk_aspnet_user_roles_role_id FOREIGN KEY (role_id)
+    CONSTRAINT fk_aspnet_roles_id FOREIGN KEY (role_id)
         REFERENCES public.aspnet_roles (id) MATCH SIMPLE
-        ON UPDATE NO ACTION
+        ON UPDATE CASCADE
         ON DELETE CASCADE,
-    CONSTRAINT fk_aspnet_user_roles_user_id FOREIGN KEY (user_id)
+    CONSTRAINT fk_aspnet_users_id FOREIGN KEY (user_id)
         REFERENCES public.aspnet_users (id) MATCH SIMPLE
-        ON UPDATE NO ACTION
+        ON UPDATE CASCADE
         ON DELETE CASCADE
 )
 WITH (

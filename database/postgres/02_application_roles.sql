@@ -6,7 +6,11 @@ CREATE TABLE public.application_roles
 (
     id character varying(32) COLLATE pg_catalog."default" NOT NULL,
     description character varying(256) COLLATE pg_catalog."default",
-    CONSTRAINT application_roles_pkey PRIMARY KEY (id)
+    CONSTRAINT pk_application_roles PRIMARY KEY (id),
+    CONSTRAINT fk_aspnet_roles_id FOREIGN KEY (id)
+        REFERENCES public.aspnet_roles (id) MATCH SIMPLE
+        ON UPDATE CASCADE
+        ON DELETE CASCADE
 )
 WITH (
     OIDS = FALSE
