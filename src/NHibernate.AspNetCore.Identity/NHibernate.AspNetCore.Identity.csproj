@@ -21,7 +21,7 @@
     </PackageReference>
     <PackageReference Include="Microsoft.Extensions.Identity.Stores" Version="2.2.0">
     </PackageReference>
-    <PackageReference Include="NHibernate" Version="5.2.1">
+    <PackageReference Include="NHibernate" Version="5.2.4">
     </PackageReference>
     <PackageReference Include="NuGet.Build.Packaging" Version="0.2.2" />
   </ItemGroup>
