@@ -5,7 +5,6 @@ using System.Security.Claims;
 using System.Threading;
 using System.Threading.Tasks;
 using NUnit.Framework;
-using Microsoft.Extensions.Logging;
 using NHibernate.Cfg;
 using NHibernate.AspNetCore.Identity;
 using NHibernate.NetCore;
@@ -22,11 +21,8 @@ namespace UnitTest.Identity {
         private readonly UserStore<NHIdentityUser, NHIdentityRole> store;
 
         public UserStoreTest() {
-            var loggerFactory = new LoggerFactory();
-            loggerFactory.AddConsole(
-                minLevel: LogLevel.Error,
-                includeScopes: false
-            );
+            var builder = new LoggingBuilder();
+            var loggerFactory = builder.BuildLoggerFactory();
             loggerFactory.UseAsHibernateLoggerFactory();
             var cfg = new Configuration();
             var file = Path.Combine(

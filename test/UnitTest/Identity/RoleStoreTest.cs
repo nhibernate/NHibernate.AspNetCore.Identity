@@ -3,7 +3,6 @@ using System.IO;
 using System.Security.Claims;
 using System.Threading.Tasks;
 using NUnit.Framework;
-using Microsoft.Extensions.Logging;
 using NHibernate.Cfg;
 using NHibernate.AspNetCore.Identity;
 using NHibernate.NetCore;
@@ -19,11 +18,8 @@ namespace UnitTest.Identity {
         private RoleStore<NHIdentityRole> store;
 
         public RoleStoreTest() {
-            var loggerFactory = new LoggerFactory();
-            loggerFactory.AddConsole(
-                minLevel: LogLevel.Error,
-                includeScopes: false
-            );
+            var builder = new LoggingBuilder();
+            var loggerFactory = builder.BuildLoggerFactory();
             loggerFactory.UseAsHibernateLoggerFactory();
             var cfg = new Configuration();
             var file = Path.Combine(
