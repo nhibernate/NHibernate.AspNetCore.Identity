@@ -7,7 +7,8 @@
     <Owners>beginor</Owners>
     <PackageProjectUrl>https://github.com/nhibernate/NHibernate.AspNetCore.Identity</PackageProjectUrl>
     <PackageReleaseNotes>- Use sortable snow flake identity for users and roles;
-- Make sure works with asp.net core 2.2.</PackageReleaseNotes>
+- Make sure works with asp.net core 2.2;
+- Update NHibernate and Npgsql version.</PackageReleaseNotes>
     <Title>NHibernate.AspNetCore.Identity</Title>
     <Description>
       ASPNET Core Identity provider that uses NHibernate for storage. (Default binding included is for postgres, bindings for other databases will be added later.)
@@ -21,7 +22,7 @@
     </PackageReference>
     <PackageReference Include="Microsoft.Extensions.Identity.Stores" Version="2.2.0">
     </PackageReference>
-    <PackageReference Include="NHibernate" Version="5.2.4">
+    <PackageReference Include="NHibernate" Version="5.2.5">
     </PackageReference>
     <PackageReference Include="NuGet.Build.Packaging" Version="0.2.2" />
   </ItemGroup>
