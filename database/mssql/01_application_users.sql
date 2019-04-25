@@ -4,7 +4,9 @@ SET QUOTED_IDENTIFIER ON
 GO
 CREATE TABLE [dbo].[ApplicationUsers](
 	[Id] [nvarchar](32) NOT NULL,
-	[CustomProperty] [nvarchar](256) NULL,
+	[create_time] [datetime] NOT NULL,
+	[last_login] [datetime] NULL,
+	[login_count] [integer](256) NULL,
  CONSTRAINT [PK_ApplicationUsers] PRIMARY KEY CLUSTERED
 (
 	[Id] ASC

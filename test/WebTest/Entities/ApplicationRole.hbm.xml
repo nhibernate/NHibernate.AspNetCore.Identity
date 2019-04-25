@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="UTF-8" ?>
+<?xml version="1.0" encoding="UTF-8" ?>
 <hibernate-mapping
   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
   xmlns:xsd="http://www.w3.org/2001/XMLSchema"
@@ -11,3 +11,18 @@
   </joined-subclass>
 
 </hibernate-mapping>
+
+<!--SQL SERVER-->
+<!--<?xml version="1.0" encoding="UTF-8" ?>
+<hibernate-mapping
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+  xmlns="urn:nhibernate-mapping-2.2"
+  namespace="WebTest.Entities" assembly="WebTest">
+
+  <joined-subclass name="ApplicationRole" extends="NHibernate.AspNetCore.Identity.IdentityRole,NHibernate.AspNetCore.Identity" table="ApplicationRoles">
+    <key column="id" />
+    <property name="Description" column="description" type="string" length="256" />
+  </joined-subclass>
+
+</hibernate-mapping>-->
