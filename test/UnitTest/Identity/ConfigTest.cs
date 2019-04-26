@@ -2,7 +2,10 @@ using System;
 using System.IO;
 using System.Linq;
 using NUnit.Framework;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Logging.Console;
+using Microsoft.Extensions.Options;
 using NHibernate;
 using NHibernate.Cfg;
 using NHibernate.AspNetCore.Identity;
@@ -19,11 +22,8 @@ namespace UnitTest.Identity {
 
         [OneTimeSetUp]
         public void OneTimeSetUp() {
-            var loggerFactory = new LoggerFactory();
-            loggerFactory.AddConsole(
-                minLevel: LogLevel.Error,
-                includeScopes: false
-            );
+            var builder = new LoggingBuilder();
+            var loggerFactory = builder.BuildLoggerFactory();
             loggerFactory.UseAsHibernateLoggerFactory();
             var config = new Configuration();
             ConfigNHibernate(config);
