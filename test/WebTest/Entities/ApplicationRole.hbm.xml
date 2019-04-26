@@ -5,9 +5,9 @@
   xmlns="urn:nhibernate-mapping-2.2"
   namespace="WebTest.Entities" assembly="WebTest">
 
-  <joined-subclass name="ApplicationRole" extends="NHibernate.AspNetCore.Identity.IdentityRole,NHibernate.AspNetCore.Identity" table="ApplicationUsers" schema="dbo">
+  <joined-subclass name="ApplicationRole" extends="NHibernate.AspNetCore.Identity.IdentityRole,NHibernate.AspNetCore.Identity" table="ApplicationRoles" schema="dbo">
     <key column="Id" />
-    <property name="CustomProperty" column="CustomProperty" type="string" length="256" />
+    <property name="Description" column="Description" type="string" length="256" />
   </joined-subclass>
 
 </hibernate-mapping>

@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="UTF-8" ?>
+<?xml version="1.0" encoding="UTF-8" ?>
 <hibernate-mapping
   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
   xmlns:xsd="http://www.w3.org/2001/XMLSchema"
@@ -7,7 +7,9 @@
 
   <joined-subclass name="ApplicationUser" extends="NHibernate.AspNetCore.Identity.IdentityUser,NHibernate.AspNetCore.Identity" table="ApplicationUsers" schema="dbo">
     <key column="Id" />
-    <property name="CustomProperty" column="CustomProperty" type="string" length="256" />
+    <property name="CreateTime" column="CreateTime" type="datetime" not-null="true" generated="insert" update="false" insert="false" />
+    <property name="LastLogin" column="LastLogin" type="datetime" not-null="false" />
+    <property name="LoginCount" column="LoginCount" type="int" not-null="true" />
   </joined-subclass>
 
 </hibernate-mapping>
