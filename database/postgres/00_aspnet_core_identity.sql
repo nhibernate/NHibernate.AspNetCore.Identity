@@ -1,10 +1,43 @@
+-- SEQUENCE: public.snow_flake_id_seq
+
+-- DROP SEQUENCE public.snow_flake_id_seq;
+
+CREATE SEQUENCE public.snow_flake_id_seq;
+
+ALTER SEQUENCE public.snow_flake_id_seq
+    OWNER TO postgres;
+
+-- FUNCTION: public.snow_flake_id()
+
+-- DROP FUNCTION public.snow_flake_id();
+
+CREATE OR REPLACE FUNCTION public.snow_flake_id()
+    RETURNS bigint
+    LANGUAGE 'sql'
+    COST 100
+    VOLATILE
+AS $BODY$
+
+SELECT (EXTRACT(EPOCH FROM CURRENT_TIMESTAMP) * 1000)::bigint * 1000000
+  + 2 * 10000
+  + nextval('public.snow_flake_id_seq') % 1000
+  as snow_flake_id
+
+$BODY$;
+
+ALTER FUNCTION public.snow_flake_id()
+    OWNER TO postgres;
+
+COMMENT ON FUNCTION public.snow_flake_id()
+    IS 'snow flake id ';
+
 -- Table: public.aspnet_roles
 
 -- DROP TABLE public.aspnet_roles;
 
 CREATE TABLE public.aspnet_roles
 (
-    id character(32) COLLATE pg_catalog."default" NOT NULL,
+    id character varying(32) COLLATE pg_catalog."default" NOT NULL DEFAULT (snow_flake_id())::character varying,
     name character varying(64) COLLATE pg_catalog."default" NOT NULL,
     normalized_name character varying(64) COLLATE pg_catalog."default" NOT NULL,
     concurrency_stamp character(36) COLLATE pg_catalog."default",
@@ -35,12 +68,12 @@ CREATE INDEX ix_aspnet_roles_name
 
 CREATE TABLE public.aspnet_role_claims
 (
-    id serial NOT NULL,
+    id integer NOT NULL DEFAULT nextval('snow_flake_id_seq'::regclass),
     role_id character(32) COLLATE pg_catalog."default" NOT NULL,
     claim_type character varying(1024) COLLATE pg_catalog."default" NOT NULL,
     claim_value character varying(1024) COLLATE pg_catalog."default" NOT NULL,
     CONSTRAINT pk_aspnet_role_claims PRIMARY KEY (id),
-    CONSTRAINT fk_aspnet_role_claims_role_id FOREIGN KEY (role_id)
+    CONSTRAINT fk_aspnet_roles_id FOREIGN KEY (role_id)
         REFERENCES public.aspnet_roles (id) MATCH SIMPLE
         ON UPDATE CASCADE
         ON DELETE CASCADE
@@ -52,6 +85,8 @@ TABLESPACE pg_default;
 
 ALTER TABLE public.aspnet_role_claims
     OWNER to postgres;
+COMMENT ON TABLE public.aspnet_role_claims
+    IS 'aspnet role claims table';
 
 -- Index: ix_aspnet_role_claims_role_id
 
@@ -68,7 +103,7 @@ CREATE INDEX ix_aspnet_role_claims_role_id
 
 CREATE TABLE public.aspnet_users
 (
-    id character(32) COLLATE pg_catalog."default" NOT NULL,
+    id character varying(32) COLLATE pg_catalog."default" NOT NULL DEFAULT (snow_flake_id())::character varying,
     user_name character varying(64) COLLATE pg_catalog."default" NOT NULL,
     normalized_user_name character varying(64) COLLATE pg_catalog."default" NOT NULL,
     email character varying(256) COLLATE pg_catalog."default" NOT NULL,
@@ -94,6 +129,8 @@ TABLESPACE pg_default;
 
 ALTER TABLE public.aspnet_users
     OWNER to postgres;
+COMMENT ON TABLE public.aspnet_users
+    IS 'aspnet users table.';
 
 -- Index: ix_aspnet_users_email
 
@@ -119,12 +156,12 @@ CREATE INDEX ix_aspnet_users_user_name
 
 CREATE TABLE public.aspnet_user_claims
 (
-    id serial NOT NULL,
+    id integer NOT NULL DEFAULT nextval('snow_flake_id_seq'::regclass),
     user_id character(32) COLLATE pg_catalog."default" NOT NULL,
     claim_type character varying(1024) COLLATE pg_catalog."default" NOT NULL,
     claim_value character varying(1024) COLLATE pg_catalog."default" NOT NULL,
     CONSTRAINT pk_aspnet_user_claims PRIMARY KEY (id),
-    CONSTRAINT fk_aspnet_user_claims_user_id FOREIGN KEY (user_id)
+    CONSTRAINT fk_aspnet_users_id FOREIGN KEY (user_id)
         REFERENCES public.aspnet_users (id) MATCH SIMPLE
         ON UPDATE CASCADE
         ON DELETE CASCADE
@@ -136,6 +173,8 @@ TABLESPACE pg_default;
 
 ALTER TABLE public.aspnet_user_claims
     OWNER to postgres;
+COMMENT ON TABLE public.aspnet_user_claims
+    IS 'aspnet user claims table';
 
 -- Index: ix_aspnet_user_claims_user_id
 
@@ -169,6 +208,8 @@ TABLESPACE pg_default;
 
 ALTER TABLE public.aspnet_user_logins
     OWNER to postgres;
+COMMENT ON TABLE public.aspnet_user_logins
+    IS 'aspnet user logins table.';
 
 -- Index: ix_aspnet_user_logins_user_id
 
@@ -176,6 +217,41 @@ ALTER TABLE public.aspnet_user_logins
 
 CREATE INDEX ix_aspnet_user_logins_user_id
     ON public.aspnet_user_logins USING btree
+    (user_id COLLATE pg_catalog."default")
+    TABLESPACE pg_default;
+
+-- Table: public.aspnet_user_tokens
+
+-- DROP TABLE public.aspnet_user_tokens;
+
+CREATE TABLE public.aspnet_user_tokens
+(
+    user_id character(32) COLLATE pg_catalog."default" NOT NULL,
+    login_provider character varying(32) COLLATE pg_catalog."default" NOT NULL,
+    name character varying(32) COLLATE pg_catalog."default" NOT NULL,
+    value character varying(256) COLLATE pg_catalog."default",
+    CONSTRAINT pk_aspnet_user_tokens PRIMARY KEY (user_id, login_provider, name),
+    CONSTRAINT fk_aspnet_users_id FOREIGN KEY (user_id)
+        REFERENCES public.aspnet_users (id) MATCH SIMPLE
+        ON UPDATE CASCADE
+        ON DELETE CASCADE
+)
+WITH (
+    OIDS = FALSE
+)
+TABLESPACE pg_default;
+
+ALTER TABLE public.aspnet_user_tokens
+    OWNER to postgres;
+COMMENT ON TABLE public.aspnet_user_tokens
+    IS 'aspnet user tokens table.';
+
+-- Index: ix_aspnet_user_tokens_user_id
+
+-- DROP INDEX public.ix_aspnet_user_tokens_user_id;
+
+CREATE INDEX ix_aspnet_user_tokens_user_id
+    ON public.aspnet_user_tokens USING btree
     (user_id COLLATE pg_catalog."default")
     TABLESPACE pg_default;
 
@@ -188,13 +264,13 @@ CREATE TABLE public.aspnet_user_roles
     user_id character(32) COLLATE pg_catalog."default" NOT NULL,
     role_id character(32) COLLATE pg_catalog."default" NOT NULL,
     CONSTRAINT pk_aspnet_user_roles PRIMARY KEY (user_id, role_id),
-    CONSTRAINT fk_aspnet_user_roles_role_id FOREIGN KEY (role_id)
+    CONSTRAINT fk_aspnet_roles_id FOREIGN KEY (role_id)
         REFERENCES public.aspnet_roles (id) MATCH SIMPLE
-        ON UPDATE NO ACTION
+        ON UPDATE CASCADE
         ON DELETE CASCADE,
-    CONSTRAINT fk_aspnet_user_roles_user_id FOREIGN KEY (user_id)
+    CONSTRAINT fk_aspnet_users_id FOREIGN KEY (user_id)
         REFERENCES public.aspnet_users (id) MATCH SIMPLE
-        ON UPDATE NO ACTION
+        ON UPDATE CASCADE
         ON DELETE CASCADE
 )
 WITH (
@@ -204,6 +280,8 @@ TABLESPACE pg_default;
 
 ALTER TABLE public.aspnet_user_roles
     OWNER to postgres;
+COMMENT ON TABLE public.aspnet_user_roles
+    IS 'aspnet user roles relation table.';
 
 -- Index: ix_aspnet_user_roles_role_id
 
@@ -220,38 +298,5 @@ CREATE INDEX ix_aspnet_user_roles_role_id
 
 CREATE INDEX ix_aspnet_user_roles_user_id
     ON public.aspnet_user_roles USING btree
-    (user_id COLLATE pg_catalog."default")
-    TABLESPACE pg_default;
-
--- Table: public.aspnet_user_tokens
-
--- DROP TABLE public.aspnet_user_tokens;
-
-CREATE TABLE public.aspnet_user_tokens
-(
-    user_id character(32) COLLATE pg_catalog."default" NOT NULL,
-    login_provider character varying(32) COLLATE pg_catalog."default" NOT NULL,
-    name character varying(32) COLLATE pg_catalog."default" NOT NULL,
-    value character varying(256) COLLATE pg_catalog."default",
-    CONSTRAINT pk_aspnet_user_tokens PRIMARY KEY (user_id, login_provider, name),
-    CONSTRAINT fk_aspnet_user_tokens_user_id FOREIGN KEY (user_id)
-        REFERENCES public.aspnet_users (id) MATCH SIMPLE
-        ON UPDATE CASCADE
-        ON DELETE CASCADE
-)
-WITH (
-    OIDS = FALSE
-)
-TABLESPACE pg_default;
-
-ALTER TABLE public.aspnet_user_tokens
-    OWNER to postgres;
-
--- Index: ix_aspnet_user_tokens_user_id
-
--- DROP INDEX public.ix_aspnet_user_tokens_user_id;
-
-CREATE INDEX ix_aspnet_user_tokens_user_id
-    ON public.aspnet_user_tokens USING btree
     (user_id COLLATE pg_catalog."default")
     TABLESPACE pg_default;

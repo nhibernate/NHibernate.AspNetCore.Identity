@@ -28,7 +28,10 @@ public class Startup {
             "hibernate.config"
         );
         cfg.Configure(file);
+        // Add Identity Mappings for PostgreSQL
         cfg.AddIdentityMappingsForPostgres();
+        // Add Identity Mappings for SqlServer
+        // cfg.AddIdentityMappingsForSqlServer();
 
         services.AddHibernate(cfg);
         services.AddDefaultIdentity<WebTest.Entities.ApplicationUser>()
@@ -38,5 +41,7 @@ public class Startup {
     }
 }
 ```
+
+> Note: When using with SqlServer, you need add `System.Data.SqlClient` package to your project.
 
 For more detailed samples, please look at the [WebTest](https://github.com/nhibernate/NHibernate.AspNetCore.Identity/tree/master/test/WebTest) project.
