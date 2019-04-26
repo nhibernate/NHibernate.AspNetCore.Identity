@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -9,6 +9,7 @@ using NHibernate.NetCore;
 using NHibernate.AspNetCore.Identity;
 using NHibernate.Cfg;
 using System.IO;
+using WebTest.AutoMapper;
 
 namespace WebTest {
 
@@ -62,6 +63,9 @@ namespace WebTest {
                 options.SuppressInferBindingSourcesForParameters = true;
                 options.SuppressModelStateInvalidFilter = true;
             });
+
+            // Add AutoMapper Setup
+            services.AddAutoMapperSetup();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
