@@ -10,7 +10,7 @@ SET QUOTED_IDENTIFIER ON
 GO
 CREATE TABLE [dbo].[ApplicationRoles](
 	[Id] [nvarchar](32) NOT NULL,
-	[CustomProperty] [nvarchar](256) NULL,
+	[Description][nvarchar](256) NOT NULL
  CONSTRAINT [PK_ApplicationRoles] PRIMARY KEY CLUSTERED
 (
 	[Id] ASC
