@@ -12,9 +12,9 @@ namespace WebTest.Controllers {
     [Route("api/[controller]")]
     public class UsersController : Controller {
 
-        private UserManager<ApplicationUser> manager;
+        private UserManager<AppUser> manager;
 
-        public UsersController(UserManager<ApplicationUser> manager) {
+        public UsersController(UserManager<AppUser> manager) {
             this.manager = manager;
         }
 
@@ -25,17 +25,17 @@ namespace WebTest.Controllers {
         }
 
         [HttpGet("")]
-        public ActionResult<IList<ApplicationUser>> GetAll() {
+        public ActionResult<IList<AppUser>> GetAll() {
             var users = manager.Users.ToList();
             return (users);
         }
 
         [HttpPost]
-        public ActionResult<ApplicationUser> Create() {
+        public ActionResult<AppUser> Create() {
             return null;
         }
-        
-        
+
+
 
     }
 

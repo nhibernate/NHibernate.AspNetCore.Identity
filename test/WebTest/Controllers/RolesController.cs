@@ -11,16 +11,16 @@ namespace WebTest.Controllers {
     [Route("api/[controller]")]
     public class RolesController : ControllerBase {
 
-        private RoleManager<ApplicationRole> manager;
+        private RoleManager<AppRole> manager;
 
-        public RolesController(RoleManager<ApplicationRole> manager) {
+        public RolesController(RoleManager<AppRole> manager) {
             this.manager = manager;
         }
 
         [Route("")]
-        public async Task<ActionResult<IList<ApplicationRole>>> GetAll() {
+        public async Task<ActionResult<IList<AppRole>>> GetAll() {
             if (!await manager.RoleExistsAsync("TestRole")) {
-                var role = new ApplicationRole {
+                var role = new AppRole {
                     Name = "TestRole",
                     Description = "Test Role"
                 };

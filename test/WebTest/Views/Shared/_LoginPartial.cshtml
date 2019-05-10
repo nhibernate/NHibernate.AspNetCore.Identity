@@ -1,7 +1,7 @@
 @using Microsoft.AspNetCore.Identity
 
-@inject SignInManager<WebTest.Entities.ApplicationUser> SignInManager
-@inject UserManager<WebTest.Entities.ApplicationUser> UserManager
+@inject SignInManager<WebTest.Entities.AppUser> SignInManager
+@inject UserManager<WebTest.Entities.AppUser> UserManager
 
 @if (SignInManager.IsSignedIn(User))
 {

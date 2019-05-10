@@ -48,8 +48,8 @@ namespace WebTest {
             cfg.AddIdentityMappingsForPostgres();
 
             services.AddHibernate(cfg);
-            services.AddDefaultIdentity<WebTest.Entities.ApplicationUser>()
-                .AddRoles<WebTest.Entities.ApplicationRole>()
+            services.AddDefaultIdentity<WebTest.Entities.AppUser>()
+                .AddRoles<WebTest.Entities.AppRole>()
                 .AddHibernateStores();
 
 
