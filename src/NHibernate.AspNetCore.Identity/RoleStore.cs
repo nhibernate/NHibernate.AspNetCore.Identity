@@ -63,8 +63,13 @@ namespace NHibernate.AspNetCore.Identity {
                 r => r.Id == role.Id,
                 cancellationToken
             );
-            if (exists) {
-                return IdentityResult.Failed();
+            if (!exists) {
+                return IdentityResult.Failed(
+                    new IdentityError {
+                        Code = "RoleNotExist",
+                        Description = $"Role with {role.Id} does not exists."
+                    }
+                );
             }
             role.ConcurrencyStamp = Guid.NewGuid().ToString("N");
             await Session.MergeAsync(role, cancellationToken);
