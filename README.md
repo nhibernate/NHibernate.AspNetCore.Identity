@@ -45,3 +45,10 @@ public class Startup {
 > Note: When using with SqlServer, you need add `System.Data.SqlClient` package to your project.
 
 For more detailed samples, please look at the [WebTest](https://github.com/nhibernate/NHibernate.AspNetCore.Identity/tree/master/test/WebTest) project.
+
+## Credits
+
+Special thanks to the following individuals, organisations and projects whose work is so important to the success of NHibernate (in no particular order):
+
+- [NUnit](https://nunit.org/) - unit testing;
+- [JetBrains](https://www.jetbrains.com/?from=NHibernate.AspNetCore.Identity) - open source license;
