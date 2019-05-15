@@ -1,12 +1,36 @@
-# ASP.NET Core Identity Provider for NHibernate
+# NHibernate.AspNetCore.Identity
 
-Nuget packages:
+ASP.NET Core Identity Provider implemented with NHibernate
+
+Nuget package:
 
 - [NHibernate.AspNetCore.Identity](https://www.nuget.org/packages/NHibernate.AspNetCore.Identity/)
 
-## NHibernate.AspNetCore.Identity
+## Usage
 
-ASPNET Core Identity provider that uses NHibernate for storage
+### 1. Create a Asp.Net Core Mvc Project with identity support
+
+```sh
+dotnet new mvc --auth Individual
+```
+
+### 2. Add reference to `NHibernate.AspNetCore.Identity`
+
+```sh
+dotnet add package NHibernate.AspNetCore.Identity
+```
+
+> `NHibernate` will be installed automatically.
+
+### 3. Setup database
+
+- Use the sql scripts in `database` folder to create aspnet identity related tables, only support postgresql and mssql now;
+
+  > If you want other database support, please let me know, any issue, pull request is welcome!
+
+- Config NHibernate to use your database;
+
+### 4. Change `Startup.cs` to use database and nhibernate
 
 ```cs
 public class Startup {
