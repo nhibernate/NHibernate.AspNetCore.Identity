@@ -12,21 +12,27 @@ namespace WebTest.Controllers {
     [Route("api/[controller]")]
     public class UsersController : Controller {
 
-        private UserManager<AppUser> manager;
+        private UserManager<AppUser> userMgr;
+        RoleManager<AppRole> roleMgr;
 
-        public UsersController(UserManager<AppUser> manager) {
-            this.manager = manager;
+        public UsersController(
+            UserManager<AppUser> userMgr,
+            RoleManager<AppRole> roleMgr
+        ) {
+            this.userMgr = userMgr;
+            this.roleMgr = roleMgr;
         }
 
         protected override void Dispose(bool disposing) {
             if (disposing) {
-                manager = null;
+                userMgr = null;
+                roleMgr = null;
             }
         }
 
         [HttpGet("")]
         public ActionResult<IList<AppUser>> GetAll() {
-            var users = manager.Users.ToList();
+            var users = userMgr.Users.ToList();
             return (users);
         }
 
@@ -34,8 +40,6 @@ namespace WebTest.Controllers {
         public ActionResult<AppUser> Create() {
             return null;
         }
-
-
 
     }
 
