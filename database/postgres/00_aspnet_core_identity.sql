@@ -40,7 +40,7 @@ CREATE TABLE public.aspnet_roles
     id character varying(32) COLLATE pg_catalog."default" NOT NULL DEFAULT (snow_flake_id())::character varying,
     name character varying(64) COLLATE pg_catalog."default" NOT NULL,
     normalized_name character varying(64) COLLATE pg_catalog."default" NOT NULL,
-    concurrency_stamp character(36) COLLATE pg_catalog."default",
+    concurrency_stamp character varying(36) COLLATE pg_catalog."default",
     CONSTRAINT pk_aspnet_roles PRIMARY KEY (id),
     CONSTRAINT u_aspnet_roles_name UNIQUE (name),
     CONSTRAINT u_aspnet_roles_normalized_name UNIQUE (normalized_name)
@@ -69,7 +69,7 @@ CREATE INDEX ix_aspnet_roles_name
 CREATE TABLE public.aspnet_role_claims
 (
     id integer NOT NULL DEFAULT nextval('snow_flake_id_seq'::regclass),
-    role_id character(32) COLLATE pg_catalog."default" NOT NULL,
+    role_id character varying(32) COLLATE pg_catalog."default" NOT NULL,
     claim_type character varying(1024) COLLATE pg_catalog."default" NOT NULL,
     claim_value character varying(1024) COLLATE pg_catalog."default" NOT NULL,
     CONSTRAINT pk_aspnet_role_claims PRIMARY KEY (id),
@@ -117,7 +117,7 @@ CREATE TABLE public.aspnet_users
     access_failed_count integer NOT NULL,
     security_stamp character varying(256) COLLATE pg_catalog."default",
     two_factor_enabled boolean NOT NULL,
-    concurrency_stamp character(36) COLLATE pg_catalog."default",
+    concurrency_stamp character varying(36) COLLATE pg_catalog."default",
     CONSTRAINT pk_aspnet_users PRIMARY KEY (id),
     CONSTRAINT u_aspnet_users_normalized_user_name UNIQUE (normalized_user_name),
     CONSTRAINT u_aspnet_users_username UNIQUE (user_name)
@@ -157,7 +157,7 @@ CREATE INDEX ix_aspnet_users_user_name
 CREATE TABLE public.aspnet_user_claims
 (
     id integer NOT NULL DEFAULT nextval('snow_flake_id_seq'::regclass),
-    user_id character(32) COLLATE pg_catalog."default" NOT NULL,
+    user_id character varying(32) COLLATE pg_catalog."default" NOT NULL,
     claim_type character varying(1024) COLLATE pg_catalog."default" NOT NULL,
     claim_value character varying(1024) COLLATE pg_catalog."default" NOT NULL,
     CONSTRAINT pk_aspnet_user_claims PRIMARY KEY (id),
@@ -194,7 +194,7 @@ CREATE TABLE public.aspnet_user_logins
     login_provider character varying(32) COLLATE pg_catalog."default" NOT NULL,
     provider_key character varying(1024) COLLATE pg_catalog."default" NOT NULL,
     provider_display_name character varying(32) COLLATE pg_catalog."default" NOT NULL,
-    user_id character(32) COLLATE pg_catalog."default" NOT NULL,
+    user_id character varying(32) COLLATE pg_catalog."default" NOT NULL,
     CONSTRAINT pk_aspnet_user_logins PRIMARY KEY (login_provider, provider_key),
     CONSTRAINT fk_aspnet_user_logins_user_id FOREIGN KEY (user_id)
         REFERENCES public.aspnet_users (id) MATCH SIMPLE
@@ -226,7 +226,7 @@ CREATE INDEX ix_aspnet_user_logins_user_id
 
 CREATE TABLE public.aspnet_user_tokens
 (
-    user_id character(32) COLLATE pg_catalog."default" NOT NULL,
+    user_id character varying(32) COLLATE pg_catalog."default" NOT NULL,
     login_provider character varying(32) COLLATE pg_catalog."default" NOT NULL,
     name character varying(32) COLLATE pg_catalog."default" NOT NULL,
     value character varying(256) COLLATE pg_catalog."default",
@@ -261,8 +261,8 @@ CREATE INDEX ix_aspnet_user_tokens_user_id
 
 CREATE TABLE public.aspnet_user_roles
 (
-    user_id character(32) COLLATE pg_catalog."default" NOT NULL,
-    role_id character(32) COLLATE pg_catalog."default" NOT NULL,
+    user_id character varying(32) COLLATE pg_catalog."default" NOT NULL,
+    role_id character varying(32) COLLATE pg_catalog."default" NOT NULL,
     CONSTRAINT pk_aspnet_user_roles PRIMARY KEY (user_id, role_id),
     CONSTRAINT fk_aspnet_roles_id FOREIGN KEY (role_id)
         REFERENCES public.aspnet_roles (id) MATCH SIMPLE
