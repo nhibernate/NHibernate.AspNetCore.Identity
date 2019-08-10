@@ -1,25 +1,25 @@
--- Table: public.app_users
+-- table: public.app_users
 
--- DROP TABLE public.app_users;
+-- drop table public.app_users;
 
-CREATE TABLE public.app_users
+create table public.app_users
 (
-    id character varying(32) COLLATE pg_catalog."default" NOT NULL,
-    create_time timestamp without time zone NOT NULL DEFAULT now(),
+    id character varying(32) collate pg_catalog."default" not null,
+    create_time timestamp without time zone not null default now(),
     last_login timestamp without time zone,
-    login_count integer DEFAULT 0,
-    CONSTRAINT pk_app_users PRIMARY KEY (id),
-    CONSTRAINT fk_aspnet_users_id FOREIGN KEY (id)
-        REFERENCES public.aspnet_users (id) MATCH SIMPLE
-        ON UPDATE CASCADE
-        ON DELETE CASCADE
+    login_count integer default 0,
+    constraint pk_app_users primary key (id),
+    constraint fk_aspnet_users_id foreign key (id)
+        references public.aspnet_users (id) match simple
+        on update cascade
+        on delete cascade
 )
-WITH (
-    OIDS = FALSE
+with (
+    oids = false
 )
-TABLESPACE pg_default;
+tablespace pg_default;
 
-ALTER TABLE public.app_users
-    OWNER to postgres;
-COMMENT ON TABLE public.app_users
-    IS 'application users table.';
+alter table public.app_users
+    owner to postgres;
+comment on table public.app_users
+    is 'application users table.';

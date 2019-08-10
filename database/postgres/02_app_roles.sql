@@ -1,26 +1,26 @@
--- Table: public.app_roles
+-- table: public.app_roles
 
--- DROP TABLE public.app_roles;
+-- drop table public.app_roles;
 
-CREATE TABLE public.app_roles
+create table public.app_roles
 (
-    id character varying(32) COLLATE pg_catalog."default" NOT NULL,
-    description character varying(256) COLLATE pg_catalog."default",
-    CONSTRAINT pk_app_roles PRIMARY KEY (id),
-    CONSTRAINT fk_aspnet_roles_id FOREIGN KEY (id)
-        REFERENCES public.aspnet_roles (id) MATCH SIMPLE
-        ON UPDATE CASCADE
-        ON DELETE CASCADE
+    id character varying(32) collate pg_catalog."default" not null,
+    description character varying(256) collate pg_catalog."default",
+    constraint pk_app_roles primary key (id),
+    constraint fk_aspnet_roles_id foreign key (id)
+        references public.aspnet_roles (id) match simple
+        on update cascade
+        on delete cascade
 )
-WITH (
-    OIDS = FALSE
+with (
+    oids = false
 )
-TABLESPACE pg_default;
+tablespace pg_default;
 
-ALTER TABLE public.app_roles
-    OWNER to postgres;
-COMMENT ON TABLE public.app_roles
-    IS 'application roles table.';
+alter table public.app_roles
+    owner to postgres;
+comment on table public.app_roles
+    is 'application roles table.';
 
-COMMENT ON COLUMN public.app_roles.description
-    IS 'roles description';
+comment on column public.app_roles.description
+    is 'roles description';
