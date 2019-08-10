@@ -40,7 +40,7 @@
     <property name="PhoneNumberConfirmed" column="phone_number_confirmed" type="bool" not-null="true" />
     <property name="TwoFactorEnabled" column="two_factor_enabled" type="bool" not-null="true" />
     <property name="UserName" column="user_name" type="string" length="64" not-null="true" unique="true" />
-    <property name="NormalizedUserName" column="normalized_user_name" type="string" length="256" not-null="true" unique="true" />
+    <property name="NormalizedUserName" column="normalized_user_name" type="string" length="64" not-null="true" unique="true" />
     <property name="SecurityStamp" column="security_stamp" type="string" length="64" not-null="false" />
   </class>
 
