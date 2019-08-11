@@ -136,4 +136,18 @@ namespace UnitTest.Identity {
 
     }
 
+    [TestFixture]
+    public class MySqlConfigTest : ConfigTest {
+
+        protected override void ConfigNHibernate(Configuration cfg) {
+            var file = Path.Combine(
+                AppDomain.CurrentDomain.BaseDirectory,
+                "hibernate.mysql.config"
+            );
+            cfg.Configure(file);
+            cfg.AddIdentityMappingsForSqlServer();
+        }
+
+    }
+
 }
