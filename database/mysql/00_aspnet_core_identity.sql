@@ -17,7 +17,8 @@ create table aspnet_role_claims (
   constraint pk_aspnet_role_claims primary key (id),
   constraint fk_aspnet_role_claims_roles
     foreign key (role_id) references aspnet_roles (id)
-    on update cascade on delete cascade
+    on update cascade
+    on delete cascade
 )
 comment 'aspnet core identity role claims';
 
@@ -52,7 +53,8 @@ create table aspnet_user_claims (
   constraint pk_aspnet_user_claims primary key(id),
   constraint fk_aspnet_user_claims_users
     foreign key (user_id) references aspnet_users (id)
-    on update cascade on delete cascade
+    on update cascade
+    on delete cascade
 )
 comment 'aspnet core identity user claims';
 
@@ -64,7 +66,8 @@ create table aspnet_user_logins (
   constraint pk_aspnet_user_logins primary key (login_provider, provider_key),
   constraint fk_aspnet_user_logins_user
     foreign key (user_id) references aspnet_users (id)
-    on update cascade on delete cascade
+    on update cascade
+    on delete cascade
 )
 comment 'aspnet user logins';
 
@@ -74,10 +77,12 @@ create table aspnet_user_roles (
   constraint pk_aspnet_user_roles primary key (user_id, role_id),
   constraint fk_aspnet_user_roles_roles
     foreign key (role_id) references aspnet_roles (id)
-    on update cascade on delete cascade,
+    on update cascade
+    on delete cascade,
   constraint fk_aspnet_user_roles_users
     foreign key (user_id) references aspnet_users (id)
-    on update cascade on delete cascade
+    on update cascade
+    on delete cascade
 )
 comment 'aspnet user roles relation table.';
 
@@ -89,6 +94,7 @@ create table aspnet_user_tokens(
   constraint pk_aspnet_user_tokens primary key (user_id, login_provider, name),
   constraint fk_aspnet_user_tokens_users
     foreign key (user_id) references aspnet_users (id)
-    on update cascade on delete cascade
+    on update cascade
+    on delete cascade
 )
 comment 'aspnet user tokens';
