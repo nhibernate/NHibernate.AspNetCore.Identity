@@ -145,7 +145,7 @@ namespace UnitTest.Identity {
                 "hibernate.mysql.config"
             );
             cfg.Configure(file);
-            cfg.AddIdentityMappingsForSqlServer();
+            cfg.AddIdentityMappingsForMySql();
         }
 
     }
