@@ -27,10 +27,10 @@ namespace UnitTest.Identity {
             var cfg = new Configuration();
             var file = Path.Combine(
                 AppDomain.CurrentDomain.BaseDirectory,
-                "hibernate.pg.config"
+                "hibernate.config"
             );
             cfg.Configure(file);
-            cfg.AddIdentityMappingsForPostgres();
+            cfg.AddIdentityMappingsForMySql();
             var sessionFactory = cfg.BuildSessionFactory();
             store = new UserStore<NHIdentityUser, NHIdentityRole>(sessionFactory.OpenSession());
         }
