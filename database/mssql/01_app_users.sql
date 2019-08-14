@@ -1,7 +1,7 @@
 -- auto-generated definition
 create table AppUsers (
   Id nvarchar(32) not null,
-  CreateTime datetime not null,
+  CreateTime datetime,
   LastLogin datetime,
   LoginCount int not null,
   constraint PK_AppUsers primary key (Id),
