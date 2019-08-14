@@ -5,7 +5,7 @@
   xmlns="urn:nhibernate-mapping-2.2">
 
   <class name="NHibernate.AspNetCore.Identity.IdentityRole,NHibernate.AspNetCore.Identity" schema="public" table="aspnet_roles">
-    <id name="Id" column="id" type="String" length="32">
+    <id name="Id" column="id" type="string" length="32">
       <generator class="trigger-identity" />
     </id>
     <property name="Name" column="name" type="string" length="64" not-null="true" unique="true" />
