@@ -3,6 +3,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
 using WebTest.Entities;
 using WebTest.Models;
 using WebTest.Repositories;
@@ -14,10 +15,12 @@ namespace WebTest.Controllers {
 
         private ITodoItemRepository repo;
         private UserManager<AppUser> userMgr;
+        private ILogger<TodoController> logger;
 
         public TodoController(
             ITodoItemRepository repo,
-            UserManager<AppUser> userMgr
+            UserManager<AppUser> userMgr,
+            ILogger<TodoController> logger
         ) {
             if (repo == null) {
                 throw new ArgumentNullException(nameof(repo));
@@ -25,8 +28,12 @@ namespace WebTest.Controllers {
             if (userMgr == null) {
                 throw new ArgumentNullException(nameof(userMgr));
             }
+            if (logger == null) {
+                throw new ArgumentNullException(nameof(logger));
+            }
             this.repo = repo;
             this.userMgr = userMgr;
+            this.logger = logger;
         }
 
         protected override void Dispose(
@@ -35,13 +42,13 @@ namespace WebTest.Controllers {
             if (disposing) {
                 repo = null;
                 userMgr = null;
+                logger = null;
             }
             base.Dispose(disposing);
         }
 
         [HttpGet("")]
         [ProducesResponseType(200)]
-        [Authorize(Roles = "todo.read")]
         public async Task<ActionResult<PagedResultModel<TodoItemModel>>> Search(
             TodoItemSearchModel model
         ) {
@@ -50,6 +57,7 @@ namespace WebTest.Controllers {
                 return result;
             }
             catch (Exception ex) {
+                logger.LogError(ex, "Can not search todo items.");
                 return StatusCode(500);
             }
         }
@@ -57,7 +65,6 @@ namespace WebTest.Controllers {
         [HttpGet("{id:long}")]
         [ProducesResponseType(200)]
         [ProducesResponseType(404)]
-        [Authorize(Roles = "todo.read")]
         public async Task<ActionResult<TodoItemModel>> GetById(long id) {
             try {
                 var model = await repo.GetByIdAsync(id);
@@ -67,12 +74,12 @@ namespace WebTest.Controllers {
                 return model;
             }
             catch (Exception ex) {
+                logger.LogError(ex, "Can not read todo items.");
                 return StatusCode(500);
             }
         }
 
         [HttpPost("")]
-        [Authorize(Roles = "todo.save")]
         public async Task<ActionResult<TodoItemModel>> Save(
             [FromBody]TodoItemModel model
         ) {
@@ -84,13 +91,13 @@ namespace WebTest.Controllers {
                 return model;
             }
             catch (Exception ex) {
+                logger.LogError(ex, "Can not save todo items.");
                 return StatusCode(500);
             }
         }
 
         [HttpPut("{id:long}")]
         [ProducesResponseType(200)]
-        [Authorize(Roles = "todo.update")]
         public async Task<ActionResult<TodoItemModel>> Update(
             [FromRoute]long id,
             [FromBody]TodoItemModel model
@@ -100,19 +107,20 @@ namespace WebTest.Controllers {
                 return model;
             }
             catch (Exception ex) {
+                logger.LogError(ex, "Can not update todo items.");
                 return StatusCode(500);
             }
         }
 
         [HttpDelete("{id:long}")]
         [ProducesResponseType(204)]
-        [Authorize(Roles = "todo.delete")]
         public async Task<IActionResult> Delete(long id) {
             try {
                 await repo.DeleteAsync(id);
                 return NoContent();
             }
             catch (Exception ex) {
+                logger.LogError(ex, "Can not delete todo items.");
                 return StatusCode(500);
             }
         }
