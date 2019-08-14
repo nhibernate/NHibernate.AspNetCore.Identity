@@ -27,7 +27,7 @@ namespace UnitTest.Identity {
             var cfg = new Configuration();
             var file = Path.Combine(
                 AppDomain.CurrentDomain.BaseDirectory,
-                "hibernate.pg.config"
+                "hibernate.config"
             );
             cfg.Configure(file);
             cfg.AddIdentityMappingsForPostgres();

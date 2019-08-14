@@ -15,7 +15,7 @@ using NHibernate.Tool.hbm2ddl;
 namespace UnitTest.Identity {
 
     [TestFixture]
-    public abstract class ConfigTest : IDisposable {
+    public class ConfigTest : IDisposable {
 
         private ISessionFactory sessionFactory;
         private Configuration cfg;
@@ -31,7 +31,14 @@ namespace UnitTest.Identity {
             cfg = config;
         }
 
-        protected abstract void ConfigNHibernate(Configuration cfg);
+        private void ConfigNHibernate(Configuration cfg) {
+            var file = Path.Combine(
+                AppDomain.CurrentDomain.BaseDirectory,
+                "hibernate.config"
+            );
+            cfg.Configure(file);
+            cfg.AddIdentityMappingsForPostgres();
+        }
 
         public void Dispose() {
             sessionFactory.Dispose();
@@ -104,48 +111,6 @@ namespace UnitTest.Identity {
                 var count = query.ToList().Count;
                 Assert.GreaterOrEqual(count, 0);
             }
-        }
-
-    }
-
-    [TestFixture]
-    public class PgConfigTest : ConfigTest {
-
-        protected override void ConfigNHibernate(Configuration cfg) {
-            var file = Path.Combine(
-                AppDomain.CurrentDomain.BaseDirectory,
-                "hibernate.pg.config"
-            );
-            cfg.Configure(file);
-            cfg.AddIdentityMappingsForPostgres();
-        }
-
-    }
-
-    [TestFixture]
-    public class MsSqlConfigTest : ConfigTest {
-
-        protected override void ConfigNHibernate(Configuration cfg) {
-            var file = Path.Combine(
-                AppDomain.CurrentDomain.BaseDirectory,
-                "hibernate.mssql.config"
-            );
-            cfg.Configure(file);
-            cfg.AddIdentityMappingsForSqlServer();
-        }
-
-    }
-
-    [TestFixture]
-    public class MySqlConfigTest : ConfigTest {
-
-        protected override void ConfigNHibernate(Configuration cfg) {
-            var file = Path.Combine(
-                AppDomain.CurrentDomain.BaseDirectory,
-                "hibernate.mysql.config"
-            );
-            cfg.Configure(file);
-            cfg.AddIdentityMappingsForMySql();
         }
 
     }

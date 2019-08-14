@@ -27,7 +27,7 @@ comment 'aspnet core identity role claims';
 create table aspnet_users (
   id varchar(32) not null comment 'user id',
   access_failed_count int null comment 'access failed count',
-  concurrency_stamp varchar(32) null comment 'concurrency stamp',
+  concurrency_stamp varchar(36) null comment 'concurrency stamp',
   email varchar(256) not null comment 'email',
   normalized_email varchar(256) null comment 'normalized email',
   email_confirmed tinyint(1) default 0 not null comment 'email confirmed',
