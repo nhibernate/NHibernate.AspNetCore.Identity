@@ -18,6 +18,9 @@ namespace WebTest {
 
         public static IWebHostBuilder CreateWebHostBuilder(string[] args) =>
             WebHost.CreateDefaultBuilder(args)
+                .ConfigureLogging(logging => {
+                    logging.ClearProviders().AddConsole();
+                })
                 .UseStartup<Startup>();
     }
 
