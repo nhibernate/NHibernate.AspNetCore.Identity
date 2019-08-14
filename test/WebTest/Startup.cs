@@ -40,7 +40,7 @@ namespace WebTest {
                 "hibernate.config"
             );
             cfg.Configure(file);
-            cfg.AddIdentityMappingsForPostgres();
+            cfg.AddIdentityMappingsForMySql();
 
             services.AddHibernate(cfg);
             services.AddDefaultIdentity<WebTest.Entities.AppUser>()
