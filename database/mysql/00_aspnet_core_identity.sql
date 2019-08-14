@@ -1,5 +1,7 @@
 create database net_core_app character set utf8 collate utf8_general_ci;
 
+use nhibernate;
+
 create table aspnet_roles (
   id varchar(32) not null comment 'id of user',
   name varchar(64) null comment 'name of user',
