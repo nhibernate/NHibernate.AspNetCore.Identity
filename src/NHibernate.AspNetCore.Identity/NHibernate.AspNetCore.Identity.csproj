@@ -2,11 +2,11 @@
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
     <PackageId>NHibernate.AspNetCore.Identity</PackageId>
-    <PackageVersion>1.4.0</PackageVersion>
+    <PackageVersion>1.6.0</PackageVersion>
     <Authors>beginor</Authors>
     <Owners>beginor</Owners>
     <PackageProjectUrl>https://github.com/nhibernate/NHibernate.AspNetCore.Identity</PackageProjectUrl>
-    <PackageReleaseNotes>- Add extension methods to get identity result errors string.</PackageReleaseNotes>
+    <PackageReleaseNotes>Add support for mysql .</PackageReleaseNotes>
     <Title>NHibernate.AspNetCore.Identity</Title>
     <Description>
       ASPNET Core Identity provider that uses NHibernate for storage. (Default binding included is for postgres, bindings for other databases will be added later.)

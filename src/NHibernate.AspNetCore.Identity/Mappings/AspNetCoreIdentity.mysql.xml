@@ -1,22 +1,23 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <hibernate-mapping
   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
   xmlns:xsd="http://www.w3.org/2001/XMLSchema"
   xmlns="urn:nhibernate-mapping-2.2">
 
-  <class name="NHibernate.AspNetCore.Identity.IdentityRole,NHibernate.AspNetCore.Identity" schema="public" table="aspnet_roles">
-    <id name="Id" column="id" type="string" length="32">
-      <generator class="trigger-identity" />
+  <class name="NHibernate.AspNetCore.Identity.IdentityRole,NHibernate.AspNetCore.Identity" table="aspnet_roles">
+    <id name="Id" column="id" type="String" length="32">
+      <generator class="uuid.hex">
+        <param name="format">N</param>
+      </generator>
     </id>
     <property name="Name" column="name" type="string" length="64" not-null="true" unique="true" />
     <property name="NormalizedName" column="normalized_name" type="string" length="64" not-null="true" unique="true" />
     <property name="ConcurrencyStamp" column="concurrency_stamp" type="string" length="32" not-null="false" />
   </class>
 
-  <class name="NHibernate.AspNetCore.Identity.IdentityRoleClaim,NHibernate.AspNetCore.Identity" schema="public" table="aspnet_role_claims">
+  <class name="NHibernate.AspNetCore.Identity.IdentityRoleClaim,NHibernate.AspNetCore.Identity" table="aspnet_role_claims">
     <id name="Id" column="id" type="int">
-      <generator class="sequence">
-        <param name="sequence">snow_flake_id_seq</param>
+      <generator class="identity">
       </generator>
     </id>
     <property name="ClaimType" column="claim_type" type="string" length="1024" not-null="true" />
@@ -24,9 +25,11 @@
     <property name="RoleId" column="role_id" type="string" length="32" not-null="true" />
   </class>
 
-  <class name="NHibernate.AspNetCore.Identity.IdentityUser,NHibernate.AspNetCore.Identity" schema="public" table="aspnet_users">
+  <class name="NHibernate.AspNetCore.Identity.IdentityUser,NHibernate.AspNetCore.Identity" table="aspnet_users">
     <id name="Id" type="string" length="32">
-      <generator class="trigger-identity" />
+      <generator class="uuid.hex">
+        <param name="format">N</param>
+      </generator>
     </id>
     <property name="AccessFailedCount" column="access_failed_count" type="int" not-null="true" />
     <property name="ConcurrencyStamp" column="concurrency_stamp" type="string" length="32" not-null="false" />
@@ -40,14 +43,13 @@
     <property name="PhoneNumberConfirmed" column="phone_number_confirmed" type="bool" not-null="true" />
     <property name="TwoFactorEnabled" column="two_factor_enabled" type="bool" not-null="true" />
     <property name="UserName" column="user_name" type="string" length="64" not-null="true" unique="true" />
-    <property name="NormalizedUserName" column="normalized_user_name" type="string" length="64" not-null="true" unique="true" />
+    <property name="NormalizedUserName" column="normalized_user_name" type="string" length="256" not-null="true" unique="true" />
     <property name="SecurityStamp" column="security_stamp" type="string" length="64" not-null="false" />
   </class>
 
-  <class name="NHibernate.AspNetCore.Identity.IdentityUserClaim,NHibernate.AspNetCore.Identity" schema="public" table="aspnet_user_claims">
+  <class name="NHibernate.AspNetCore.Identity.IdentityUserClaim,NHibernate.AspNetCore.Identity" table="aspnet_user_claims">
     <id name="Id" column="id" type="int">
-      <generator class="sequence">
-        <param name="sequence">snow_flake_id_seq</param>
+      <generator class="identity">
       </generator>
     </id>
     <property name="ClaimType" column="claim_type" type="string" length="1024" not-null="true" />
@@ -55,7 +57,7 @@
     <property name="UserId" column="user_id" type="string" length="32" not-null="true" />
   </class>
 
-  <class name="NHibernate.AspNetCore.Identity.IdentityUserLogin,NHibernate.AspNetCore.Identity" schema="public" table="aspnet_user_logins">
+  <class name="NHibernate.AspNetCore.Identity.IdentityUserLogin,NHibernate.AspNetCore.Identity" table="aspnet_user_logins">
     <composite-id>
       <key-property name="LoginProvider" column="login_provider" type="string" length="32" />
       <key-property name="ProviderKey" column="provider_key" type="string" length="32" />
@@ -64,14 +66,14 @@
     <property name="UserId" column="user_id" type="string" length="32" not-null="true" />
   </class>
 
-  <class name="NHibernate.AspNetCore.Identity.IdentityUserRole,NHibernate.AspNetCore.Identity" schema="public" table="aspnet_user_roles">
+  <class name="NHibernate.AspNetCore.Identity.IdentityUserRole,NHibernate.AspNetCore.Identity" table="aspnet_user_roles">
     <composite-id>
       <key-property name="UserId" column="user_id" type="string" length="32" />
       <key-property name="RoleId" column="role_id" type="string" length="32" />
     </composite-id>
   </class>
 
-  <class name="NHibernate.AspNetCore.Identity.IdentityUserToken,NHibernate.AspNetCore.Identity" table="aspnet_user_tokens" schema="public">
+  <class name="NHibernate.AspNetCore.Identity.IdentityUserToken,NHibernate.AspNetCore.Identity" table="aspnet_user_tokens">
     <composite-id>
       <key-property name="UserId" column="user_id" type="string" length="32" />
       <key-property name="LoginProvider" column="login_provider" type="string" length="32" />

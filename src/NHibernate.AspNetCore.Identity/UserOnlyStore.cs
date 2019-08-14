@@ -63,7 +63,12 @@ namespace NHibernate.AspNetCore.Identity {
                 cancellationToken
             );
             if (!exists) {
-                return IdentityResult.Failed();
+                return IdentityResult.Failed(
+                    new IdentityError {
+                        Code = "UserNotExist",
+                        Description = $"User with id {user.Id} does not exists!"
+                    }
+                );
             }
             await session.MergeAsync(user, cancellationToken);
             await FlushChanges(cancellationToken);

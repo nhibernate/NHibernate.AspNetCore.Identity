@@ -28,6 +28,17 @@ namespace NHibernate.AspNetCore.Identity {
             return cfg;
         }
 
+        public static Configuration AddIdentityMappingsForMySql(
+            this Configuration cfg
+        ) {
+            var asm = typeof(IdentityUser).Assembly;
+            var stream = asm.GetManifestResourceStream(
+                "NHibernate.AspNetCore.Identity.Mappings.AspNetCoreIdentity.mysql.xml"
+            );
+            cfg.AddInputStream(stream);
+            return cfg;
+        }
+
     }
 
 }

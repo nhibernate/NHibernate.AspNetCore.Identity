@@ -9,6 +9,9 @@ using NHibernate.NetCore;
 using NHibernate.AspNetCore.Identity;
 using NHibernate.Cfg;
 using System.IO;
+using WebTest.Repositories;
+using WebTest.Entities;
+using WebTest.Models;
 
 namespace WebTest {
 
@@ -26,19 +29,11 @@ namespace WebTest {
         ) {
             services.Configure<CookiePolicyOptions>(
                 options => {
-                    // This lambda determines whether user consent for non-essential cookies is needed for a given request.
+                    // This lambda determines whether user consent for
+                    // non-essential cookies is needed for a given request.
                     options.CheckConsentNeeded = context => true;
                     options.MinimumSameSitePolicy = SameSiteMode.None;
                 });
-
-//            services.AddDbContext<ApplicationDbContext>(
-//                options =>
-//                    options.UseSqlite(
-//                        Configuration.GetConnectionString(
-//                            "DefaultConnection")));
-//            services.AddDefaultIdentity<IdentityUser>()
-//                .AddEntityFrameworkStores<ApplicationDbContext>();
-
             var cfg = new Configuration();
             var file = Path.Combine(
                 AppDomain.CurrentDomain.BaseDirectory,
@@ -50,8 +45,8 @@ namespace WebTest {
             cfg.AddAssembly("WebTest");
 
             services.AddHibernate(cfg);
-            services.AddDefaultIdentity<WebTest.Entities.ApplicationUser>()
-                .AddRoles<WebTest.Entities.ApplicationRole>()
+            services.AddDefaultIdentity<WebTest.Entities.AppUser>()
+                .AddRoles<WebTest.Entities.AppRole>()
                 .AddHibernateStores();
 
 
@@ -62,6 +57,18 @@ namespace WebTest {
                 options.SuppressInferBindingSourcesForParameters = true;
                 options.SuppressModelStateInvalidFilter = true;
             });
+
+
+            services.AddSingleton<AutoMapper.IMapper>(serviceProvider => {
+                var mapperConfig = new AutoMapper.MapperConfiguration(
+                    configure => {
+                        configure.AddMaps("WebTest");
+                    });
+                var mapper = mapperConfig.CreateMapper();
+                return mapper;
+            });
+
+            services.AddScoped<ITodoItemRepository, TodoItemRepository>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -81,7 +88,7 @@ namespace WebTest {
                 app.UseHsts();
             }
 
-//            app.UseHttpsRedirection();
+            // app.UseHttpsRedirection();
             app.UseStaticFiles();
             app.UseCookiePolicy();
 
