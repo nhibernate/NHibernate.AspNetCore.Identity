@@ -5,7 +5,7 @@
   xmlns="urn:nhibernate-mapping-2.2"
   namespace="WebTest.Entities" assembly="WebTest">
 
-  <class name="TodoItem" schema="public" table="todo_items">
+  <class name="TodoItem" schema="dbo" table="TodoItems">
     <id name="Id" column="id" type="long">
       <generator class="trigger-identity" />
     </id>
