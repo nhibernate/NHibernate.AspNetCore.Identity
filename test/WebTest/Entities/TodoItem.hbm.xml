@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<hibernate-mapping
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+  xmlns="urn:nhibernate-mapping-2.2"
+  namespace="WebTest.Entities" assembly="WebTest">
+
+  <class name="TodoItem" schema="public" table="todo_items">
+    <id name="Id" column="id" type="long">
+      <generator class="trigger-identity" />
+    </id>
+    <property name="Title" column="title" type="string" length="32" not-null="true" unique="true" />
+    <property name="Description" column="description" type="string" length="128" not-null="false" />
+    <property name="Completed" column="completed" type="bool" not-null="true" />
+    <many-to-one name="User" column="user_id" not-found="ignore" />
+  </class>
+
+</hibernate-mapping>
