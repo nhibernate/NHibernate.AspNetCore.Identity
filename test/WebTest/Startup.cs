@@ -41,7 +41,6 @@ namespace WebTest {
             );
             cfg.Configure(file);
             cfg.AddIdentityMappingsForSqlServer();
-            cfg.AddAssembly("WebTest");
 
             services.AddHibernate(cfg);
             services.AddDefaultIdentity<WebTest.Entities.AppUser>()
