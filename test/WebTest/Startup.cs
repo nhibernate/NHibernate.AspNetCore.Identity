@@ -9,6 +9,9 @@ using NHibernate.NetCore;
 using NHibernate.AspNetCore.Identity;
 using NHibernate.Cfg;
 using System.IO;
+using WebTest.Repositories;
+using WebTest.Entities;
+using WebTest.Models;
 
 namespace WebTest {
 
@@ -52,6 +55,18 @@ namespace WebTest {
                 options.SuppressInferBindingSourcesForParameters = true;
                 options.SuppressModelStateInvalidFilter = true;
             });
+
+
+            services.AddSingleton<AutoMapper.IMapper>(serviceProvider => {
+                var mapperConfig = new AutoMapper.MapperConfiguration(
+                    configure => {
+                        configure.AddMaps("WebTest");
+                    });
+                var mapper = mapperConfig.CreateMapper();
+                return mapper;
+            });
+
+            services.AddScoped<ITodoItemRepository, TodoItemRepository>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -71,7 +86,7 @@ namespace WebTest {
                 app.UseHsts();
             }
 
-//            app.UseHttpsRedirection();
+            // app.UseHttpsRedirection();
             app.UseStaticFiles();
             app.UseCookiePolicy();
 
