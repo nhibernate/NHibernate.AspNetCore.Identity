@@ -13,10 +13,15 @@ namespace WebTest.Repositories {
     public class TodoItemRepository : ITodoItemRepository, IDisposable {
 
         private ISessionFactory factory;
+        private IMapper mapper;
         private bool disposed;
 
-        public TodoItemRepository(ISessionFactory factory) {
+        public TodoItemRepository(
+            ISessionFactory factory,
+            IMapper mapper
+        ) {
             this.factory = factory;
+            this.mapper = mapper;
         }
 
         ~TodoItemRepository() {
@@ -33,17 +38,23 @@ namespace WebTest.Repositories {
             }
             if (disposing) {
                 factory = null;
+                mapper = null;
             }
             //
             disposed = true;
         }
 
         public async Task CreateAsync(TodoItemModel model) {
-            var entity = Mapper.Map<TodoItem>(model);
+            var entity = mapper.Map<TodoItem>(model);
             using (var session = factory.OpenSession()) {
+                var user = await session.LoadAsync<AppUser>(model.UserId);
+                if (user == null) {
+                    throw new InvalidOperationException("user is null!");
+                }
+                entity.User = user;
                 await session.SaveAsync(entity);
                 await session.FlushAsync();
-                Mapper.Map(entity, model);
+                mapper.Map(entity, model);
             }
         }
 
@@ -62,7 +73,7 @@ namespace WebTest.Repositories {
                 if (entity == null) {
                     return null;
                 }
-                var model = Mapper.Map<TodoItemModel>(entity);
+                var model = mapper.Map<TodoItemModel>(entity);
                 return model;
             }
         }
@@ -81,7 +92,7 @@ namespace WebTest.Repositories {
                 }
                 //
                 result.Total = await query.LongCountAsync();
-                result.Data = await query.ProjectTo<TodoItemModel>()
+                result.Data = await query.ProjectTo<TodoItemModel>(mapper.ConfigurationProvider)
                     .Skip(model.Skip)
                     .Take(model.Take)
                     .ToListAsync();
@@ -99,7 +110,7 @@ namespace WebTest.Repositories {
                         $"TodoItem {id} does not exists!"
                     );
                 }
-                Mapper.Map(model, entity);
+                mapper.Map(model, entity);
                 await session.UpdateAsync(entity);
                 await session.FlushAsync();
             }
