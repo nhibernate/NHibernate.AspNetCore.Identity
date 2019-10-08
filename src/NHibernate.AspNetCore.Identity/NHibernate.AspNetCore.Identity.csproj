@@ -11,6 +11,7 @@
     <Description>
       ASPNET Core Identity provider that uses NHibernate for storage. (Build in support for PostgreSQL, SqlServer and mysql)
     </Description>
+    <PackageLicenseUrl>https://github.com/nhibernate/NHibernate.AspNetCore.Identity/blob/master/LICENSE.txt</PackageLicenseUrl>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|AnyCPU'">
     <PackOnBuild>true</PackOnBuild>
