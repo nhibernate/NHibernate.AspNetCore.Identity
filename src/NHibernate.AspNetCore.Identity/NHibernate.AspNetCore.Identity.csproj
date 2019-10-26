@@ -2,11 +2,11 @@
   <PropertyGroup>
     <TargetFramework>netcoreapp3.0</TargetFramework>
     <PackageId>NHibernate.AspNetCore.Identity</PackageId>
-    <PackageVersion>3.0.0</PackageVersion>
+    <PackageVersion>3.0.1</PackageVersion>
     <Authors>beginor</Authors>
     <Owners>beginor</Owners>
     <PackageProjectUrl>https://github.com/nhibernate/NHibernate.AspNetCore.Identity</PackageProjectUrl>
-    <PackageReleaseNotes>Initial Support for .NETCoreApp 3.0 .</PackageReleaseNotes>
+    <PackageReleaseNotes>Fix length mapping for `ConcurrencyStamp` .</PackageReleaseNotes>
     <Title>NHibernate.AspNetCore.Identity</Title>
     <Description>
       ASPNET Core Identity provider that uses NHibernate for storage. (Build in support for PostgreSQL, SqlServer and mysql)
