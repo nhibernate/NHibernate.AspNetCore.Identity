@@ -10,56 +10,43 @@ using NHibernate.Linq;
 namespace NHibernate.AspNetCore.Identity {
 
     public class RoleStore<TRole>
-        : IQueryableRoleStore<TRole>, IRoleClaimStore<TRole> where TRole : IdentityRole {
+        : RoleStoreBase<TRole, string, IdentityUserRole, IdentityRoleClaim> where TRole : IdentityRole {
 
-        private bool disposed;
-
-        public ISession Session { get; }
-
-        public IdentityErrorDescriber ErrorDescriber { get; set; }
+        private readonly ISession session;
 
         public bool AutoFlushChanges { get; set; } = true;
 
         public RoleStore(
             ISession session,
             IdentityErrorDescriber describer = null
-        ) {
-            if (session == null) {
-                throw new ArgumentNullException(nameof(session));
-            }
-            Session = session;
-            ErrorDescriber = describer ?? new IdentityErrorDescriber();
+        ) : base(describer) {
+            this.session = session ?? throw new ArgumentNullException(nameof(session));
         }
 
-        public void Dispose() {
-            Session.Dispose();
-            disposed = true;
-        }
-
-        public virtual async Task<IdentityResult> CreateAsync(
+        public override async Task<IdentityResult> CreateAsync(
             TRole role,
-            CancellationToken cancellationToken
+            CancellationToken cancellationToken = default
         ) {
             cancellationToken.ThrowIfCancellationRequested();
             ThrowIfDisposed();
             if (role == null) {
                 throw new ArgumentNullException(nameof(role));
             }
-            await Session.SaveAsync(role, cancellationToken);
+            await session.SaveAsync(role, cancellationToken);
             await FlushChanges(cancellationToken);
             return IdentityResult.Success;
         }
 
-        public virtual async Task<IdentityResult> UpdateAsync(
+        public override async Task<IdentityResult> UpdateAsync(
             TRole role,
-            CancellationToken cancellationToken
+            CancellationToken cancellationToken = default
         ) {
             cancellationToken.ThrowIfCancellationRequested();
             ThrowIfDisposed();
             if (role == null) {
                 throw new ArgumentNullException(nameof(role));
             }
-            var exists = await Roles.AnyAsync<TRole>(
+            var exists = await Roles.AnyAsync(
                 r => r.Id == role.Id,
                 cancellationToken
             );
@@ -71,29 +58,29 @@ namespace NHibernate.AspNetCore.Identity {
                     }
                 );
             }
-            role.ConcurrencyStamp = Guid.NewGuid().ToString("N");
-            await Session.MergeAsync(role, cancellationToken);
+            // role.ConcurrencyStamp = Guid.NewGuid().ToString("N");
+            await session.MergeAsync(role, cancellationToken);
             await FlushChanges(cancellationToken);
             return IdentityResult.Success;
         }
 
-        public virtual async Task<IdentityResult> DeleteAsync(
+        public override async Task<IdentityResult> DeleteAsync(
             TRole role,
-            CancellationToken cancellationToken
+            CancellationToken cancellationToken = default
         ) {
             cancellationToken.ThrowIfCancellationRequested();
             ThrowIfDisposed();
             if (role == null) {
                 throw new ArgumentNullException(nameof(role));
             }
-            await Session.DeleteAsync(role, cancellationToken);
+            await session.DeleteAsync(role, cancellationToken);
             await FlushChanges(cancellationToken);
             return IdentityResult.Success;
         }
 
-        public virtual Task<string> GetRoleIdAsync(
+        public override Task<string> GetRoleIdAsync(
             TRole role,
-            CancellationToken cancellationToken
+            CancellationToken cancellationToken = default
         ) {
             cancellationToken.ThrowIfCancellationRequested();
             ThrowIfDisposed();
@@ -103,9 +90,9 @@ namespace NHibernate.AspNetCore.Identity {
             return Task.FromResult(role.Id);
         }
 
-        public virtual Task<string> GetRoleNameAsync(
+        public override Task<string> GetRoleNameAsync(
             TRole role,
-            CancellationToken cancellationToken
+            CancellationToken cancellationToken = default
         ) {
             cancellationToken.ThrowIfCancellationRequested();
             ThrowIfDisposed();
@@ -115,60 +102,20 @@ namespace NHibernate.AspNetCore.Identity {
             return Task.FromResult(role.Name);
         }
 
-        public Task SetRoleNameAsync(
-            TRole role,
-            string roleName,
-            CancellationToken cancellationToken
-        ) {
-            cancellationToken.ThrowIfCancellationRequested();
-            ThrowIfDisposed();
-            if (role == null) {
-                throw new ArgumentNullException(nameof(role));
-            }
-            role.Name = roleName;
-            return Task.CompletedTask;
-        }
-
-        public Task<string> GetNormalizedRoleNameAsync(
-            TRole role,
-            CancellationToken cancellationToken
-        ) {
-            cancellationToken.ThrowIfCancellationRequested();
-            ThrowIfDisposed();
-            if (role == null) {
-                throw new ArgumentNullException(nameof(role));
-            }
-            return Task.FromResult(role.NormalizedName);
-        }
-
-        public Task SetNormalizedRoleNameAsync(
-            TRole role,
-            string normalizedName,
-            CancellationToken cancellationToken
-        ) {
-            cancellationToken.ThrowIfCancellationRequested();
-            ThrowIfDisposed();
-            if (role == null) {
-                throw new ArgumentNullException(nameof(role));
-            }
-            role.NormalizedName = normalizedName;
-            return Task.CompletedTask;
-        }
-
-        public async Task<TRole> FindByIdAsync(
+        public override async Task<TRole> FindByIdAsync(
             string roleId,
-            CancellationToken cancellationToken
+            CancellationToken cancellationToken = default
         ) {
             cancellationToken.ThrowIfCancellationRequested();
             ThrowIfDisposed();
             var id = roleId;
-            var role = await Session.GetAsync<TRole>(id, cancellationToken);
+            var role = await session.GetAsync<TRole>(id, cancellationToken);
             return role;
         }
 
-        public async Task<TRole> FindByNameAsync(
+        public override async Task<TRole> FindByNameAsync(
             string normalizedRoleName,
-            CancellationToken cancellationToken
+            CancellationToken cancellationToken = default
         ) {
             cancellationToken.ThrowIfCancellationRequested();
             ThrowIfDisposed();
@@ -180,13 +127,13 @@ namespace NHibernate.AspNetCore.Identity {
             return role;
         }
 
-        public virtual IQueryable<TRole> Roles => Session.Query<TRole>();
+        public override IQueryable<TRole> Roles => session.Query<TRole>();
 
-        private IQueryable<IdentityRoleClaim> RoleClaims => Session.Query<IdentityRoleClaim>();
+        private IQueryable<IdentityRoleClaim> RoleClaims => session.Query<IdentityRoleClaim>();
 
-        public virtual async Task<IList<Claim>> GetClaimsAsync(
+        public override async Task<IList<Claim>> GetClaimsAsync(
             TRole role,
-            CancellationToken cancellationToken
+            CancellationToken cancellationToken = default
         ) {
             cancellationToken.ThrowIfCancellationRequested();
             ThrowIfDisposed();
@@ -201,10 +148,10 @@ namespace NHibernate.AspNetCore.Identity {
             return claims;
         }
 
-        public virtual async Task AddClaimAsync(
+        public override async Task AddClaimAsync(
             TRole role,
             Claim claim,
-            CancellationToken cancellationToken
+            CancellationToken cancellationToken = default
         ) {
             cancellationToken.ThrowIfCancellationRequested();
             ThrowIfDisposed();
@@ -215,11 +162,11 @@ namespace NHibernate.AspNetCore.Identity {
                 throw new ArgumentNullException(nameof(claim));
             }
             var roleClaim = CreateRoleClaim(role, claim);
-            await Session.SaveAsync(roleClaim, cancellationToken);
+            await session.SaveAsync(roleClaim, cancellationToken);
             await FlushChanges(cancellationToken);
         }
 
-        public virtual async Task RemoveClaimAsync(
+        public override async Task RemoveClaimAsync(
             TRole role,
             Claim claim,
             CancellationToken cancellationToken = default(CancellationToken)
@@ -239,30 +186,17 @@ namespace NHibernate.AspNetCore.Identity {
                 )
                 .ToListAsync(cancellationToken);
             foreach (var c in claims) {
-                await Session.DeleteAsync(c, cancellationToken);
+                await session.DeleteAsync(c, cancellationToken);
             }
             await FlushChanges(cancellationToken);
         }
 
-        protected void ThrowIfDisposed() {
-            if (disposed) {
-                throw new ObjectDisposedException(GetType().Name);
-            }
-        }
-
-        protected virtual IdentityRoleClaim CreateRoleClaim(
-            TRole role,
-            Claim claim
-        ) => new IdentityRoleClaim {
-            RoleId = role.Id,
-            ClaimType = claim.Type,
-            ClaimValue = claim.Value
-        };
-
-        private async Task FlushChanges(CancellationToken cancellationToken) {
+        private async Task FlushChanges(
+            CancellationToken cancellationToken = default
+        ) {
             if (AutoFlushChanges) {
-                await Session.FlushAsync(cancellationToken);
-                Session.Clear();
+                await session.FlushAsync(cancellationToken);
+                session.Clear();
             }
         }
 
