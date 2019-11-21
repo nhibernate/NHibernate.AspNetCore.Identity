@@ -13,18 +13,13 @@ namespace NHibernate.AspNetCore.Identity {
         UserStoreBase<TUser, TRole, string, IdentityUserClaim, IdentityUserRole, IdentityUserLogin, IdentityUserToken, IdentityRoleClaim>,
         IProtectedUserStore<TUser> where TUser : IdentityUser where TRole : IdentityRole {
 
-        private ISession session;
-
-        public bool AutoFlushChanges { get; set; } = true;
+        private readonly ISession session;
 
         public UserStore(
             ISession session,
             IdentityErrorDescriber errorDescriber = null
         ) : base(errorDescriber ?? new IdentityErrorDescriber()) {
-            if (session == null) {
-                throw new ArgumentNullException(nameof(session));
-            }
-            this.session = session;
+            this.session = session ?? throw new ArgumentNullException(nameof(session));
         }
 
         public override IQueryable<TUser> Users => session.Query<TUser>();
@@ -41,7 +36,7 @@ namespace NHibernate.AspNetCore.Identity {
 
         public override async Task<IdentityResult> CreateAsync(
             TUser user,
-            CancellationToken cancellationToken = new CancellationToken()
+            CancellationToken cancellationToken = default
         ) {
             cancellationToken.ThrowIfCancellationRequested();
             ThrowIfDisposed();
@@ -55,7 +50,7 @@ namespace NHibernate.AspNetCore.Identity {
 
         public override async Task<IdentityResult> UpdateAsync(
             TUser user,
-            CancellationToken cancellationToken = new CancellationToken()
+            CancellationToken cancellationToken = default
         ) {
             cancellationToken.ThrowIfCancellationRequested();
             ThrowIfDisposed();
@@ -81,7 +76,7 @@ namespace NHibernate.AspNetCore.Identity {
 
         public override async Task<IdentityResult> DeleteAsync(
             TUser user,
-            CancellationToken cancellationToken = new CancellationToken()
+            CancellationToken cancellationToken = default
         ) {
             cancellationToken.ThrowIfCancellationRequested();
             ThrowIfDisposed();
@@ -95,7 +90,7 @@ namespace NHibernate.AspNetCore.Identity {
 
         public override async Task<TUser> FindByIdAsync(
             string userId,
-            CancellationToken cancellationToken = new CancellationToken()
+            CancellationToken cancellationToken = default
         ) {
             cancellationToken.ThrowIfCancellationRequested();
             ThrowIfDisposed();
@@ -106,7 +101,7 @@ namespace NHibernate.AspNetCore.Identity {
 
         public override async Task<TUser> FindByNameAsync(
             string normalizedUserName,
-            CancellationToken cancellationToken = new CancellationToken()
+            CancellationToken cancellationToken = default
         ) {
             cancellationToken.ThrowIfCancellationRequested();
             ThrowIfDisposed();
@@ -191,7 +186,7 @@ namespace NHibernate.AspNetCore.Identity {
         public override async Task AddToRoleAsync(
             TUser user,
             string normalizedRoleName,
-            CancellationToken cancellationToken = new CancellationToken()
+            CancellationToken cancellationToken = default
         ) {
             cancellationToken.ThrowIfCancellationRequested();
             ThrowIfDisposed();
@@ -210,14 +205,14 @@ namespace NHibernate.AspNetCore.Identity {
                     $"Role {normalizedRoleName} not found!"
                 );
             }
-            await session.SaveAsync(CreateUserRole(user, role));
+            await session.SaveAsync(CreateUserRole(user, role), cancellationToken);
             await FlushChanges(cancellationToken);
         }
 
         public override async Task RemoveFromRoleAsync(
             TUser user,
             string normalizedRoleName,
-            CancellationToken cancellationToken = new CancellationToken()
+            CancellationToken cancellationToken = default
         ) {
             cancellationToken.ThrowIfCancellationRequested();
             ThrowIfDisposed();
@@ -246,7 +241,7 @@ namespace NHibernate.AspNetCore.Identity {
 
         public override async Task<IList<string>> GetRolesAsync(
             TUser user,
-            CancellationToken cancellationToken = new CancellationToken()
+            CancellationToken cancellationToken = default
         ) {
             cancellationToken.ThrowIfCancellationRequested();
             ThrowIfDisposed();
@@ -265,7 +260,7 @@ namespace NHibernate.AspNetCore.Identity {
         public override async Task<bool> IsInRoleAsync(
             TUser user,
             string normalizedRoleName,
-            CancellationToken cancellationToken = new CancellationToken()
+            CancellationToken cancellationToken = default
         ) {
             cancellationToken.ThrowIfCancellationRequested();
             ThrowIfDisposed();
@@ -289,7 +284,7 @@ namespace NHibernate.AspNetCore.Identity {
 
         public override async Task<IList<Claim>> GetClaimsAsync(
             TUser user,
-            CancellationToken cancellationToken = new CancellationToken()
+            CancellationToken cancellationToken = default
         ) {
             cancellationToken.ThrowIfCancellationRequested();
             ThrowIfDisposed();
@@ -307,7 +302,7 @@ namespace NHibernate.AspNetCore.Identity {
         public override async Task AddClaimsAsync(
             TUser user,
             IEnumerable<Claim> claims,
-            CancellationToken cancellationToken = new CancellationToken()
+            CancellationToken cancellationToken = default
         ) {
             cancellationToken.ThrowIfCancellationRequested();
             ThrowIfDisposed();
@@ -330,7 +325,7 @@ namespace NHibernate.AspNetCore.Identity {
             TUser user,
             Claim claim,
             Claim newClaim,
-            CancellationToken cancellationToken = new CancellationToken()
+            CancellationToken cancellationToken = default
         ) {
             cancellationToken.ThrowIfCancellationRequested();
             ThrowIfDisposed();
@@ -360,7 +355,7 @@ namespace NHibernate.AspNetCore.Identity {
         public override async Task RemoveClaimsAsync(
             TUser user,
             IEnumerable<Claim> claims,
-            CancellationToken cancellationToken = new CancellationToken()
+            CancellationToken cancellationToken = default
         ) {
             cancellationToken.ThrowIfCancellationRequested();
             ThrowIfDisposed();
@@ -387,7 +382,7 @@ namespace NHibernate.AspNetCore.Identity {
         public override async Task AddLoginAsync(
             TUser user,
             UserLoginInfo login,
-            CancellationToken cancellationToken = new CancellationToken()
+            CancellationToken cancellationToken = default
         ) {
             cancellationToken.ThrowIfCancellationRequested();
             ThrowIfDisposed();
@@ -408,7 +403,7 @@ namespace NHibernate.AspNetCore.Identity {
             TUser user,
             string loginProvider,
             string providerKey,
-            CancellationToken cancellationToken = new CancellationToken()
+            CancellationToken cancellationToken = default
         ) {
             cancellationToken.ThrowIfCancellationRequested();
             ThrowIfDisposed();
@@ -428,7 +423,7 @@ namespace NHibernate.AspNetCore.Identity {
 
         public override async Task<IList<UserLoginInfo>> GetLoginsAsync(
             TUser user,
-            CancellationToken cancellationToken = new CancellationToken()
+            CancellationToken cancellationToken = default
         ) {
             cancellationToken.ThrowIfCancellationRequested();
             ThrowIfDisposed();
@@ -451,7 +446,7 @@ namespace NHibernate.AspNetCore.Identity {
         public override async Task<TUser> FindByLoginAsync(
             string loginProvider,
             string providerKey,
-            CancellationToken cancellationToken = new CancellationToken()
+            CancellationToken cancellationToken = default
         ) {
             cancellationToken.ThrowIfCancellationRequested();
             ThrowIfDisposed();
@@ -468,7 +463,7 @@ namespace NHibernate.AspNetCore.Identity {
 
         public override async Task<TUser> FindByEmailAsync(
             string normalizedEmail,
-            CancellationToken cancellationToken = new CancellationToken()
+            CancellationToken cancellationToken = default
         ) {
             cancellationToken.ThrowIfCancellationRequested();
             ThrowIfDisposed();
@@ -480,24 +475,24 @@ namespace NHibernate.AspNetCore.Identity {
 
         public override async Task<IList<TUser>> GetUsersForClaimAsync(
             Claim claim,
-            CancellationToken cancellationToken = new CancellationToken()
+            CancellationToken cancellationToken = default
         ) {
             cancellationToken.ThrowIfCancellationRequested();
             ThrowIfDisposed();
             if (claim == null) {
                 throw new ArgumentNullException(nameof(claim));
             }
-            var query = from userclaims in UserClaims
-                join user in Users on userclaims.UserId equals user.Id
-                where userclaims.ClaimValue == claim.Value
-                    && userclaims.ClaimType == claim.Type
+            var query = from userClaim in UserClaims
+                join user in Users on userClaim.UserId equals user.Id
+                where userClaim.ClaimValue == claim.Value
+                    && userClaim.ClaimType == claim.Type
                 select user;
             return await query.ToListAsync(cancellationToken);
         }
 
         public override async Task<IList<TUser>> GetUsersInRoleAsync(
             string normalizedRoleName,
-            CancellationToken cancellationToken = new CancellationToken()
+            CancellationToken cancellationToken = default
         ) {
             cancellationToken.ThrowIfCancellationRequested();
             ThrowIfDisposed();
@@ -509,9 +504,9 @@ namespace NHibernate.AspNetCore.Identity {
                 cancellationToken
             );
             if (role != null) {
-                var query = from userrole in UserRoles
-                    join user in Users on userrole.UserId equals user.Id
-                    where userrole.RoleId.Equals(role.Id)
+                var query = from userRole in UserRoles
+                    join user in Users on userRole.UserId equals user.Id
+                    where userRole.RoleId.Equals(role.Id)
                     select user;
                 return await query.ToListAsync(cancellationToken);
             }
@@ -556,8 +551,8 @@ namespace NHibernate.AspNetCore.Identity {
                 cancellationToken
             );
             if (userToken == null) {
-                userToken = this.CreateUserToken(user, loginProvider, name, value);
-                await this.AddUserTokenAsync(userToken);
+                userToken = CreateUserToken(user, loginProvider, name, value);
+                await AddUserTokenAsync(userToken);
             }
             else {
                 userToken.Value = value;
@@ -585,13 +580,11 @@ namespace NHibernate.AspNetCore.Identity {
             await FlushChanges();
         }
 
-        protected async Task FlushChanges(
-            CancellationToken cancellationToken = default(CancellationToken)
+        private async Task FlushChanges(
+            CancellationToken cancellationToken = default
         ) {
-            if (AutoFlushChanges) {
-                await session.FlushAsync(cancellationToken);
-                session.Clear();
-            }
+            await session.FlushAsync(cancellationToken);
+            session.Clear();
         }
 
     }
