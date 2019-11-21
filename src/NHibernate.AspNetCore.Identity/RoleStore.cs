@@ -14,8 +14,6 @@ namespace NHibernate.AspNetCore.Identity {
 
         private readonly ISession session;
 
-        public bool AutoFlushChanges { get; set; } = true;
-
         public RoleStore(
             ISession session,
             IdentityErrorDescriber describer = null
@@ -169,7 +167,7 @@ namespace NHibernate.AspNetCore.Identity {
         public override async Task RemoveClaimAsync(
             TRole role,
             Claim claim,
-            CancellationToken cancellationToken = default(CancellationToken)
+            CancellationToken cancellationToken = default
         ) {
             cancellationToken.ThrowIfCancellationRequested();
             ThrowIfDisposed();
@@ -194,10 +192,8 @@ namespace NHibernate.AspNetCore.Identity {
         private async Task FlushChanges(
             CancellationToken cancellationToken = default
         ) {
-            if (AutoFlushChanges) {
-                await session.FlushAsync(cancellationToken);
-                session.Clear();
-            }
+            await session.FlushAsync(cancellationToken);
+            session.Clear();
         }
 
     }
