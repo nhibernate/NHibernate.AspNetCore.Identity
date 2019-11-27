@@ -31,7 +31,7 @@ namespace NHibernate.AspNetCore.Identity {
                 throw new ArgumentNullException(nameof(role));
             }
             await session.SaveAsync(role, cancellationToken);
-            await FlushChanges(cancellationToken);
+            await FlushChangesAsync(cancellationToken);
             return IdentityResult.Success;
         }
 
@@ -58,7 +58,7 @@ namespace NHibernate.AspNetCore.Identity {
             }
             // role.ConcurrencyStamp = Guid.NewGuid().ToString("N");
             await session.MergeAsync(role, cancellationToken);
-            await FlushChanges(cancellationToken);
+            await FlushChangesAsync(cancellationToken);
             return IdentityResult.Success;
         }
 
@@ -72,7 +72,7 @@ namespace NHibernate.AspNetCore.Identity {
                 throw new ArgumentNullException(nameof(role));
             }
             await session.DeleteAsync(role, cancellationToken);
-            await FlushChanges(cancellationToken);
+            await FlushChangesAsync(cancellationToken);
             return IdentityResult.Success;
         }
 
@@ -161,7 +161,7 @@ namespace NHibernate.AspNetCore.Identity {
             }
             var roleClaim = CreateRoleClaim(role, claim);
             await session.SaveAsync(roleClaim, cancellationToken);
-            await FlushChanges(cancellationToken);
+            await FlushChangesAsync(cancellationToken);
         }
 
         public override async Task RemoveClaimAsync(
@@ -186,10 +186,10 @@ namespace NHibernate.AspNetCore.Identity {
             foreach (var c in claims) {
                 await session.DeleteAsync(c, cancellationToken);
             }
-            await FlushChanges(cancellationToken);
+            await FlushChangesAsync(cancellationToken);
         }
 
-        private async Task FlushChanges(
+        private async Task FlushChangesAsync(
             CancellationToken cancellationToken = default
         ) {
             await session.FlushAsync(cancellationToken);

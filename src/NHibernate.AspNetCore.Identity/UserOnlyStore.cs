@@ -40,7 +40,7 @@ namespace NHibernate.AspNetCore.Identity {
                 throw new ArgumentNullException(nameof(user));
             }
             await session.SaveAsync(user, cancellationToken);
-            await FlushChanges(cancellationToken);
+            await FlushChangesAsync(cancellationToken);
             return IdentityResult.Success;
         }
 
@@ -66,7 +66,7 @@ namespace NHibernate.AspNetCore.Identity {
                 );
             }
             await session.MergeAsync(user, cancellationToken);
-            await FlushChanges(cancellationToken);
+            await FlushChangesAsync(cancellationToken);
             return IdentityResult.Success;
         }
 
@@ -80,7 +80,7 @@ namespace NHibernate.AspNetCore.Identity {
                 throw new ArgumentNullException(nameof(user));
             }
             await session.DeleteAsync(user, cancellationToken);
-            await FlushChanges(cancellationToken);
+            await FlushChangesAsync(cancellationToken);
             return IdentityResult.Success;
         }
 
@@ -188,7 +188,7 @@ namespace NHibernate.AspNetCore.Identity {
                     cancellationToken
                 );
             }
-            await FlushChanges(cancellationToken);
+            await FlushChangesAsync(cancellationToken);
         }
 
         public override async Task ReplaceClaimAsync(
@@ -219,7 +219,7 @@ namespace NHibernate.AspNetCore.Identity {
                 matchedClaim.ClaimValue = newClaim.Value;
                 await session.UpdateAsync(matchedClaim, cancellationToken);
             }
-            await FlushChanges(cancellationToken);
+            await FlushChangesAsync(cancellationToken);
         }
 
         public override async Task RemoveClaimsAsync(
@@ -246,7 +246,7 @@ namespace NHibernate.AspNetCore.Identity {
                     await session.DeleteAsync(matchedClaim, cancellationToken);
                 }
             }
-            await FlushChanges(cancellationToken);
+            await FlushChangesAsync(cancellationToken);
         }
 
         public override async Task<IList<TUser>> GetUsersForClaimAsync(
@@ -293,7 +293,7 @@ namespace NHibernate.AspNetCore.Identity {
                 throw new ArgumentNullException(nameof(token));
             }
             await session.SaveAsync(token);
-            await FlushChanges();
+            await FlushChangesAsync();
         }
 
         protected override async Task RemoveUserTokenAsync(
@@ -304,7 +304,7 @@ namespace NHibernate.AspNetCore.Identity {
                 throw new ArgumentNullException(nameof(token));
             }
             await session.DeleteAsync(token);
-            await FlushChanges();
+            await FlushChangesAsync();
         }
 
         public override async Task AddLoginAsync(
@@ -324,7 +324,7 @@ namespace NHibernate.AspNetCore.Identity {
                 CreateUserLogin(user, login),
                 cancellationToken
             );
-            await FlushChanges(cancellationToken);
+            await FlushChangesAsync(cancellationToken);
         }
 
         public override async Task RemoveLoginAsync(
@@ -383,7 +383,7 @@ namespace NHibernate.AspNetCore.Identity {
             );
         }
 
-        private async Task FlushChanges(
+        private async Task FlushChangesAsync(
             CancellationToken cancellationToken = default
         ) {
             await session.FlushAsync(cancellationToken);
