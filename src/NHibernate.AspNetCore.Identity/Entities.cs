@@ -9,12 +9,13 @@ namespace NHibernate.AspNetCore.Identity {
 
         public override DateTimeOffset? LockoutEnd {
             get {
-                if (LockoutEndUnixTimeMilliseconds.HasValue) {
-                    return DateTimeOffset.FromUnixTimeMilliseconds(
-                        LockoutEndUnixTimeMilliseconds.Value
-                    );
+                if (!LockoutEndUnixTimeMilliseconds.HasValue) {
+                    return null;
                 }
-                return null;
+                var offset = DateTimeOffset.FromUnixTimeMilliseconds(
+                    LockoutEndUnixTimeMilliseconds.Value
+                );
+                return TimeZoneInfo.ConvertTime(offset, TimeZoneInfo.Local);
             }
             set {
                 if (value.HasValue) {
