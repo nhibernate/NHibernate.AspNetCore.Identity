@@ -12,7 +12,7 @@
     </id>
     <property name="Name" column="name" type="string" length="64" not-null="true" unique="true" />
     <property name="NormalizedName" column="normalized_name" type="string" length="64" not-null="true" unique="true" />
-    <property name="ConcurrencyStamp" column="concurrency_stamp" type="string" length="32" not-null="false" />
+    <property name="ConcurrencyStamp" column="concurrency_stamp" type="string" length="36" not-null="false" />
   </class>
 
   <class name="NHibernate.AspNetCore.Identity.IdentityRoleClaim,NHibernate.AspNetCore.Identity" table="aspnet_role_claims">
@@ -32,7 +32,7 @@
       </generator>
     </id>
     <property name="AccessFailedCount" column="access_failed_count" type="int" not-null="true" />
-    <property name="ConcurrencyStamp" column="concurrency_stamp" type="string" length="32" not-null="false" />
+    <property name="ConcurrencyStamp" column="concurrency_stamp" type="string" length="36" not-null="false" />
     <property name="Email" column="email" type="string" length="256" not-null="true" />
     <property name="NormalizedEmail" column="normalized_email" type="string" length="256" not-null="true" />
     <property name="EmailConfirmed" column="email_confirmed" type="bool" not-null="true" />

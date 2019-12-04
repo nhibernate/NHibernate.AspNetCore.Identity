@@ -2,9 +2,12 @@
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.UI;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
 using NHibernate.NetCore;
 using NHibernate.AspNetCore.Identity;
 using NHibernate.Cfg;
@@ -40,22 +43,27 @@ namespace WebTest {
                 "hibernate.config"
             );
             cfg.Configure(file);
-            cfg.AddIdentityMappingsForSqlServer();
+            // Add identity mapping based on dialect config (dialet must contains
+            // PostgreSQL, MySQL or MsSql)
+            cfg.AddIdentityMappings();
 
             services.AddHibernate(cfg);
             services.AddDefaultIdentity<WebTest.Entities.AppUser>()
                 .AddRoles<WebTest.Entities.AppRole>()
                 .AddHibernateStores();
 
+            services.AddRouting(opts => {
+                opts.LowercaseUrls = true;
+            });
 
-            services.AddMvc()
-                .SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
+            services.AddControllersWithViews();
+            services.AddRazorPages();
+
             services.Configure<ApiBehaviorOptions>(options => {
                 options.SuppressConsumesConstraintForFormFileParameters = true;
                 options.SuppressInferBindingSourcesForParameters = true;
                 options.SuppressModelStateInvalidFilter = true;
             });
-
 
             services.AddSingleton<AutoMapper.IMapper>(serviceProvider => {
                 var mapperConfig = new AutoMapper.MapperConfiguration(
@@ -72,14 +80,13 @@ namespace WebTest {
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(
             IApplicationBuilder app,
-            IHostingEnvironment env,
+            IWebHostEnvironment env,
             Microsoft.Extensions.Logging.ILoggerFactory loggerFactory
         ) {
             loggerFactory.UseAsHibernateLoggerFactory();
-
             if (env.IsDevelopment()) {
                 app.UseDeveloperExceptionPage();
-                app.UseDatabaseErrorPage();
+                // app.UseDatabaseErrorPage();
             }
             else {
                 app.UseExceptionHandler("/Home/Error");
@@ -90,14 +97,17 @@ namespace WebTest {
             app.UseStaticFiles();
             app.UseCookiePolicy();
 
-            app.UseAuthentication();
+            app.UseRouting();
 
-            app.UseMvc(
-                routes => {
-                    routes.MapRoute(
-                        name: "default",
-                        template: "{controller=Home}/{action=Index}/{id?}");
-                });
+            app.UseAuthentication();
+            app.UseAuthorization();
+
+            app.UseEndpoints(endpoints => {
+                endpoints.MapControllerRoute(
+                    name: "default",
+                    pattern: "{controller=Home}/{action=Index}/{id?}");
+                endpoints.MapRazorPages();
+            });
         }
 
     }

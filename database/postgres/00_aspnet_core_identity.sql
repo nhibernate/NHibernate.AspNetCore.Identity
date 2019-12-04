@@ -145,7 +145,7 @@ create index ix_aspnet_users_email
 
 -- drop index public.ix_aspnet_users_user_name;
 
-create index ix_aspnet_users_user_name
+create unique index ix_aspnet_users_user_name
     on public.aspnet_users using btree
     (normalized_user_name collate pg_catalog."default")
     tablespace pg_default;
