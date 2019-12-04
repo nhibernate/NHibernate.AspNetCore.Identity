@@ -12,9 +12,7 @@ namespace NHibernate.AspNetCore.Identity {
     public class UserOnlyStore<TUser> : UserStoreBase<TUser, string, IdentityUserClaim, IdentityUserLogin, IdentityUserToken>,
         IProtectedUserStore<TUser> where TUser : IdentityUser {
 
-        private ISession session;
-
-        public bool AutoFlushChanges { get; set; } = true;
+        private readonly ISession session;
 
         public override IQueryable<TUser> Users => session.Query<TUser>();
 
@@ -29,15 +27,12 @@ namespace NHibernate.AspNetCore.Identity {
             ISession session,
             IdentityErrorDescriber describer
         ) : base(describer ?? new IdentityErrorDescriber()) {
-            if (session == null) {
-                throw new ArgumentNullException(nameof(session));
-            }
-            this.session = session;
+            this.session = session ?? throw new ArgumentNullException(nameof(session));
         }
 
         public override async Task<IdentityResult> CreateAsync(
             TUser user,
-            CancellationToken cancellationToken = new CancellationToken()
+            CancellationToken cancellationToken = default
         ) {
             cancellationToken.ThrowIfCancellationRequested();
             ThrowIfDisposed();
@@ -45,13 +40,13 @@ namespace NHibernate.AspNetCore.Identity {
                 throw new ArgumentNullException(nameof(user));
             }
             await session.SaveAsync(user, cancellationToken);
-            await FlushChanges(cancellationToken);
+            await FlushChangesAsync(cancellationToken);
             return IdentityResult.Success;
         }
 
         public override async Task<IdentityResult> UpdateAsync(
             TUser user,
-            CancellationToken cancellationToken = new CancellationToken()
+            CancellationToken cancellationToken = default
         ) {
             cancellationToken.ThrowIfCancellationRequested();
             ThrowIfDisposed();
@@ -71,13 +66,13 @@ namespace NHibernate.AspNetCore.Identity {
                 );
             }
             await session.MergeAsync(user, cancellationToken);
-            await FlushChanges(cancellationToken);
+            await FlushChangesAsync(cancellationToken);
             return IdentityResult.Success;
         }
 
         public override async Task<IdentityResult> DeleteAsync(
             TUser user,
-            CancellationToken cancellationToken = new CancellationToken()
+            CancellationToken cancellationToken = default
         ) {
             cancellationToken.ThrowIfCancellationRequested();
             ThrowIfDisposed();
@@ -85,13 +80,13 @@ namespace NHibernate.AspNetCore.Identity {
                 throw new ArgumentNullException(nameof(user));
             }
             await session.DeleteAsync(user, cancellationToken);
-            await FlushChanges(cancellationToken);
+            await FlushChangesAsync(cancellationToken);
             return IdentityResult.Success;
         }
 
         public override async Task<TUser> FindByIdAsync(
             string userId,
-            CancellationToken cancellationToken = new CancellationToken()
+            CancellationToken cancellationToken = default
         ) {
             cancellationToken.ThrowIfCancellationRequested();
             ThrowIfDisposed();
@@ -102,7 +97,7 @@ namespace NHibernate.AspNetCore.Identity {
 
         public override async Task<TUser> FindByNameAsync(
             string normalizedUserName,
-            CancellationToken cancellationToken = new CancellationToken()
+            CancellationToken cancellationToken = default
         ) {
             cancellationToken.ThrowIfCancellationRequested();
             ThrowIfDisposed();
@@ -159,7 +154,7 @@ namespace NHibernate.AspNetCore.Identity {
 
         public override async Task<IList<Claim>> GetClaimsAsync(
             TUser user,
-            CancellationToken cancellationToken = new CancellationToken()
+            CancellationToken cancellationToken = default
         ) {
             cancellationToken.ThrowIfCancellationRequested();
             ThrowIfDisposed();
@@ -177,7 +172,7 @@ namespace NHibernate.AspNetCore.Identity {
         public override async Task AddClaimsAsync(
             TUser user,
             IEnumerable<Claim> claims,
-            CancellationToken cancellationToken = new CancellationToken()
+            CancellationToken cancellationToken = default
         ) {
             cancellationToken.ThrowIfCancellationRequested();
             ThrowIfDisposed();
@@ -193,14 +188,14 @@ namespace NHibernate.AspNetCore.Identity {
                     cancellationToken
                 );
             }
-            await FlushChanges(cancellationToken);
+            await FlushChangesAsync(cancellationToken);
         }
 
         public override async Task ReplaceClaimAsync(
             TUser user,
             Claim claim,
             Claim newClaim,
-            CancellationToken cancellationToken = new CancellationToken()
+            CancellationToken cancellationToken = default
         ) {
             cancellationToken.ThrowIfCancellationRequested();
             ThrowIfDisposed();
@@ -224,13 +219,13 @@ namespace NHibernate.AspNetCore.Identity {
                 matchedClaim.ClaimValue = newClaim.Value;
                 await session.UpdateAsync(matchedClaim, cancellationToken);
             }
-            await FlushChanges(cancellationToken);
+            await FlushChangesAsync(cancellationToken);
         }
 
         public override async Task RemoveClaimsAsync(
             TUser user,
             IEnumerable<Claim> claims,
-            CancellationToken cancellationToken = new CancellationToken()
+            CancellationToken cancellationToken = default
         ) {
             cancellationToken.ThrowIfCancellationRequested();
             ThrowIfDisposed();
@@ -251,22 +246,22 @@ namespace NHibernate.AspNetCore.Identity {
                     await session.DeleteAsync(matchedClaim, cancellationToken);
                 }
             }
-            await FlushChanges(cancellationToken);
+            await FlushChangesAsync(cancellationToken);
         }
 
         public override async Task<IList<TUser>> GetUsersForClaimAsync(
             Claim claim,
-            CancellationToken cancellationToken = new CancellationToken()
+            CancellationToken cancellationToken = default
         ) {
             cancellationToken.ThrowIfCancellationRequested();
             ThrowIfDisposed();
             if (claim == null) {
                 throw new ArgumentNullException(nameof(claim));
             }
-            var query = from userclaims in UserClaims
-                join user in Users on userclaims.UserId equals user.Id
-                where userclaims.ClaimValue == claim.Value
-                    && userclaims.ClaimType == claim.Type
+            var query = from userClaims in UserClaims
+                join user in Users on userClaims.UserId equals user.Id
+                where userClaims.ClaimValue == claim.Value
+                    && userClaims.ClaimType == claim.Type
                 select user;
             return await query.ToListAsync(cancellationToken);
         }
@@ -298,7 +293,7 @@ namespace NHibernate.AspNetCore.Identity {
                 throw new ArgumentNullException(nameof(token));
             }
             await session.SaveAsync(token);
-            await FlushChanges();
+            await FlushChangesAsync();
         }
 
         protected override async Task RemoveUserTokenAsync(
@@ -309,13 +304,13 @@ namespace NHibernate.AspNetCore.Identity {
                 throw new ArgumentNullException(nameof(token));
             }
             await session.DeleteAsync(token);
-            await FlushChanges();
+            await FlushChangesAsync();
         }
 
         public override async Task AddLoginAsync(
             TUser user,
             UserLoginInfo login,
-            CancellationToken cancellationToken = new CancellationToken()
+            CancellationToken cancellationToken = default
         ) {
             cancellationToken.ThrowIfCancellationRequested();
             ThrowIfDisposed();
@@ -329,14 +324,14 @@ namespace NHibernate.AspNetCore.Identity {
                 CreateUserLogin(user, login),
                 cancellationToken
             );
-            await FlushChanges(cancellationToken);
+            await FlushChangesAsync(cancellationToken);
         }
 
         public override async Task RemoveLoginAsync(
             TUser user,
             string loginProvider,
             string providerKey,
-            CancellationToken cancellationToken = new CancellationToken()
+            CancellationToken cancellationToken = default
         ) {
             cancellationToken.ThrowIfCancellationRequested();
             ThrowIfDisposed();
@@ -356,7 +351,7 @@ namespace NHibernate.AspNetCore.Identity {
 
         public override async Task<IList<UserLoginInfo>> GetLoginsAsync(
             TUser user,
-            CancellationToken cancellationToken = new CancellationToken()
+            CancellationToken cancellationToken = default
         ) {
             cancellationToken.ThrowIfCancellationRequested();
             ThrowIfDisposed();
@@ -378,7 +373,7 @@ namespace NHibernate.AspNetCore.Identity {
 
         public override async Task<TUser> FindByEmailAsync(
             string normalizedEmail,
-            CancellationToken cancellationToken = new CancellationToken()
+            CancellationToken cancellationToken = default
         ) {
             cancellationToken.ThrowIfCancellationRequested();
             ThrowIfDisposed();
@@ -388,13 +383,11 @@ namespace NHibernate.AspNetCore.Identity {
             );
         }
 
-        protected async Task FlushChanges(
-            CancellationToken cancellationToken = default(CancellationToken)
+        private async Task FlushChangesAsync(
+            CancellationToken cancellationToken = default
         ) {
-            if (AutoFlushChanges) {
-                await session.FlushAsync(cancellationToken);
-                session.Clear();
-            }
+            await session.FlushAsync(cancellationToken);
+            session.Clear();
         }
 
     }

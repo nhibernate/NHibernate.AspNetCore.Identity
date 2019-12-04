@@ -24,7 +24,7 @@ dotnet add package NHibernate.AspNetCore.Identity
 
 ### 3. Setup database
 
-- Use the sql scripts in `database` folder to create aspnet identity related tables, only support postgresql and mssql now;
+- Use the sql scripts in `database` folder to create aspnet identity related tables, only support postgresql, mssql and mysql now;
 
   > If you want other database support, please let me know, any issue, pull request is welcome!
 
