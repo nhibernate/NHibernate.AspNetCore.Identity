@@ -43,7 +43,9 @@ namespace WebTest {
                 "hibernate.config"
             );
             cfg.Configure(file);
-            cfg.AddIdentityMappingsForPostgres();
+            // Add identity mapping based on dialect config (dialet must contains
+            // PostgreSQL, MySQL or MsSql)
+            cfg.AddIdentityMappings();
 
             services.AddHibernate(cfg);
             services.AddDefaultIdentity<WebTest.Entities.AppUser>()

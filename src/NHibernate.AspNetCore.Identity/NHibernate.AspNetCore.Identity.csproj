@@ -2,11 +2,11 @@
   <PropertyGroup>
     <TargetFramework>netcoreapp3.0</TargetFramework>
     <PackageId>NHibernate.AspNetCore.Identity</PackageId>
-    <PackageVersion>3.0.2</PackageVersion>
+    <PackageVersion>3.1.0</PackageVersion>
     <Authors>beginor</Authors>
     <Owners>beginor</Owners>
     <PackageProjectUrl>https://github.com/nhibernate/NHibernate.AspNetCore.Identity</PackageProjectUrl>
-    <PackageReleaseNotes>ensure LockoutEnd returns local time.</PackageReleaseNotes>
+    <PackageReleaseNotes>Add identity mapping based on dialect config (dialet must contains PostgreSQL, MySQL or MsSql).</PackageReleaseNotes>
     <Title>NHibernate.AspNetCore.Identity</Title>
     <Description>
       ASPNET Core Identity provider that uses NHibernate for storage. (Build in support for PostgreSQL, SqlServer and mysql)
