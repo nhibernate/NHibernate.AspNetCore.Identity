@@ -1,8 +1,8 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <TargetFramework>netcoreapp3.0</TargetFramework>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
     <PackageId>NHibernate.AspNetCore.Identity</PackageId>
-    <PackageVersion>3.1.0</PackageVersion>
+    <PackageVersion>3.1.1</PackageVersion>
     <Authors>beginor</Authors>
     <Owners>beginor</Owners>
     <PackageProjectUrl>https://github.com/nhibernate/NHibernate.AspNetCore.Identity</PackageProjectUrl>
@@ -20,11 +20,9 @@
     <FrameworkReference Include="Microsoft.AspNetCore.App" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="NHibernate" Version="5.2.6"></PackageReference>
-    <PackageReference Include="NuGet.Build.Packaging" Version="0.2.2" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Remove="Mappings/*.xml" />
-    <EmbeddedResource Include="Mappings/*.xml" />
+    <PackageReference Include="NHibernate" Version="5.2.6"/>
+    <PackageReference Include="NuGet.Build.Packaging" Version="0.2.2"/>
+    <None Remove="Mappings/*.xml"/>
+    <EmbeddedResource Include="Mappings/*.xml"/>
   </ItemGroup>
 </Project>
