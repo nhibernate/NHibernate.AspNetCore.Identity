@@ -69,6 +69,7 @@ namespace NHibernate.AspNetCore.Identity {
                     }
                 );
             }
+            user.ConcurrencyStamp = Guid.NewGuid().ToString("N");
             await session.MergeAsync(user, cancellationToken);
             await FlushChangesAsync(cancellationToken);
             return IdentityResult.Success;

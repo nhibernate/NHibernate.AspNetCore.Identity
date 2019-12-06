@@ -56,7 +56,7 @@ namespace NHibernate.AspNetCore.Identity {
                     }
                 );
             }
-            // role.ConcurrencyStamp = Guid.NewGuid().ToString("N");
+            role.ConcurrencyStamp = Guid.NewGuid().ToString("N");
             await session.MergeAsync(role, cancellationToken);
             await FlushChangesAsync(cancellationToken);
             return IdentityResult.Success;
