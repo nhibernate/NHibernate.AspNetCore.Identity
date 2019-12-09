@@ -1,15 +1,14 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk.Web">
   <PropertyGroup>
-    <TargetFramework>netcoreapp3.0</TargetFramework>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
     <UserSecretsId>aspnet-WebTest-2248A449-FB12-43B9-B501-6761982E7A88</UserSecretsId>
   </PropertyGroup>
   <ItemGroup>
     <PackageReference Include="NHibernate" Version="5.2.6" />
-    <PackageReference Include="NHibernate.Extensions.NpgSql" Version="3.0.0" />
-    <PackageReference Include="NHibernate.NetCore" Version="3.0.0" />
+    <PackageReference Include="NHibernate.NetCore" Version="3.1.1" />
     <PackageReference Include="System.Data.SqlClient" Version="4.6.1" />
     <PackageReference Include="AutoMapper" Version="9.0.0" />
-    <PackageReference Include="Microsoft.AspNetCore.Identity.UI" Version="3.0.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Identity.UI" Version="3.1.0" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\src\NHibernate.AspNetCore.Identity\NHibernate.AspNetCore.Identity.csproj" />

@@ -1,12 +1,12 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <TargetFramework>netcoreapp3.0</TargetFramework>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
     <PackageId>NHibernate.AspNetCore.Identity</PackageId>
-    <PackageVersion>3.1.0</PackageVersion>
+    <PackageVersion>3.1.2</PackageVersion>
     <Authors>beginor</Authors>
     <Owners>beginor</Owners>
     <PackageProjectUrl>https://github.com/nhibernate/NHibernate.AspNetCore.Identity</PackageProjectUrl>
-    <PackageReleaseNotes>Add identity mapping based on dialect config (dialet must contains PostgreSQL, MySQL or MsSql).</PackageReleaseNotes>
+    <PackageReleaseNotes>Generate concurrency stamp, as behavior as microsoft's efcore's impl.</PackageReleaseNotes>
     <Title>NHibernate.AspNetCore.Identity</Title>
     <Description>
       ASPNET Core Identity provider that uses NHibernate for storage. (Build in support for PostgreSQL, SqlServer and mysql)
@@ -20,11 +20,9 @@
     <FrameworkReference Include="Microsoft.AspNetCore.App" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="NHibernate" Version="5.2.6"></PackageReference>
-    <PackageReference Include="NuGet.Build.Packaging" Version="0.2.2" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Remove="Mappings/*.xml" />
-    <EmbeddedResource Include="Mappings/*.xml" />
+    <PackageReference Include="NHibernate" Version="5.2.6"/>
+    <PackageReference Include="NuGet.Build.Packaging" Version="0.2.2"/>
+    <None Remove="Mappings/*.xml"/>
+    <EmbeddedResource Include="Mappings/*.xml"/>
   </ItemGroup>
 </Project>
