@@ -42,8 +42,10 @@ namespace WebTest {
             // Add identity mapping based on dialect config (dialet must contains
             // PostgreSQL, MySQL or MsSql)
             cfg.AddIdentityMappings();
-            // cfg.AddAssembly(typeof(Startup).Assembly);
-            // using `NHibernate.Mapping.ByCode`
+            // using default xml mapping.
+            cfg.AddAssembly(typeof(Startup).Assembly);
+            // using `NHibernate.Mapping.ByCode`, please comment the line above,
+            // and uncomment line flowing lines;
             // var modelMapper = new NHibernate.Mapping.ByCode.ModelMapper();
             // modelMapper.AddMapping<WebTest.Entities.AppRoleMapping>();
             // modelMapper.AddMapping<WebTest.Entities.AppUserMapping>();

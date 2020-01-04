@@ -52,10 +52,21 @@ public class Startup {
             "hibernate.config"
         );
         cfg.Configure(file);
-        // Add Identity Mappings for PostgreSQL
-        cfg.AddIdentityMappingsForPostgres();
-        // Add Identity Mappings for SqlServer
-        // cfg.AddIdentityMappingsForSqlServer();
+        // Add identity mapping based on dialect config (dialet must contains
+        // PostgreSQL, MySQL or MsSql)
+        cfg.AddIdentityMappings();
+        // using default xml mapping.
+        cfg.AddIdentityMappings();
+        // using default xml mapping.
+        cfg.AddAssembly(typeof(Startup).Assembly);
+        // using `NHibernate.Mapping.ByCode`, please comment the line above,
+        // and uncomment line flowing lines;
+        // var modelMapper = new NHibernate.Mapping.ByCode.ModelMapper();
+        // modelMapper.AddMapping<WebTest.Entities.AppRoleMapping>();
+        // modelMapper.AddMapping<WebTest.Entities.AppUserMapping>();
+        // modelMapper.AddMapping<WebTest.Entities.TodoItemMapping>();
+        // var mappings = modelMapper.CompileMappingForAllExplicitlyAddedEntities();
+        // cfg.AddMapping(mappings);
 
         services.AddHibernate(cfg);
         services.AddDefaultIdentity<WebTest.Entities.ApplicationUser>()
