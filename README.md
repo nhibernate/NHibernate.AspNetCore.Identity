@@ -56,8 +56,6 @@ public class Startup {
         // PostgreSQL, MySQL or MsSql)
         cfg.AddIdentityMappings();
         // using default xml mapping.
-        cfg.AddIdentityMappings();
-        // using default xml mapping.
         cfg.AddAssembly(typeof(Startup).Assembly);
         // using `NHibernate.Mapping.ByCode`, please comment the line above,
         // and uncomment line flowing lines;
