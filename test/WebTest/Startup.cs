@@ -2,8 +2,6 @@
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Identity.UI;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -11,11 +9,8 @@ using Microsoft.Extensions.Hosting;
 using NHibernate.NetCore;
 using NHibernate.AspNetCore.Identity;
 using NHibernate.Cfg;
-using NHibernate.Mapping.ByCode;
 using System.IO;
 using WebTest.Repositories;
-using WebTest.Entities;
-using WebTest.Models;
 
 namespace WebTest {
 
