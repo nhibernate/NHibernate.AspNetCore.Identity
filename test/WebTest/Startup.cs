@@ -11,6 +11,7 @@ using Microsoft.Extensions.Hosting;
 using NHibernate.NetCore;
 using NHibernate.AspNetCore.Identity;
 using NHibernate.Cfg;
+using NHibernate.Mapping.ByCode;
 using System.IO;
 using WebTest.Repositories;
 using WebTest.Entities;
@@ -46,6 +47,7 @@ namespace WebTest {
             // Add identity mapping based on dialect config (dialet must contains
             // PostgreSQL, MySQL or MsSql)
             cfg.AddIdentityMappings();
+            cfg.AddAssembly(typeof(Startup).Assembly);
 
             services.AddHibernate(cfg);
             services.AddDefaultIdentity<WebTest.Entities.AppUser>()
