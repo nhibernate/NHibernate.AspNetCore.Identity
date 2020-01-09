@@ -13,7 +13,7 @@ namespace NHibernate.AspNetCore.Identity {
             Table("aspnet_role_claims");
             Id(e => e.Id, id => {
                 id.Column("id");
-                id.Type(NHibernateUtil.String);
+                id.Type(NHibernateUtil.Int32);
                 id.Length(32);
                 id.Generator(Generators.Sequence, g => {
                     g.Params(new { sequence = "snow_flake_id_seq" });
