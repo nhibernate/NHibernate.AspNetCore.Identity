@@ -60,7 +60,7 @@
       <key-property name="LoginProvider" column="login_provider" type="string" length="32" />
       <key-property name="ProviderKey" column="provider_key" type="string" length="32" />
     </composite-id>
-    <property name="ProviderDisplayName" column="provider_display_name" type="string" length="32" />
+    <property name="ProviderDisplayName" column="provider_display_name" type="string" length="32" not-null="true" />
     <property name="UserId" column="user_id" type="string" length="32" not-null="true" />
   </class>
 
@@ -71,13 +71,13 @@
     </composite-id>
   </class>
 
-  <class name="NHibernate.AspNetCore.Identity.IdentityUserToken,NHibernate.AspNetCore.Identity" table="aspnet_user_tokens" schema="public">
+  <class name="NHibernate.AspNetCore.Identity.IdentityUserToken,NHibernate.AspNetCore.Identity" schema="public" table="aspnet_user_tokens">
     <composite-id>
       <key-property name="UserId" column="user_id" type="string" length="32" />
       <key-property name="LoginProvider" column="login_provider" type="string" length="32" />
       <key-property name="Name" column="name" type="string" length="32" />
     </composite-id>
-    <property name="Value" column="value" type="string" length="256" />
+    <property name="Value" column="value" type="string" length="256" not-null="true" />
   </class>
 
 </hibernate-mapping>
