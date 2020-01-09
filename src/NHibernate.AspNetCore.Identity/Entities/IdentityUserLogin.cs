@@ -35,9 +35,36 @@ namespace NHibernate.AspNetCore.Identity {
 
     }
 
-    public class IdentityUserLoginMapping : ClassMapping<IdentityUserLogin> {
+    public class IdentityUserLoginMappingPostgreSql : ClassMapping<IdentityUserLogin> {
 
-        public IdentityUserLoginMapping() { }
+        public IdentityUserLoginMappingPostgreSql() {
+            Schema("public");
+            Table("aspnet_user_logins");
+            ComposedId(id => {
+                id.Property(e => e.LoginProvider, prop => {
+                    prop.Column("login_provider");
+                    prop.Type(NHibernateUtil.String);
+                    prop.Length(32);
+                });
+                id.Property(e => e.ProviderKey, prop => {
+                    prop.Column("provider_key");
+                    prop.Type(NHibernateUtil.String);
+                    prop.Length(32);
+                });
+            });
+            Property(e => e.ProviderDisplayName, prop => {
+                prop.Column("provider_display_name");
+                prop.Type(NHibernateUtil.String);
+                prop.Length(32);
+                prop.NotNullable(true);
+            });
+            Property(e => e.UserId, prop => {
+                prop.Column("user_id");
+                prop.Type(NHibernateUtil.String);
+                prop.Length(32);
+                prop.NotNullable(true);
+            });
+        }
 
     }
 

@@ -35,9 +35,24 @@ namespace NHibernate.AspNetCore.Identity {
 
     }
 
-    public class IdentityUserRoleMapping : ClassMapping<IdentityUserRole> {
+    public class IdentityUserRoleMappingPostgreSql : ClassMapping<IdentityUserRole> {
 
-        public IdentityUserRoleMapping() { }
+        public IdentityUserRoleMappingPostgreSql() {
+            Schema("public");
+            Table("aspnet_user_roles");
+            ComposedId(id => {
+                id.Property(e => e.UserId, prop => {
+                    prop.Column("user_id");
+                    prop.Type(NHibernateUtil.String);
+                    prop.Length(32);
+                });
+                id.Property(e => e.RoleId, prop => {
+                    prop.Column("role_id");
+                    prop.Type(NHibernateUtil.String);
+                    prop.Length(32);
+                });
+            });
+        }
 
     }
 
