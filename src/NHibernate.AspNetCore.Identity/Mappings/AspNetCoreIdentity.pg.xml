@@ -25,22 +25,22 @@
   </class>
 
   <class name="NHibernate.AspNetCore.Identity.IdentityUser,NHibernate.AspNetCore.Identity" schema="public" table="aspnet_users">
-    <id name="Id" type="string" length="32">
+    <id name="Id" column="id" type="string" length="32">
       <generator class="trigger-identity" />
     </id>
-    <property name="AccessFailedCount" column="access_failed_count" type="int" not-null="true" />
-    <property name="ConcurrencyStamp" column="concurrency_stamp" type="string" length="36" not-null="false" />
+    <property name="UserName" column="user_name" type="string" length="64" not-null="true" unique="true" />
+    <property name="NormalizedUserName" column="normalized_user_name" type="string" length="64" not-null="true" unique="true" />
     <property name="Email" column="email" type="string" length="256" not-null="true" />
     <property name="NormalizedEmail" column="normalized_email" type="string" length="256" not-null="true" />
     <property name="EmailConfirmed" column="email_confirmed" type="bool" not-null="true" />
-    <property name="LockoutEnabled" column="lockout_enabled" type="bool" not-null="true" />
-    <property name="LockoutEndUnixTimeMilliseconds" column="lockout_end_unix_time_milliseconds" type="long" not-null="false" />
-    <property name="PasswordHash" column="password_hash" type="string" length="256" not-null="false" />
     <property name="PhoneNumber" column="phone_number" type="string" length="128" not-null="false" />
     <property name="PhoneNumberConfirmed" column="phone_number_confirmed" type="bool" not-null="true" />
+    <property name="LockoutEnabled" column="lockout_enabled" type="bool" not-null="true" />
+    <property name="LockoutEndUnixTimeMilliseconds" column="lockout_end_unix_time_milliseconds" type="long" not-null="false" />
+    <property name="AccessFailedCount" column="access_failed_count" type="int" not-null="true" />
+    <property name="ConcurrencyStamp" column="concurrency_stamp" type="string" length="36" not-null="false" />
+    <property name="PasswordHash" column="password_hash" type="string" length="256" not-null="false" />
     <property name="TwoFactorEnabled" column="two_factor_enabled" type="bool" not-null="true" />
-    <property name="UserName" column="user_name" type="string" length="64" not-null="true" unique="true" />
-    <property name="NormalizedUserName" column="normalized_user_name" type="string" length="64" not-null="true" unique="true" />
     <property name="SecurityStamp" column="security_stamp" type="string" length="64" not-null="false" />
   </class>
 
@@ -60,7 +60,7 @@
       <key-property name="LoginProvider" column="login_provider" type="string" length="32" />
       <key-property name="ProviderKey" column="provider_key" type="string" length="32" />
     </composite-id>
-    <property name="ProviderDisplayName" column="provider_display_name" type="string" length="32" />
+    <property name="ProviderDisplayName" column="provider_display_name" type="string" length="32" not-null="true" />
     <property name="UserId" column="user_id" type="string" length="32" not-null="true" />
   </class>
 
@@ -71,13 +71,13 @@
     </composite-id>
   </class>
 
-  <class name="NHibernate.AspNetCore.Identity.IdentityUserToken,NHibernate.AspNetCore.Identity" table="aspnet_user_tokens" schema="public">
+  <class name="NHibernate.AspNetCore.Identity.IdentityUserToken,NHibernate.AspNetCore.Identity" schema="public" table="aspnet_user_tokens">
     <composite-id>
       <key-property name="UserId" column="user_id" type="string" length="32" />
       <key-property name="LoginProvider" column="login_provider" type="string" length="32" />
       <key-property name="Name" column="name" type="string" length="32" />
     </composite-id>
-    <property name="Value" column="value" type="string" length="256" />
+    <property name="Value" column="value" type="string" length="256" not-null="true" />
   </class>
 
 </hibernate-mapping>
