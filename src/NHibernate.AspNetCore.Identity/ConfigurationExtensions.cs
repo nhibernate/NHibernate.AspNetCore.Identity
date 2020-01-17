@@ -64,11 +64,16 @@ namespace NHibernate.AspNetCore.Identity {
         public static Configuration AddIdentityMappingsForMySql(
             this Configuration cfg
         ) {
-            var asm = typeof(IdentityUser).Assembly;
-            var stream = asm.GetManifestResourceStream(
-                "NHibernate.AspNetCore.Identity.Mappings.AspNetCoreIdentity.mysql.xml"
-            );
-            cfg.AddInputStream(stream);
+            var mapper = new ModelMapper();
+            mapper.AddMapping<IdentityRoleMappingMySql>();
+            mapper.AddMapping<IdentityRoleClaimMappingMySql>();
+            mapper.AddMapping<IdentityUserMappingMySql>();
+            mapper.AddMapping<IdentityUserClaimMappingMySql>();
+            mapper.AddMapping<IdentityUserLoginMappingMySql>();
+            mapper.AddMapping<IdentityUserRoleMappingMySql>();
+            mapper.AddMapping<IdentityUserTokenMappingMySql>();
+            var mapping = mapper.CompileMappingForAllExplicitlyAddedEntities();
+            cfg.AddMapping(mapping);
             return cfg;
         }
 
