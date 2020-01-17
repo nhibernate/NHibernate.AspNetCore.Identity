@@ -40,4 +40,35 @@ namespace NHibernate.AspNetCore.Identity {
 
     }
 
+    public class IdentityUserClaimMappingMsSql : ClassMapping<IdentityUserClaim> {
+
+        public IdentityUserClaimMappingMsSql() {
+            Schema("dbo");
+            Table("IdentityUserClaim");
+            Id(e => e.Id, id => {
+                id.Column("id");
+                id.Type(NHibernateUtil.Int32);
+                id.Generator(Generators.Identity);
+            });
+            Property(e => e.ClaimType, prop => {
+                prop.Column("ClaimType");
+                prop.Type(NHibernateUtil.String);
+                prop.Length(1024);
+                prop.NotNullable(true);
+            });
+            Property(e => e.ClaimValue, prop => {
+                prop.Column("ClaimValue");
+                prop.Type(NHibernateUtil.String);
+                prop.Length(1024);
+                prop.NotNullable(true);
+            });
+            Property(e => e.UserId, prop => {
+                prop.Column("UserId");
+                prop.Type(NHibernateUtil.String);
+                prop.Length(32);
+                prop.NotNullable(true);
+            });
+        }
+    }
+
 }

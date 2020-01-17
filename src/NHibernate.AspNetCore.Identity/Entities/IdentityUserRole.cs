@@ -56,4 +56,25 @@ namespace NHibernate.AspNetCore.Identity {
 
     }
 
+    public class IdentityUserRoleMappingMsSql : ClassMapping<IdentityUserRole> {
+
+        public IdentityUserRoleMappingMsSql() {
+            Schema("dbo");
+            Table("AspNetUserRoles");
+            ComposedId(id => {
+                id.Property(e => e.UserId, prop => {
+                    prop.Column("UserId");
+                    prop.Type(NHibernateUtil.String);
+                    prop.Length(32);
+                });
+                id.Property(e => e.RoleId, prop => {
+                    prop.Column("RoleId");
+                    prop.Type(NHibernateUtil.String);
+                    prop.Length(32);
+                });
+            });
+        }
+
+    }
+
 }

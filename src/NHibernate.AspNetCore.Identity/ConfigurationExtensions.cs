@@ -19,7 +19,7 @@ namespace NHibernate.AspNetCore.Identity {
                 cfg.AddIdentityMappingsForMySql();
             }
             else if (dialect.Contains("MsSql", StringComparison.OrdinalIgnoreCase)) {
-                cfg.AddIdentityMappingsForSqlServer();
+                cfg.AddIdentityMappingsForMsSql();
             }
             else {
                 throw new NotSupportedException(
@@ -45,14 +45,19 @@ namespace NHibernate.AspNetCore.Identity {
             return cfg;
         }
 
-        public static Configuration AddIdentityMappingsForSqlServer(
+        public static Configuration AddIdentityMappingsForMsSql(
             this Configuration cfg
         ) {
-            var asm = typeof(IdentityUser).Assembly;
-            var stream = asm.GetManifestResourceStream(
-                "NHibernate.AspNetCore.Identity.Mappings.AspNetCoreIdentity.mssql.xml"
-            );
-            cfg.AddInputStream(stream);
+            var mapper = new ModelMapper();
+            mapper.AddMapping<IdentityRoleMappingMsSql>();
+            mapper.AddMapping<IdentityRoleClaimMappingMsSql>();
+            mapper.AddMapping<IdentityUserMappingMsSql>();
+            mapper.AddMapping<IdentityUserClaimMappingMsSql>();
+            mapper.AddMapping<IdentityUserLoginMappingMsSql>();
+            mapper.AddMapping<IdentityUserRoleMappingMsSql>();
+            mapper.AddMapping<IdentityUserTokenMappingMsSql>();
+            var mapping = mapper.CompileMappingForAllExplicitlyAddedEntities();
+            cfg.AddMapping(mapping);
             return cfg;
         }
 
