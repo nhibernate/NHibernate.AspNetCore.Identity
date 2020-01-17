@@ -31,19 +31,19 @@
         <param name="format">N</param>
       </generator>
     </id>
-    <property name="AccessFailedCount" column="AccessFailedCount" type="int" not-null="true" />
-    <property name="ConcurrencyStamp" column="ConcurrencyStamp" type="string" length="36" not-null="false" />
+    <property name="UserName" column="UserName" type="string" length="64" not-null="true" unique="true" />
+    <property name="NormalizedUserName" column="NormalizedUserName" type="string" length="256" not-null="true" unique="true" />
     <property name="Email" column="Email" type="string" length="256" not-null="true" />
     <property name="NormalizedEmail" column="NormalizedEmail" type="string" length="256" not-null="true" />
     <property name="EmailConfirmed" column="EmailConfirmed" type="bool" not-null="true" />
-    <property name="LockoutEnabled" column="LockoutEnabled" type="bool" not-null="true" />
-    <property name="LockoutEnd" column="LockoutEnd" type="datetimeoffset" not-null="false" />
-    <property name="PasswordHash" column="PasswordHash" type="string" length="256" not-null="false" />
     <property name="PhoneNumber" column="PhoneNumber" type="string" length="128" not-null="false" />
     <property name="PhoneNumberConfirmed" column="PhoneNumberConfirmed" type="bool" not-null="true" />
+    <property name="LockoutEnabled" column="LockoutEnabled" type="bool" not-null="true" />
+    <property name="LockoutEnd" column="LockoutEnd" type="datetimeoffset" not-null="false" />
+    <property name="AccessFailedCount" column="AccessFailedCount" type="int" not-null="true" />
+    <property name="ConcurrencyStamp" column="ConcurrencyStamp" type="string" length="36" not-null="false" />
+    <property name="PasswordHash" column="PasswordHash" type="string" length="256" not-null="false" />
     <property name="TwoFactorEnabled" column="TwoFactorEnabled" type="bool" not-null="true" />
-    <property name="UserName" column="UserName" type="string" length="64" not-null="true" unique="true" />
-    <property name="NormalizedUserName" column="NormalizedUserName" type="string" length="256" not-null="true" unique="true" />
     <property name="SecurityStamp" column="SecurityStamp" type="string" length="64" not-null="false" />
   </class>
 
