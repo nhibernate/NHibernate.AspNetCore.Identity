@@ -4,6 +4,7 @@ using System.Linq;
 using System.Security.Claims;
 using System.Threading;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Identity;
 using NUnit.Framework;
 using NHibernate.Cfg;
 using NHibernate.AspNetCore.Identity;
@@ -30,9 +31,12 @@ namespace UnitTest.Identity {
                 "hibernate.config"
             );
             cfg.Configure(file);
-            cfg.AddIdentityMappingsForSqlServer();
+            cfg.AddIdentityMappings();
             var sessionFactory = cfg.BuildSessionFactory();
-            store = new UserStore<NHIdentityUser, NHIdentityRole>(sessionFactory.OpenSession());
+            store = new UserStore<NHIdentityUser, NHIdentityRole>(
+                sessionFactory.OpenSession(),
+                new IdentityErrorDescriber()
+            );
         }
 
         public void Dispose() {
@@ -48,7 +52,7 @@ namespace UnitTest.Identity {
 
         [Test]
         public async Task _02_CanDoCurd() {
-            var user = new IdentityUser {
+            var user = new NHIdentityUser {
                 UserName = "Beginor",
                 NormalizedUserName = "BEGINOR",
                 Email = "beginor@qq.com",

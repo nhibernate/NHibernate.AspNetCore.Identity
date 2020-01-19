@@ -2,8 +2,6 @@
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Identity.UI;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -13,8 +11,6 @@ using NHibernate.AspNetCore.Identity;
 using NHibernate.Cfg;
 using System.IO;
 using WebTest.Repositories;
-using WebTest.Entities;
-using WebTest.Models;
 
 namespace WebTest {
 
@@ -46,6 +42,16 @@ namespace WebTest {
             // Add identity mapping based on dialect config (dialet must contains
             // PostgreSQL, MySQL or MsSql)
             cfg.AddIdentityMappings();
+            // using default xml mapping.
+            cfg.AddAssembly(typeof(Startup).Assembly);
+            // using `NHibernate.Mapping.ByCode`, please comment the line above,
+            // and uncomment line flowing lines;
+            // var modelMapper = new NHibernate.Mapping.ByCode.ModelMapper();
+            // modelMapper.AddMapping<WebTest.Entities.AppRoleMapping>();
+            // modelMapper.AddMapping<WebTest.Entities.AppUserMapping>();
+            // modelMapper.AddMapping<WebTest.Entities.TodoItemMapping>();
+            // var mappings = modelMapper.CompileMappingForAllExplicitlyAddedEntities();
+            // cfg.AddMapping(mappings);
 
             services.AddHibernate(cfg);
             services.AddDefaultIdentity<WebTest.Entities.AppUser>()

@@ -5,8 +5,8 @@
   xmlns="urn:nhibernate-mapping-2.2"
   namespace="WebTest.Entities" assembly="WebTest">
 
-  <joined-subclass name="AppRole" extends="NHibernate.AspNetCore.Identity.IdentityRole,NHibernate.AspNetCore.Identity" table="AppRoles" schema="dbo">
-    <key column="Id" />
+  <joined-subclass name="AppRole" schema="dbo" table="app_roles" extends="NHibernate.AspNetCore.Identity.IdentityRole, NHibernate.AspNetCore.Identity, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null">
+    <key column="id" />
     <property name="Description" column="Description" type="string" length="256" />
   </joined-subclass>
 

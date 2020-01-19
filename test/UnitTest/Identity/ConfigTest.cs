@@ -37,7 +37,7 @@ namespace UnitTest.Identity {
                 "hibernate.config"
             );
             cfg.Configure(file);
-            cfg.AddIdentityMappingsForSqlServer();
+            cfg.AddIdentityMappings();
         }
 
         public void Dispose() {
@@ -111,6 +111,12 @@ namespace UnitTest.Identity {
                 var count = query.ToList().Count;
                 Assert.GreaterOrEqual(count, 0);
             }
+        }
+
+        [Test]
+        public void _08_CanGetFullName() {
+            var type = typeof(IdentityRole);
+            Assert.IsNotNull(type);
         }
 
     }

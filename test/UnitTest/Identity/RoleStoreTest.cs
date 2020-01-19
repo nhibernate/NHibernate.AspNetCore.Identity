@@ -8,6 +8,7 @@ using NHibernate.AspNetCore.Identity;
 using NHibernate.NetCore;
 using NHibernate.Linq;
 using System.Threading;
+using Microsoft.AspNetCore.Identity;
 using NHIdentityRole = NHibernate.AspNetCore.Identity.IdentityRole;
 
 namespace UnitTest.Identity {
@@ -27,10 +28,11 @@ namespace UnitTest.Identity {
                 "hibernate.config"
             );
             cfg.Configure(file);
-            cfg.AddIdentityMappingsForSqlServer();
+            cfg.AddIdentityMappings();
             var sessionFactory = cfg.BuildSessionFactory();
             store = new RoleStore<NHIdentityRole>(
-                sessionFactory.OpenSession()
+                sessionFactory.OpenSession(),
+                new IdentityErrorDescriber()
             );
         }
 
@@ -47,7 +49,7 @@ namespace UnitTest.Identity {
 
         [Test]
         public async Task _02_CanDoCURD() {
-            var role = new IdentityRole();
+            var role = new NHIdentityRole();
             role.Name = "Role 1";
             role.NormalizedName = role.Name.ToUpperInvariant();
             var result = await store.CreateAsync(role, CancellationToken.None);

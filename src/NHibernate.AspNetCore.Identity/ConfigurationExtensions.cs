@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Reflection;
 using NHibernate.Cfg;
 using NHibernate.Mapping.ByCode;
 
@@ -18,7 +17,7 @@ namespace NHibernate.AspNetCore.Identity {
                 cfg.AddIdentityMappingsForMySql();
             }
             else if (dialect.Contains("MsSql", StringComparison.OrdinalIgnoreCase)) {
-                cfg.AddIdentityMappingsForSqlServer();
+                cfg.AddIdentityMappingsForMsSql();
             }
             else {
                 throw new NotSupportedException(
@@ -31,33 +30,24 @@ namespace NHibernate.AspNetCore.Identity {
         public static Configuration AddIdentityMappingsForPostgres(
             this Configuration cfg
         ) {
-            var asm = typeof(IdentityUser).Assembly;
-            var stream = asm.GetManifestResourceStream(
-                "NHibernate.AspNetCore.Identity.Mappings.AspNetCoreIdentity.pg.xml"
-            );
-            cfg.AddInputStream(stream);
+            var mapping = ConfigurationHelper.GetIdentityMappingForPostgreSql();
+            cfg.AddXml(mapping.AsString());
             return cfg;
         }
 
-        public static Configuration AddIdentityMappingsForSqlServer(
+        public static Configuration AddIdentityMappingsForMsSql(
             this Configuration cfg
         ) {
-            var asm = typeof(IdentityUser).Assembly;
-            var stream = asm.GetManifestResourceStream(
-                "NHibernate.AspNetCore.Identity.Mappings.AspNetCoreIdentity.mssql.xml"
-            );
-            cfg.AddInputStream(stream);
+            var mapping = ConfigurationHelper.GetIdentityMappingForMsSql();
+            cfg.AddXml(mapping.AsString());
             return cfg;
         }
 
         public static Configuration AddIdentityMappingsForMySql(
             this Configuration cfg
         ) {
-            var asm = typeof(IdentityUser).Assembly;
-            var stream = asm.GetManifestResourceStream(
-                "NHibernate.AspNetCore.Identity.Mappings.AspNetCoreIdentity.mysql.xml"
-            );
-            cfg.AddInputStream(stream);
+            var mapping = ConfigurationHelper.GetIdentityMappingForMySql();
+            cfg.AddXml(mapping.AsString());
             return cfg;
         }
 
