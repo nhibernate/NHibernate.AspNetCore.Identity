@@ -1,7 +1,5 @@
 ﻿using System;
-using System.Reflection;
 using NHibernate.Cfg;
-using NHibernate.Mapping;
 using NHibernate.Mapping.ByCode;
 
 namespace NHibernate.AspNetCore.Identity {
@@ -32,48 +30,24 @@ namespace NHibernate.AspNetCore.Identity {
         public static Configuration AddIdentityMappingsForPostgres(
             this Configuration cfg
         ) {
-            var mapper = new ModelMapper();
-            mapper.AddMapping<IdentityRoleMappingPostgreSql>();
-            mapper.AddMapping<IdentityRoleClaimMappingPostgreSql>();
-            mapper.AddMapping<IdentityUserMappingPostgreSql>();
-            mapper.AddMapping<IdentityUserClaimMappingPostgreSql>();
-            mapper.AddMapping<IdentityUserLoginMappingPostgreSql>();
-            mapper.AddMapping<IdentityUserRoleMappingPostgreSql>();
-            mapper.AddMapping<IdentityUserTokenMappingPostgreSql>();
-            var mapping = mapper.CompileMappingForAllExplicitlyAddedEntities();
-            cfg.AddMapping(mapping);
+            var mapping = ConfigurationHelper.GetIdentityMappingForPostgreSql();
+            cfg.AddXml(mapping.AsString());
             return cfg;
         }
 
         public static Configuration AddIdentityMappingsForMsSql(
             this Configuration cfg
         ) {
-            var mapper = new ModelMapper();
-            mapper.AddMapping<IdentityRoleMappingMsSql>();
-            mapper.AddMapping<IdentityRoleClaimMappingMsSql>();
-            mapper.AddMapping<IdentityUserMappingMsSql>();
-            mapper.AddMapping<IdentityUserClaimMappingMsSql>();
-            mapper.AddMapping<IdentityUserLoginMappingMsSql>();
-            mapper.AddMapping<IdentityUserRoleMappingMsSql>();
-            mapper.AddMapping<IdentityUserTokenMappingMsSql>();
-            var mapping = mapper.CompileMappingForAllExplicitlyAddedEntities();
-            cfg.AddMapping(mapping);
+            var mapping = ConfigurationHelper.GetIdentityMappingForMsSql();
+            cfg.AddXml(mapping.AsString());
             return cfg;
         }
 
         public static Configuration AddIdentityMappingsForMySql(
             this Configuration cfg
         ) {
-            var mapper = new ModelMapper();
-            mapper.AddMapping<IdentityRoleMappingMySql>();
-            mapper.AddMapping<IdentityRoleClaimMappingMySql>();
-            mapper.AddMapping<IdentityUserMappingMySql>();
-            mapper.AddMapping<IdentityUserClaimMappingMySql>();
-            mapper.AddMapping<IdentityUserLoginMappingMySql>();
-            mapper.AddMapping<IdentityUserRoleMappingMySql>();
-            mapper.AddMapping<IdentityUserTokenMappingMySql>();
-            var mapping = mapper.CompileMappingForAllExplicitlyAddedEntities();
-            cfg.AddMapping(mapping);
+            var mapping = ConfigurationHelper.GetIdentityMappingForMySql();
+            cfg.AddXml(mapping.AsString());
             return cfg;
         }
 
