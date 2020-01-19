@@ -20,9 +20,7 @@
     <FrameworkReference Include="Microsoft.AspNetCore.App" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="NHibernate" Version="5.2.6"/>
-    <PackageReference Include="NuGet.Build.Packaging" Version="0.2.2"/>
-    <None Remove="Mappings/*.xml"/>
-    <EmbeddedResource Include="Mappings/*.xml"/>
+    <PackageReference Include="NHibernate" Version="5.2.6" />
+    <PackageReference Include="NuGet.Build.Packaging" Version="0.2.2" />
   </ItemGroup>
 </Project>

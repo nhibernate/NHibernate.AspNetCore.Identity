@@ -28,7 +28,7 @@ namespace UnitTest.Identity {
                 "hibernate.config"
             );
             cfg.Configure(file);
-            cfg.AddIdentityMappingsForMySql();
+            cfg.AddIdentityMappings();
             var sessionFactory = cfg.BuildSessionFactory();
             store = new RoleStore<NHIdentityRole>(
                 sessionFactory.OpenSession(),

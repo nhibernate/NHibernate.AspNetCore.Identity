@@ -5,7 +5,7 @@
   xmlns="urn:nhibernate-mapping-2.2"
   namespace="WebTest.Entities" assembly="WebTest">
 
-  <joined-subclass name="AppUser" extends="NHibernate.AspNetCore.Identity.IdentityUser,NHibernate.AspNetCore.Identity" table="app_users">
+  <joined-subclass name="AppUser" table="app_users" extends="NHibernate.AspNetCore.Identity.IdentityUser, NHibernate.AspNetCore.Identity, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null">
     <key column="id" />
     <property name="CreateTime" column="create_time" type="datetime" not-null="true" generated="insert" update="false" insert="false" />
     <property name="LastLogin" column="last_login" type="datetime" not-null="false" />
