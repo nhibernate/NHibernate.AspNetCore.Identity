@@ -1,3 +1,4 @@
+using NHibernate.AspNetCore.Identity.Mappings;
 using NHibernate.Cfg.MappingSchema;
 using NHibernate.Mapping.ByCode;
 

@@ -45,38 +45,6 @@ namespace UnitTest {
             Assert.GreaterOrEqual(users.Count, 0);
         }
 
-        [Test]
-        public void _03_CanExtendXmlByXml() {
-            var cfg = new Configuration();
-            ConfigNHibernate(cfg);
-            var asm = typeof(IdentityRole).Assembly;
-            var stream = asm.GetManifestResourceStream(
-                "NHibernate.AspNetCore.Identity.Mappings.AspNetCoreIdentity.pg.xml"
-            );
-            cfg.AddInputStream(stream);
-            AddXmlMapping(cfg);
-            cfg.BuildMappings();
-            using var sf = cfg.BuildSessionFactory();
-            Assert.IsNotNull(sf);
-            QueryUsers(sf);
-        }
-
-        [Test]
-        public void _04_CanExtendXmlByByCode() {
-            var cfg = new Configuration();
-            ConfigNHibernate(cfg);
-            var asm = typeof(IdentityRole).Assembly;
-            var stream = asm.GetManifestResourceStream(
-                "NHibernate.AspNetCore.Identity.Mappings.AspNetCoreIdentity.pg.xml"
-            );
-            cfg.AddInputStream(stream);
-            AddByCodeMapping(cfg);
-            cfg.BuildMappings();
-            using var sf = cfg.BuildSessionFactory();
-            Assert.IsNotNull(sf);
-            QueryUsers(sf);
-        }
-
         private void ConfigNHibernate(Configuration cfg) {
             var file = Path.Combine(
                 AppDomain.CurrentDomain.BaseDirectory,
