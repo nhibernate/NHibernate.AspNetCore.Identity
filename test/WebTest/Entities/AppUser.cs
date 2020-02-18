@@ -11,6 +11,8 @@ namespace WebTest.Entities {
 
         public virtual int LoginCount { get; set; }
 
+        public virtual City City { get; set; }
+
     }
 
 }

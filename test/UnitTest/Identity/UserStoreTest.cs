@@ -10,7 +10,7 @@ using NHibernate.Cfg;
 using NHibernate.AspNetCore.Identity;
 using NHibernate.NetCore;
 using NHibernate.Linq;
-
+using WebTest.Entities;
 using NHIdentityUser = NHibernate.AspNetCore.Identity.IdentityUser;
 using NHIdentityRole = NHibernate.AspNetCore.Identity.IdentityRole;
 
@@ -32,6 +32,7 @@ namespace UnitTest.Identity {
             );
             cfg.Configure(file);
             cfg.AddIdentityMappings();
+            cfg.AddAssembly("WebTest");
             var sessionFactory = cfg.BuildSessionFactory();
             store = new UserStore<NHIdentityUser, NHIdentityRole>(
                 sessionFactory.OpenSession(),
@@ -130,6 +131,7 @@ namespace UnitTest.Identity {
             result = await store.DeleteAsync(user);
             Assert.True(result.Succeeded);
         }
+
     }
 
 }

@@ -41,6 +41,13 @@ namespace WebTest.Entities {
                     mapping.NotNullable(true);
                 }
             );
+            ManyToOne(
+                e => e.City,
+                mapping => {
+                    mapping.Column("city_id");
+                    mapping.NotFound(NotFoundMode.Ignore);
+                }
+            );
         }
 
     }

@@ -11,6 +11,7 @@ using NHibernate.Cfg;
 using NHibernate.AspNetCore.Identity;
 using NHibernate.NetCore;
 using NHibernate.Tool.hbm2ddl;
+using WebTest.Entities;
 
 namespace UnitTest.Identity {
 
@@ -38,6 +39,7 @@ namespace UnitTest.Identity {
             );
             cfg.Configure(file);
             cfg.AddIdentityMappings();
+            cfg.AddAssembly("WebTest");
         }
 
         public void Dispose() {
@@ -117,6 +119,16 @@ namespace UnitTest.Identity {
         public void _08_CanGetFullName() {
             var type = typeof(IdentityRole);
             Assert.IsNotNull(type);
+        }
+
+        [Test]
+        public void _09_CanQueryUserWithCity() {
+            using (var session = sessionFactory.OpenSession()) {
+                var user = session.Query<AppUser>()
+                    .First();
+                Assert.NotNull(user);
+                Assert.IsNotNull(user.City.Name);
+            }
         }
 
     }
