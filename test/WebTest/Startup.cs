@@ -52,6 +52,12 @@ namespace WebTest {
             // modelMapper.AddMapping<WebTest.Entities.TodoItemMapping>();
             // var mappings = modelMapper.CompileMappingForAllExplicitlyAddedEntities();
             // cfg.AddMapping(mappings);
+            // using `NHibernate.Mapping.Attributes`
+            // NHibernate.Mapping.Attributes.HbmSerializer.Default.Validate = true;
+            // var stream = NHibernate.Mapping.Attributes.HbmSerializer.Default.Serialize(
+            //     typeof(Startup).Assembly
+            // );
+            // cfg.AddInputStream(stream);
 
             services.AddHibernate(cfg);
             services.AddDefaultIdentity<WebTest.Entities.AppUser>()

@@ -14,7 +14,7 @@ using NHIdentityRole = NHibernate.AspNetCore.Identity.IdentityRole;
 namespace UnitTest.Identity {
 
     [TestFixture]
-    public class RoleStoreTest : IDisposable {
+    public class RoleStoreTest : BaseTest, IDisposable {
 
         private RoleStore<NHIdentityRole> store;
 
@@ -22,14 +22,9 @@ namespace UnitTest.Identity {
             var builder = new LoggingBuilder();
             var loggerFactory = builder.BuildLoggerFactory();
             loggerFactory.UseAsHibernateLoggerFactory();
-            var cfg = new Configuration();
-            var file = Path.Combine(
-                AppDomain.CurrentDomain.BaseDirectory,
-                "hibernate.config"
-            );
-            cfg.Configure(file);
+            var cfg = ConfigNHibernate();
             cfg.AddIdentityMappings();
-            cfg.AddAssembly("WebTest");
+            AddXmlMapping(cfg);
             var sessionFactory = cfg.BuildSessionFactory();
             store = new RoleStore<NHIdentityRole>(
                 sessionFactory.OpenSession(),
