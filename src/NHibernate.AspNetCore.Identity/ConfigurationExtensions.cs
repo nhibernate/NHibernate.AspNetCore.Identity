@@ -19,9 +19,12 @@ namespace NHibernate.AspNetCore.Identity {
             else if (dialect.Contains("MsSql", StringComparison.OrdinalIgnoreCase)) {
                 cfg.AddIdentityMappingsForMsSql();
             }
+            else if (dialect.Contains("Sqlite", StringComparison.OrdinalIgnoreCase)) {
+                cfg.AddIdentityMappingsForSqlite();
+            }
             else {
                 throw new NotSupportedException(
-                    "Only support PostgreSQL, MsSql, MySQL, your dialet must contains one of these words!"
+                    "Only support PostgreSQL, MsSql, MySQL, Sqlite, your dialect must contain one of these words!"
                 );
             }
             return cfg;
@@ -51,6 +54,13 @@ namespace NHibernate.AspNetCore.Identity {
             return cfg;
         }
 
+        public static Configuration AddIdentityMappingsForSqlite(
+            this Configuration cfg
+        ) {
+            var mapping = ConfigurationHelper.GetIdentityMappingForSqlite();
+            cfg.AddXml(mapping.AsString());
+            return cfg;
+        }
     }
 
 }
