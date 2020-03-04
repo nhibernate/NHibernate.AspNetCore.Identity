@@ -101,26 +101,26 @@ namespace NHibernate.AspNetCore.Identity.Mappings {
     public class IdentityUserTokenMappingSqlite : ClassMapping<IdentityUserToken> {
 
         public IdentityUserTokenMappingSqlite() {
-            Table("AspNetUserTokens");
+            Table("aspnet_user_tokens");
             ComposedId(id => {
                 id.Property(e => e.UserId, prop => {
-                    prop.Column("UserId");
+                    prop.Column("user_id");
                     prop.Type(NHibernateUtil.String);
                     prop.Length(32);
                 });
                 id.Property(e => e.LoginProvider, prop => {
-                    prop.Column("LoginProvider");
+                    prop.Column("login_provider");
                     prop.Type(NHibernateUtil.String);
                     prop.Length(32);
                 });
                 id.Property(e => e.Name, prop => {
-                    prop.Column("Name");
+                    prop.Column("name");
                     prop.Type(NHibernateUtil.String);
                     prop.Length(32);
                 });
             });
             Property(e => e.Value, prop => {
-                prop.Column("Value");
+                prop.Column("value");
                 prop.Type(NHibernateUtil.String);
                 prop.Length(256);
                 prop.NotNullable(true);

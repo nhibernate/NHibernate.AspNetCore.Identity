@@ -68,15 +68,15 @@ namespace NHibernate.AspNetCore.Identity.Mappings {
     public class IdentityUserRoleMappingSqlite : ClassMapping<IdentityUserRole> {
 
         public IdentityUserRoleMappingSqlite() {
-            Table("AspNetUserRoles");
+            Table("aspnet_user_roles");
             ComposedId(id => {
                 id.Property(e => e.UserId, prop => {
-                    prop.Column("UserId");
+                    prop.Column("user_id");
                     prop.Type(NHibernateUtil.String);
                     prop.Length(32);
                 });
                 id.Property(e => e.RoleId, prop => {
-                    prop.Column("RoleId");
+                    prop.Column("role_id");
                     prop.Type(NHibernateUtil.String);
                     prop.Length(32);
                 });

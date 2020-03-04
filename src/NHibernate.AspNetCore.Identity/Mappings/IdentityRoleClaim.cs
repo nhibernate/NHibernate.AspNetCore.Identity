@@ -42,7 +42,7 @@ namespace NHibernate.AspNetCore.Identity.Mappings {
 
         public IdentityRoleClaimMappingMsSql() {
             Schema("dbo");
-            Table("IdentityRoleClaim");
+            Table("AspNetRoleClaims");
             Id(e => e.Id, id => {
                 id.Column("Id");
                 id.Type(NHibernateUtil.Int32);
@@ -104,26 +104,26 @@ namespace NHibernate.AspNetCore.Identity.Mappings {
     public class IdentityRoleClaimMappingSqlite : ClassMapping<IdentityRoleClaim> {
 
         public IdentityRoleClaimMappingSqlite() {
-            Table("IdentityRoleClaim");
+            Table("aspnet_role_claims");
             Id(e => e.Id, id => {
-                id.Column("Id");
+                id.Column("id");
                 id.Type(NHibernateUtil.Int32);
                 id.Generator(Generators.Identity);
             });
             Property(e => e.ClaimType, prop => {
-                prop.Column("ClaimType");
+                prop.Column("claim_type");
                 prop.Type(NHibernateUtil.String);
                 prop.Length(1024);
                 prop.NotNullable(true);
             });
             Property(e => e.ClaimValue, prop => {
-                prop.Column("ClaimValue");
+                prop.Column("claim_value");
                 prop.Type(NHibernateUtil.String);
                 prop.Length(1024);
                 prop.NotNullable(true);
             });
             Property(e => e.RoleId, prop => {
-                prop.Column("RoleId");
+                prop.Column("role_id");
                 prop.Type(NHibernateUtil.String);
                 prop.Length(32);
                 prop.NotNullable(true);
@@ -131,4 +131,5 @@ namespace NHibernate.AspNetCore.Identity.Mappings {
         }
 
     }
+
 }
