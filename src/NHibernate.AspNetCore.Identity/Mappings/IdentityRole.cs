@@ -106,5 +106,37 @@ namespace NHibernate.AspNetCore.Identity.Mappings {
         }
 
     }
+    public class IdentityRoleMappingSqlite : ClassMapping<IdentityRole> {
 
+        public IdentityRoleMappingSqlite() {
+            Table("AspNetRoles");
+            Id(e => e.Id, id => {
+                id.Column("Id");
+                id.Type(NHibernateUtil.String);
+                id.Length(32);
+                id.Generator(Generators.UUIDHex("N"));
+            });
+            Property(e => e.Name, prop => {
+                prop.Column("Name");
+                prop.Type(NHibernateUtil.String);
+                prop.Length(64);
+                prop.NotNullable(true);
+                prop.Unique(true);
+            });
+            Property(e => e.NormalizedName, prop => {
+                prop.Column("NormalizedName");
+                prop.Type(NHibernateUtil.String);
+                prop.Length(64);
+                prop.NotNullable(true);
+                prop.Unique(true);
+            });
+            Property(e => e.ConcurrencyStamp, prop => {
+                prop.Column("ConcurrencyStamp");
+                prop.Type(NHibernateUtil.String);
+                prop.Length(36);
+                prop.NotNullable(false);
+            });
+        }
+
+    }
 }

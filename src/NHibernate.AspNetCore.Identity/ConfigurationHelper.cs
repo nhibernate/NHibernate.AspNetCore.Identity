@@ -42,6 +42,17 @@ namespace NHibernate.AspNetCore.Identity {
             return mapper.CompileMappingForAllExplicitlyAddedEntities();
         }
 
+        public static HbmMapping GetIdentityMappingForSqlite() {
+            var mapper = new ModelMapper();
+            mapper.AddMapping<IdentityRoleMappingSqlite>();
+            mapper.AddMapping<IdentityRoleClaimMappingSqlite>();
+            mapper.AddMapping<IdentityUserMappingSqlite>();
+            mapper.AddMapping<IdentityUserClaimMappingSqlite>();
+            mapper.AddMapping<IdentityUserLoginMappingSqlite>();
+            mapper.AddMapping<IdentityUserRoleMappingSqlite>();
+            mapper.AddMapping<IdentityUserTokenMappingSqlite>();
+            return mapper.CompileMappingForAllExplicitlyAddedEntities();
+        }
     }
 
 }
