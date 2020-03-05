@@ -2,7 +2,7 @@ using NHibernate.Mapping.Attributes;
 
 namespace WebTest.Entities {
 
-    [Class(Schema = "public", Table = "cities")]
+    [Class(Table = "cities")]
     public class City {
 
         [Id(Name = "Id", Column = "id", Type = "long", Generator = "trigger-identity")]

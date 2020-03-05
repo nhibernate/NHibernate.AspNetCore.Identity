@@ -11,7 +11,6 @@ namespace WebTest.Entities {
             Extends(typeof(NHIdentityUser));
             ExplicitDeclarationsHolder
                 .AddAsRootEntity(typeof(NHIdentityUser));
-            Schema("public");
             Table("app_users");
             Key(k => k.Column("id"));
             Property(
@@ -19,7 +18,7 @@ namespace WebTest.Entities {
                 mapping => {
                     mapping.Column("create_time");
                     mapping.Type(NHibernateUtil.DateTime);
-                    mapping.NotNullable(true);
+                    mapping.NotNullable(false);
                     mapping.Generated(PropertyGeneration.Insert);
                     mapping.Update(false);
                     mapping.Insert(false);

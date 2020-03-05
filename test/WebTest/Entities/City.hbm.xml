@@ -5,7 +5,7 @@
   xmlns="urn:nhibernate-mapping-2.2"
   namespace="WebTest.Entities" assembly="WebTest">
 
-  <class name="City" schema="public" table="cities">
+  <class name="City" table="cities">
     <id name="Id" column="id" type="long">
       <generator class="trigger-identity" />
     </id>

@@ -7,7 +7,6 @@ namespace WebTest.Entities {
     public class CityMapping : ClassMapping<City> {
 
         public CityMapping() {
-            Schema("public");
             Table("cities");
             Id(
                 e => e.Id,

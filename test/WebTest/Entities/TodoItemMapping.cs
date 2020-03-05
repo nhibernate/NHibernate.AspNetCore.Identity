@@ -7,7 +7,6 @@ namespace WebTest.Entities {
     public class TodoItemMapping : ClassMapping<TodoItem> {
 
         public TodoItemMapping() {
-            Schema("public");
             Table("todo_items");
             Id(
                 e => e.Id,

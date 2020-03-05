@@ -4,7 +4,7 @@ using NHIdentityRole = NHibernate.AspNetCore.Identity.IdentityRole;
 
 namespace WebTest.Entities {
 
-    [JoinedSubclass(0, Schema = "public", Table = "app_roles", ExtendsType = typeof(NHIdentityRole))]
+    [JoinedSubclass(0, Table = "app_roles", ExtendsType = typeof(NHIdentityRole))]
     [Key(1, Column = "id")]
     public class AppRole : NHIdentityRole {
 

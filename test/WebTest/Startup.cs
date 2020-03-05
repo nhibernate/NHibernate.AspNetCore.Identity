@@ -58,6 +58,8 @@ namespace WebTest {
             //     typeof(Startup).Assembly
             // );
             // cfg.AddInputStream(stream);
+            var exporter = new NHibernate.Tool.hbm2ddl.SchemaExport(cfg);
+            exporter.Execute(true, true, false);
 
             services.AddHibernate(cfg);
             services.AddDefaultIdentity<WebTest.Entities.AppUser>()

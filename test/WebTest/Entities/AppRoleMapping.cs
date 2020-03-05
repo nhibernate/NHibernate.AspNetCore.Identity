@@ -11,7 +11,6 @@ namespace WebTest.Entities {
             ExplicitDeclarationsHolder
                 .AddAsRootEntity(typeof(NHIdentityRole));
             Extends(typeof(NHIdentityRole));
-            Schema("public");
             Table("app_roles");
             Key(k => k.Column("id"));
             Property(
