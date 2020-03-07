@@ -1,21 +1,17 @@
 using System;
-using System.IO;
 using System.Linq;
 using NUnit.Framework;
-using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Logging;
-using Microsoft.Extensions.Logging.Console;
-using Microsoft.Extensions.Options;
 using NHibernate;
 using NHibernate.Cfg;
 using NHibernate.AspNetCore.Identity;
 using NHibernate.NetCore;
 using NHibernate.Tool.hbm2ddl;
+using WebTest.Entities;
 
 namespace UnitTest.Identity {
 
     [TestFixture]
-    public class ConfigTest : IDisposable {
+    public class ConfigTest : BaseTest, IDisposable {
 
         private ISessionFactory sessionFactory;
         private Configuration cfg;
@@ -25,19 +21,10 @@ namespace UnitTest.Identity {
             var builder = new LoggingBuilder();
             var loggerFactory = builder.BuildLoggerFactory();
             loggerFactory.UseAsHibernateLoggerFactory();
-            var config = new Configuration();
-            ConfigNHibernate(config);
-            sessionFactory = config.BuildSessionFactory();
-            cfg = config;
-        }
-
-        private void ConfigNHibernate(Configuration cfg) {
-            var file = Path.Combine(
-                AppDomain.CurrentDomain.BaseDirectory,
-                "hibernate.config"
-            );
-            cfg.Configure(file);
+            cfg = ConfigNHibernate();
             cfg.AddIdentityMappings();
+            AddAttributesMapping(cfg);
+            sessionFactory = cfg.BuildSessionFactory();
         }
 
         public void Dispose() {
@@ -117,6 +104,16 @@ namespace UnitTest.Identity {
         public void _08_CanGetFullName() {
             var type = typeof(IdentityRole);
             Assert.IsNotNull(type);
+        }
+
+        [Test]
+        public void _09_CanQueryUserWithCity() {
+            using (var session = sessionFactory.OpenSession()) {
+                var user = session.Query<AppUser>()
+                    .First();
+                Assert.NotNull(user);
+                Assert.IsNotNull(user.City.Name);
+            }
         }
 
     }

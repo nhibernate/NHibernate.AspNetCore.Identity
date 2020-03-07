@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<hibernate-mapping
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+  xmlns="urn:nhibernate-mapping-2.2"
+  namespace="WebTest.Entities" assembly="WebTest">
+
+  <class name="City" schema="public" table="cities">
+    <id name="Id" column="id" type="long">
+      <generator class="trigger-identity" />
+    </id>
+    <property name="Name" column="name" type="string" length="64" not-null="true" unique="true" />
+    <property name="Population" column="population" type="int" not-null="false" />
+  </class>
+
+</hibernate-mapping>
