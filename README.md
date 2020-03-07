@@ -53,7 +53,7 @@ public class Startup {
         );
         cfg.Configure(file);
         // Add identity mapping based on dialect config (dialet must contains
-        // PostgreSQL, MySQL or MsSql)
+        // PostgreSQL, MySQL, MsSql or Sqlite)
         cfg.AddIdentityMappings();
         // using default xml mapping.
         cfg.AddAssembly(typeof(Startup).Assembly);
