@@ -6,7 +6,6 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.DependencyInjection;
 using NHibernate;
-using NHibernate.AspNetCore.Identity;
 using WebTest.Entities;
 
 namespace WebTest.Controllers {
@@ -78,6 +77,7 @@ namespace WebTest.Controllers {
             }
             catch (Exception ex) {
                 await tx.RollbackAsync();
+                Console.WriteLine(ex);
                 return StatusCode(500);
             }
         }
