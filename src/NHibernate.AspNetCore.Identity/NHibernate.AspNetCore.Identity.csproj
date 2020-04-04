@@ -1,12 +1,12 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <TargetFramework>netcoreapp3.1</TargetFramework>
+    <TargetFramework>netstandard2.0</TargetFramework>
     <PackageId>NHibernate.AspNetCore.Identity</PackageId>
-    <PackageVersion>3.1.5</PackageVersion>
+    <PackageVersion>3.2</PackageVersion>
     <Authors>beginor</Authors>
     <Owners>beginor</Owners>
     <PackageProjectUrl>https://github.com/nhibernate/NHibernate.AspNetCore.Identity</PackageProjectUrl>
-    <PackageReleaseNotes>Add Sqlite support .</PackageReleaseNotes>
+    <PackageReleaseNotes>Add .NETStandard2.0 support.</PackageReleaseNotes>
     <Title>NHibernate.AspNetCore.Identity</Title>
     <Description>
       ASPNET Core Identity provider that uses NHibernate for storage. (Build in support for PostgreSQL, SqlServer, MySql, Sqlite)
@@ -14,9 +14,8 @@
     <PackageLicenseUrl>https://github.com/nhibernate/NHibernate.AspNetCore.Identity/blob/master/LICENSE.txt</PackageLicenseUrl>
   </PropertyGroup>
   <ItemGroup>
-    <FrameworkReference Include="Microsoft.AspNetCore.App" />
-  </ItemGroup>
-  <ItemGroup>
     <PackageReference Include="NHibernate" Version="5.2.7" />
+    <PackageReference Include="Microsoft.Extensions.Identity.Core" Version="3.1.3" />
+    <PackageReference Include="Microsoft.Extensions.Identity.Stores" Version="3.1.3" />
   </ItemGroup>
 </Project>
