@@ -41,7 +41,7 @@ namespace NHibernate.AspNetCore.Identity.Mappings {
 
         public IdentityUserClaimMappingMsSql() {
             Schema("dbo");
-            Table("IdentityUserClaim");
+            Table("AspNetUserClaims");
             Id(e => e.Id, id => {
                 id.Column("id");
                 id.Type(NHibernateUtil.Int32);
