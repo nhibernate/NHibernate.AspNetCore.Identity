@@ -14,10 +14,11 @@ Nuget package:
 dotnet new mvc --auth Individual
 ```
 
-### 2. Add reference to `NHibernate.AspNetCore.Identity`
+### 2. Add reference to `NHibernate.AspNetCore.Identity` and `NHibernate.NetCore`
 
 ```sh
 dotnet add package NHibernate.AspNetCore.Identity
+dotnet add package NHibernate.NetCore
 ```
 
 > `NHibernate` will be installed automatically.
