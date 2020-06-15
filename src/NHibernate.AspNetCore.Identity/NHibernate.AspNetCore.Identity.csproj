@@ -2,11 +2,20 @@
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
     <PackageId>NHibernate.AspNetCore.Identity</PackageId>
-    <PackageVersion>3.1.7</PackageVersion>
+    <PackageVersion>3.1.8</PackageVersion>
     <Authors>beginor</Authors>
     <Owners>beginor</Owners>
     <PackageProjectUrl>https://github.com/nhibernate/NHibernate.AspNetCore.Identity</PackageProjectUrl>
-    <PackageReleaseNotes>Fix mapping of IdentityUserClaim for mssql server.</PackageReleaseNotes>
+    <PackageReleaseNotes>rename column `lockout_end_unix_time_milliseconds` of table aspnet_users to `lockout_end_unix_time_seconds`,
+please do small refact on aspnet tables like:
+```sql
+alter table public.aspnet_users
+rename lockout_end_unix_time_milliseconds to lockout_end_unix_time_seconds;
+
+update public.aspnet_users
+set lockout_end_unix_time_seconds = lockout_end_unix_time_seconds / 1000
+where lockout_end_unix_time_seconds is not null;
+```</PackageReleaseNotes>
     <Title>NHibernate.AspNetCore.Identity</Title>
     <Description>ASPNET Core Identity provider that uses NHibernate for storage. (Build in support for PostgreSQL, SqlServer, MySql, Sqlite)</Description>
     <PackageLicense>https://github.com/nhibernate/NHibernate.AspNetCore.Identity/blob/master/LICENSE.txt</PackageLicense>
