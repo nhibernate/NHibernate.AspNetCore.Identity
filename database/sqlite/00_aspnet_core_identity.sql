@@ -34,7 +34,7 @@ create table aspnet_users (
     phone_number text,
     phone_number_confirmed bool not null,
     lockout_enabled bool not null,
-    lockout_end_unix_time_milliseconds bigint,
+    lockout_end_unix_time_seconds bigint,
     password_hash text,
     security_stamp text,
     concurrency_stamp text,

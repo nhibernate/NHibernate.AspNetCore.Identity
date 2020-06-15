@@ -5,24 +5,24 @@ namespace NHibernate.AspNetCore.Identity {
 
     public class IdentityUser : IdentityUser<string> {
 
-        public virtual long? LockoutEndUnixTimeMilliseconds { get; set; }
+        public virtual long? LockoutEndUnixTimeSeconds { get; set; }
 
         public override DateTimeOffset? LockoutEnd {
             get {
-                if (!LockoutEndUnixTimeMilliseconds.HasValue) {
+                if (!LockoutEndUnixTimeSeconds.HasValue) {
                     return null;
                 }
-                var offset = DateTimeOffset.FromUnixTimeMilliseconds(
-                    LockoutEndUnixTimeMilliseconds.Value
+                var offset = DateTimeOffset.FromUnixTimeSeconds(
+                    LockoutEndUnixTimeSeconds.Value
                 );
                 return TimeZoneInfo.ConvertTime(offset, TimeZoneInfo.Local);
             }
             set {
                 if (value.HasValue) {
-                    LockoutEndUnixTimeMilliseconds = value.Value.ToUnixTimeMilliseconds();
+                    LockoutEndUnixTimeSeconds = value.Value.ToUnixTimeSeconds();
                 }
                 else {
-                    LockoutEndUnixTimeMilliseconds = null;
+                    LockoutEndUnixTimeSeconds = null;
                 }
             }
         }

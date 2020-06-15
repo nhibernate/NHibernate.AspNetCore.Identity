@@ -61,8 +61,8 @@ namespace NHibernate.AspNetCore.Identity.Mappings {
                 prop.Type(NHibernateUtil.Boolean);
                 prop.NotNullable(true);
             });
-            Property(e => e.LockoutEndUnixTimeMilliseconds, prop => {
-                prop.Column("lockout_end_unix_time_milliseconds");
+            Property(e => e.LockoutEndUnixTimeSeconds, prop => {
+                prop.Column("lockout_end_unix_time_seconds");
                 prop.Type(NHibernateUtil.Int64);
                 prop.NotNullable(false);
             });
@@ -250,8 +250,8 @@ namespace NHibernate.AspNetCore.Identity.Mappings {
                 prop.Type(NHibernateUtil.Boolean);
                 prop.NotNullable(true);
             });
-            Property(e => e.LockoutEndUnixTimeMilliseconds, prop => {
-                prop.Column("lockout_end_unix_time_milliseconds");
+            Property(e => e.LockoutEndUnixTimeSeconds, prop => {
+                prop.Column("lockout_end_unix_time_seconds");
                 prop.Type(NHibernateUtil.Int64);
                 prop.NotNullable(false);
             });
@@ -344,8 +344,8 @@ namespace NHibernate.AspNetCore.Identity.Mappings {
                 prop.Type(NHibernateUtil.Boolean);
                 prop.NotNullable(true);
             });
-            Property(e => e.LockoutEndUnixTimeMilliseconds, prop => {
-                prop.Column("lockout_end_unix_time_milliseconds");
+            Property(e => e.LockoutEndUnixTimeSeconds, prop => {
+                prop.Column("lockout_end_unix_time_seconds");
                 prop.Type(NHibernateUtil.Int64);
                 prop.NotNullable(false);
             });

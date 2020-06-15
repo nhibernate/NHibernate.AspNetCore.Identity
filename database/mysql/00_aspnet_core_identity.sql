@@ -32,7 +32,7 @@ create table aspnet_users (
   normalized_email varchar(256) null comment 'normalized email',
   email_confirmed tinyint(1) default 0 not null comment 'email confirmed',
   lockout_enabled tinyint(1) default 0 not null comment 'lockout enabled',
-  lockout_end_unix_time_milliseconds bigint null comment 'lockout end unix time in milliseconds',
+  lockout_end_unix_time_seconds bigint null comment 'lockout end unix time in seconds',
   password_hash varchar(256) null comment 'password hash',
   phone_number varchar(128) null comment 'phone number',
   phone_number_confirmed tinyint(1) default 0 not null comment 'phone number confirmed',
