@@ -21,8 +21,8 @@ where lockout_end_unix_time_seconds is not null;
     <PackageLicense>https://github.com/nhibernate/NHibernate.AspNetCore.Identity/blob/master/LICENSE.txt</PackageLicense>
   </PropertyGroup>
   <ItemGroup>
-    <PackageReference Include="Microsoft.Extensions.Identity.Core" Version="3.1.5" />
-    <PackageReference Include="Microsoft.Extensions.Identity.Stores" Version="3.1.5" />
-    <PackageReference Include="NHibernate" Version="5.2.7" />
+    <PackageReference Include="Microsoft.Extensions.Identity.Core" Version="3.1.6" />
+    <PackageReference Include="Microsoft.Extensions.Identity.Stores" Version="3.1.6" />
+    <PackageReference Include="NHibernate" Version="5.3.0" />
   </ItemGroup>
 </Project>

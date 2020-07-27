@@ -252,7 +252,7 @@ namespace NHibernate.AspNetCore.Identity {
             var userId = user.Id;
             var query = from userRole in UserRoles
                 join role in Roles on userRole.RoleId equals role.Id
-                where userRole.UserId.Equals(userId)
+                where userRole.UserId == userId
                 select role.Name;
             var roles = await query.ToListAsync(cancellationToken);
             return roles;
