@@ -9,6 +9,7 @@ using NUnit.Framework;
 using NHibernate.Cfg;
 using NHibernate.AspNetCore.Identity;
 using NHibernate.NetCore;
+using NHibernate;
 using NHibernate.Linq;
 using WebTest.Entities;
 using NHIdentityUser = NHibernate.AspNetCore.Identity.IdentityUser;
@@ -20,6 +21,7 @@ namespace UnitTest.Identity {
     public class UserStoreTest : BaseTest, IDisposable {
 
         private readonly UserStore<NHIdentityUser, NHIdentityRole> store;
+        private readonly ISessionFactory sessionFactory;
 
         public UserStoreTest() {
             var builder = new LoggingBuilder();
@@ -28,7 +30,7 @@ namespace UnitTest.Identity {
             var cfg = ConfigNHibernate();
             cfg.AddIdentityMappings();
             AddXmlMapping(cfg);
-            var sessionFactory = cfg.BuildSessionFactory();
+            sessionFactory = cfg.BuildSessionFactory();
             store = new UserStore<NHIdentityUser, NHIdentityRole>(
                 sessionFactory.OpenSession(),
                 new IdentityErrorDescriber()
@@ -37,6 +39,7 @@ namespace UnitTest.Identity {
 
         public void Dispose() {
             store?.Dispose();
+            sessionFactory?.Dispose();
         }
 
         [Test]
@@ -127,6 +130,20 @@ namespace UnitTest.Identity {
             Assert.True(result.Succeeded);
         }
 
+        [Test]
+        public async Task _03_CanGetRolesForUser() {
+            using var session = sessionFactory.OpenSession();
+            // var user = await session.Query<NHIdentityUser>().FirstAsync();
+            // Assert.IsNotNull(user);
+            // var userId = user.Id;
+            // var query = from userRole in session.Query<IdentityUserRole>()
+            //     join role in session.Query<NHIdentityRole>() on userRole.RoleId equals role.Id
+            //     where userRole.UserId == userId
+            //     select role.Name;
+            // var roles = await query.ToListAsync(CancellationToken.None);
+            var roles = await store.GetRolesAsync(new NHIdentityUser { Id = "1579928865223010012" });
+            Console.WriteLine(roles.Count);
+        }
     }
 
 }

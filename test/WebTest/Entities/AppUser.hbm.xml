@@ -10,7 +10,7 @@
     <property name="CreateTime" column="create_time" type="datetime" not-null="true" generated="insert" update="false" insert="false" />
     <property name="LastLogin" column="last_login" type="datetime" not-null="false" />
     <property name="LoginCount" column="login_count" type="int" not-null="true" />
-    <many-to-one name="City" column="city_id" not-found="ignore" />
+    <!-- <many-to-one name="City" column="city_id" not-found="ignore" /> -->
   </joined-subclass>
 
 </hibernate-mapping>
