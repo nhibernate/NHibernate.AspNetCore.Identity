@@ -133,7 +133,7 @@ namespace UnitTest.Identity {
         [Test]
         public async Task _03_CanGetRolesForUser() {
             using var session = sessionFactory.OpenSession();
-            // var user = await session.Query<NHIdentityUser>().FirstAsync();
+            var user = new NHIdentityUser { Id = "1579928865223010012" };
             // Assert.IsNotNull(user);
             // var userId = user.Id;
             // var query = from userRole in session.Query<IdentityUserRole>()
@@ -141,7 +141,7 @@ namespace UnitTest.Identity {
             //     where userRole.UserId == userId
             //     select role.Name;
             // var roles = await query.ToListAsync(CancellationToken.None);
-            var roles = await store.GetRolesAsync(new NHIdentityUser { Id = "1579928865223010012" });
+            var roles = await store.GetRolesAsync(user);
             Console.WriteLine(roles.Count);
         }
     }

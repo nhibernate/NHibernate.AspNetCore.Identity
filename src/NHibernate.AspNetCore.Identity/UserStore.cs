@@ -250,10 +250,10 @@ namespace NHibernate.AspNetCore.Identity {
                 throw new ArgumentNullException(nameof(user));
             }
             var userId = user.Id;
-            var query = from userRole in UserRoles
-                join role in Roles on userRole.RoleId equals role.Id
-                where userRole.UserId == userId
-                select role.Name;
+            var query = from r in Roles
+                join ur in UserRoles on r.Id equals ur.RoleId
+                where ur.UserId == userId
+                select r.Name;
             var roles = await query.ToListAsync(cancellationToken);
             return roles;
         }
