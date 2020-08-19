@@ -6,7 +6,7 @@
     <Authors>beginor</Authors>
     <Owners>beginor</Owners>
     <PackageProjectUrl>https://github.com/nhibernate/NHibernate.AspNetCore.Identity</PackageProjectUrl>
-    <PackageReleaseNotes>update nhibernate to 5.3.2</PackageReleaseNotes>
+    <PackageReleaseNotes>fix bug with `UserStore.GetRolesAsync`, update package references. </PackageReleaseNotes>
     <Title>NHibernate.AspNetCore.Identity</Title>
     <Description>ASPNET Core Identity provider that uses NHibernate for storage. (Build in support for PostgreSQL, SqlServer, MySql, Sqlite)</Description>
     <PackageLicense>https://github.com/nhibernate/NHibernate.AspNetCore.Identity/blob/master/LICENSE.txt</PackageLicense>
