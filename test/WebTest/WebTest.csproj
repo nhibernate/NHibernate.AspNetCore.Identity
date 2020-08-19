@@ -4,12 +4,12 @@
     <UserSecretsId>aspnet-WebTest-2248A449-FB12-43B9-B501-6761982E7A88</UserSecretsId>
   </PropertyGroup>
   <ItemGroup>
-    <PackageReference Include="Microsoft.AspNetCore.Identity.UI" Version="3.1.6" />
+    <PackageReference Include="Microsoft.AspNetCore.Identity.UI" Version="3.1.7" />
     <PackageReference Include="AutoMapper" Version="10.0.0" />
     <PackageReference Include="NHibernate" Version="5.3.2" />
     <PackageReference Include="NHibernate.Extensions.NpgSql" Version="3.1.8" />
     <PackageReference Include="NHibernate.Mapping.Attributes" Version="5.1.0" />
-    <PackageReference Include="NHibernate.NetCore" Version="3.1.6" />
+    <PackageReference Include="NHibernate.NetCore" Version="3.1.7" />
     <PackageReference Include="Npgsql" Version="4.1.4" />
   </ItemGroup>
   <ItemGroup>
