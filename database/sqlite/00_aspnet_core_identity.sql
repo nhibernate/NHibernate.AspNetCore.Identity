@@ -31,14 +31,14 @@ create table aspnet_users (
     email text not null,
     normalized_email text not null,
     email_confirmed bool not null,
-    phone_number text,
-    phone_number_confirmed bool not null,
-    lockout_enabled bool not null,
-    lockout_end_unix_time_seconds bigint,
     password_hash text,
     security_stamp text,
     concurrency_stamp text,
+    phone_number text,
+    phone_number_confirmed bool not null,
     two_factor_enabled bool not null,
+    lockout_end_unix_time_seconds bigint,
+    lockout_enabled bool not null,
     access_failed_count int not null,
     primary key (id)
 );
