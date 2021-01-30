@@ -4,13 +4,13 @@
     <UserSecretsId>aspnet-WebTest-2248A449-FB12-43B9-B501-6761982E7A88</UserSecretsId>
   </PropertyGroup>
   <ItemGroup>
-    <PackageReference Include="Microsoft.AspNetCore.Identity.UI" Version="5.0.1" />
+    <PackageReference Include="Microsoft.AspNetCore.Identity.UI" Version="5.0.2" />
     <PackageReference Include="AutoMapper" Version="10.1.1" />
     <PackageReference Include="NHibernate" Version="5.3.5" />
     <PackageReference Include="NHibernate.Extensions.NpgSql" Version="5.0.2" />
     <PackageReference Include="NHibernate.Mapping.Attributes" Version="5.1.0" />
-    <PackageReference Include="NHibernate.NetCore" Version="5.0.2" />
-    <PackageReference Include="Npgsql" Version="5.0.1.1" />
+    <PackageReference Include="NHibernate.NetCore" Version="5.0.3" />
+    <PackageReference Include="Npgsql" Version="5.0.3" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\src\NHibernate.AspNetCore.Identity\NHibernate.AspNetCore.Identity.csproj" />
