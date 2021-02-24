@@ -14,6 +14,6 @@
   <ItemGroup>
     <PackageReference Include="Microsoft.Extensions.Identity.Core" Version="5.0.3" />
     <PackageReference Include="Microsoft.Extensions.Identity.Stores" Version="5.0.3" />
-    <PackageReference Include="NHibernate" Version="5.3.5" />
+    <PackageReference Include="NHibernate" Version="5.3.6" />
   </ItemGroup>
 </Project>
