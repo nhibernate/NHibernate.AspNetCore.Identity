@@ -1,5 +1,4 @@
 using NHibernate;
-using NHibernate.Type;
 using NHibernate.Mapping.ByCode.Conformist;
 using NHIdentityRole = NHibernate.AspNetCore.Identity.IdentityRole;
 

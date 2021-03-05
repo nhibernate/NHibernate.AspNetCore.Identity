@@ -1,5 +1,4 @@
-﻿using System;
-using NHibernate.Mapping.Attributes;
+﻿using NHibernate.Mapping.Attributes;
 using NHIdentityRole = NHibernate.AspNetCore.Identity.IdentityRole;
 
 namespace WebTest.Entities {
