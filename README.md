@@ -2,9 +2,17 @@
 
 ASP.NET Core Identity Provider implemented with NHibernate
 
+![Database diagram](./database/db_schema.png)
+
 Nuget package:
 
 - [NHibernate.AspNetCore.Identity](https://www.nuget.org/packages/NHibernate.AspNetCore.Identity/)
+
+## About Version
+
+- 5.0.x is compatible with .Net Core 5.0.x;
+- 3.1.x is compatible with .Net Core 3.1.x;
+- 3.0.x is compatible with .Net Core 3.0.x;
 
 ## Usage
 
