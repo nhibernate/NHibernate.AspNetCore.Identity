@@ -10,7 +10,7 @@ Nuget package:
 
 ## About Version
 
-- 5.0.x is compatible with .Net Core 5.0.x;
+- 5.0.x is compatible with .Net 5.0.x;
 - 3.1.x is compatible with .Net Core 3.1.x;
 - 3.0.x is compatible with .Net Core 3.0.x;
 
