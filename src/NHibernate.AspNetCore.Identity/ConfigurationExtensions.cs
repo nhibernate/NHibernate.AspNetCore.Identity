@@ -8,16 +8,16 @@ namespace NHibernate.AspNetCore.Identity {
 
         public static Configuration AddIdentityMappings(this Configuration cfg) {
             var dialect = cfg.GetProperty(NHibernate.Cfg.Environment.Dialect);
-            if (dialect.IndexOf("PostgreSQL", StringComparison.OrdinalIgnoreCase) >= -1) {
+            if (dialect.IndexOf("PostgreSQL", StringComparison.OrdinalIgnoreCase) > -1) {
                 cfg.AddIdentityMappingsForPostgres();
             }
-            else if (dialect.IndexOf("MySQL", StringComparison.OrdinalIgnoreCase) >= -1) {
+            else if (dialect.IndexOf("MySQL", StringComparison.OrdinalIgnoreCase) > -1) {
                 cfg.AddIdentityMappingsForMySql();
             }
-            else if (dialect.IndexOf("MsSql", StringComparison.OrdinalIgnoreCase) >= -1) {
+            else if (dialect.IndexOf("MsSql", StringComparison.OrdinalIgnoreCase) > -1) {
                 cfg.AddIdentityMappingsForMsSql();
             }
-            else if (dialect.IndexOf("Sqlite", StringComparison.OrdinalIgnoreCase) >= -1) {
+            else if (dialect.IndexOf("Sqlite", StringComparison.OrdinalIgnoreCase) > -1) {
                 cfg.AddIdentityMappingsForSqlite();
             }
             else {
