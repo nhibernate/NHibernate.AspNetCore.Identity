@@ -6,11 +6,11 @@
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.Identity.UI" Version="5.0.7" />
     <PackageReference Include="AutoMapper" Version="10.1.1" />
-    <PackageReference Include="NHibernate" Version="5.3.8" />
+    <PackageReference Include="NHibernate" Version="5.3.9" />
     <PackageReference Include="NHibernate.Mapping.Attributes" Version="5.1.0" />
-    <PackageReference Include="NHibernate.Extensions.NpgSql" Version="5.0.7" />
-    <PackageReference Include="NHibernate.NetCore" Version="5.0.7" />
-    <PackageReference Include="Npgsql" Version="5.0.5" />
+    <PackageReference Include="NHibernate.Extensions.NpgSql" Version="5.0.8" />
+    <PackageReference Include="NHibernate.NetCore" Version="5.0.8" />
+    <PackageReference Include="Npgsql" Version="5.0.7" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\src\NHibernate.AspNetCore.Identity\NHibernate.AspNetCore.Identity.csproj" />
