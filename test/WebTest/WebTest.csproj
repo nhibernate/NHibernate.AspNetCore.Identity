@@ -8,9 +8,9 @@
     <PackageReference Include="AutoMapper" Version="10.1.1" />
     <PackageReference Include="NHibernate" Version="5.3.9" />
     <PackageReference Include="NHibernate.Mapping.Attributes" Version="5.1.0" />
-    <PackageReference Include="NHibernate.Extensions.NpgSql" Version="5.0.9" />
-    <PackageReference Include="NHibernate.NetCore" Version="5.0.9" />
-    <PackageReference Include="Npgsql" Version="5.0.7" />
+    <PackageReference Include="NHibernate.Extensions.NpgSql" Version="5.0.10" />
+    <PackageReference Include="NHibernate.NetCore" Version="5.0.10" />
+    <PackageReference Include="Npgsql" Version="5.0.10" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\src\NHibernate.AspNetCore.Identity\NHibernate.AspNetCore.Identity.csproj" />
