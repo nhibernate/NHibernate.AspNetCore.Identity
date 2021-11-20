@@ -1,27 +1,22 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore;
-using Microsoft.AspNetCore.Hosting;
-using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.Logging;
+﻿using WebTest;
 
 namespace WebTest {
 
     public class Program {
 
         public static void Main(string[] args) {
-            CreateWebHostBuilder(args).Build().Run();
+            var builder = WebApplication.CreateBuilder(args);
+            builder.Logging.ClearProviders().AddConsole();
+            var startup = new Startup(builder.Configuration);
+            startup.ConfigureServices(builder.Services);
+            var app = builder.Build();
+            startup.Configure(
+                app,
+                builder.Environment,
+                app.Services.GetService<ILoggerFactory>()
+            );
+            app.Run();
         }
-
-        public static IWebHostBuilder CreateWebHostBuilder(string[] args) =>
-            WebHost.CreateDefaultBuilder(args)
-                .ConfigureLogging(logging => {
-                    logging.ClearProviders().AddConsole();
-                })
-                .UseStartup<Startup>();
     }
-
 }
+
