@@ -1,6 +1,3 @@
-using System;
-using System.Linq;
-using NUnit.Framework;
 using NHibernate;
 using NHibernate.Cfg;
 using NHibernate.AspNetCore.Identity;
@@ -42,7 +39,7 @@ public class ConfigTest : BaseTest, IDisposable {
         using (var session = sessionFactory.OpenSession()) {
             var query = session.Query<IdentityUser>();
             var count = query.ToList().Count;
-            Assert.GreaterOrEqual(count, 0);
+            GreaterOrEqual(count, 0);
         }
     }
 
@@ -51,7 +48,7 @@ public class ConfigTest : BaseTest, IDisposable {
         using (var session = sessionFactory.OpenSession()) {
             var query = session.Query<IdentityRole>();
             var count = query.ToList().Count;
-            Assert.GreaterOrEqual(count, 0);
+            GreaterOrEqual(count, 0);
         }
     }
 
@@ -60,7 +57,7 @@ public class ConfigTest : BaseTest, IDisposable {
         using (var session = sessionFactory.OpenSession()) {
             var query = session.Query<IdentityRoleClaim>();
             var count = query.ToList().Count;
-            Assert.GreaterOrEqual(count, 0);
+            GreaterOrEqual(count, 0);
         }
     }
 
@@ -69,7 +66,7 @@ public class ConfigTest : BaseTest, IDisposable {
         using (var session = sessionFactory.OpenSession()) {
             var query = session.Query<IdentityUserClaim>();
             var count = query.ToList().Count;
-            Assert.GreaterOrEqual(count, 0);
+            GreaterOrEqual(count, 0);
         }
     }
 
@@ -78,7 +75,7 @@ public class ConfigTest : BaseTest, IDisposable {
         using (var session = sessionFactory.OpenSession()) {
             var query = session.Query<IdentityUserLogin>();
             var count = query.ToList().Count;
-            Assert.GreaterOrEqual(count, 0);
+            GreaterOrEqual(count, 0);
         }
     }
 
@@ -87,7 +84,7 @@ public class ConfigTest : BaseTest, IDisposable {
         using (var session = sessionFactory.OpenSession()) {
             var query = session.Query<IdentityUserToken>();
             var count = query.ToList().Count;
-            Assert.GreaterOrEqual(count, 0);
+            GreaterOrEqual(count, 0);
         }
     }
 
@@ -96,14 +93,14 @@ public class ConfigTest : BaseTest, IDisposable {
         using (var session = sessionFactory.OpenSession()) {
             var query = session.Query<IdentityUserRole>();
             var count = query.ToList().Count;
-            Assert.GreaterOrEqual(count, 0);
+            GreaterOrEqual(count, 0);
         }
     }
 
     [Test]
     public void _08_CanGetFullName() {
         var type = typeof(IdentityRole);
-        Assert.IsNotNull(type);
+        IsNotNull(type);
     }
 
     [Test]
@@ -111,8 +108,8 @@ public class ConfigTest : BaseTest, IDisposable {
         using (var session = sessionFactory.OpenSession()) {
             var user = session.Query<AppUser>()
                 .First();
-            Assert.NotNull(user);
-            Assert.IsNotNull(user.City.Name);
+            NotNull(user);
+            IsNotNull(user.City.Name);
         }
     }
 

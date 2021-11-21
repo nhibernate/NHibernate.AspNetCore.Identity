@@ -11,8 +11,8 @@ public class RoleStore<TRole>
 
     public RoleStore(
         ISession session,
-        IdentityErrorDescriber describer = null
-    ) : base(describer) {
+        IdentityErrorDescriber describer
+    ) : base(describer ?? new IdentityErrorDescriber()) {
         this.session = session ?? throw new ArgumentNullException(nameof(session));
     }
 

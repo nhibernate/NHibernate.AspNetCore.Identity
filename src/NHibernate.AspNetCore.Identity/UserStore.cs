@@ -12,7 +12,7 @@ public class UserStore<TUser, TRole> :
 
     public UserStore(
         ISession session,
-        IdentityErrorDescriber errorDescriber = null
+        IdentityErrorDescriber errorDescriber
     ) : base(errorDescriber ?? new IdentityErrorDescriber()) {
         this.session = session ?? throw new ArgumentNullException(nameof(session));
     }

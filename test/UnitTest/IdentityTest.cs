@@ -1,12 +1,5 @@
-using System;
-using System.IO;
-using System.Linq;
 using NHibernate;
 using NHibernate.AspNetCore.Identity;
-using NHibernate.Cfg;
-using NHibernate.Mapping.Attributes;
-using NHibernate.Mapping.ByCode;
-using NUnit.Framework;
 using WebTest.Entities;
 
 namespace UnitTest;
@@ -21,7 +14,7 @@ public class IdentityTest : BaseTest {
         AddByCodeMapping(cfg);
         cfg.BuildMappings();
         var sf = cfg.BuildSessionFactory();
-        Assert.IsNotNull(sf);
+        IsNotNull(sf);
         QueryUsers(sf);
     }
 
@@ -32,7 +25,7 @@ public class IdentityTest : BaseTest {
         AddXmlMapping(cfg);
         cfg.BuildMappings();
         var sf = cfg.BuildSessionFactory();
-        Assert.IsNotNull(sf);
+        IsNotNull(sf);
         QueryUsers(sf);
     }
 
@@ -43,7 +36,7 @@ public class IdentityTest : BaseTest {
         AddAttributesMapping(cfg);
         cfg.BuildMappings();
         var sf = cfg.BuildSessionFactory();
-        Assert.IsNotNull(sf);
+        IsNotNull(sf);
         QueryUsers(sf);
     }
 
@@ -54,13 +47,13 @@ public class IdentityTest : BaseTest {
         AddAttributesMapping(cfg);
         cfg.BuildMappings();
         var sf = cfg.BuildSessionFactory();
-        Assert.IsNotNull(sf);
+        IsNotNull(sf);
         using var session = sf.OpenSession();
         var cities = session.Query<City>().ToList();
-        Assert.IsNotEmpty(cities);
+        IsNotEmpty(cities);
         foreach (var city in cities) {
-            Assert.Greater(city.Id, 0);
-            Assert.NotNull(city.Name);
+            Greater(city.Id, 0);
+            NotNull(city.Name);
         }
     }
 
@@ -71,7 +64,7 @@ public class IdentityTest : BaseTest {
         AddAttributesMapping(cfg);
         cfg.BuildMappings();
         var sf = cfg.BuildSessionFactory();
-        Assert.IsNotNull(sf);
+        IsNotNull(sf);
         using var session = sf.OpenSession();
         var tx = session.BeginTransaction();
         var city = new City {
@@ -79,7 +72,7 @@ public class IdentityTest : BaseTest {
         };
         session.Save(city);
         session.Flush();
-        Assert.Greater(city.Id, 0);
+        Greater(city.Id, 0);
         tx.Rollback();
     }
 
@@ -88,7 +81,7 @@ public class IdentityTest : BaseTest {
         var users = session.Query<AppUser>()
             .Where(u => u.LoginCount > 0)
             .ToList();
-        Assert.GreaterOrEqual(users.Count, 0);
+        GreaterOrEqual(users.Count, 0);
     }
 
 }

@@ -1,5 +1,3 @@
-using System;
-using System.IO;
 using NHibernate.Cfg;
 using NHibernate.Mapping.Attributes;
 using NHibernate.Mapping.ByCode;

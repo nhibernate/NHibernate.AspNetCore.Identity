@@ -1,6 +1,4 @@
-using System;
 using Microsoft.Extensions.Logging;
-using NUnit.Framework;
 
 namespace UnitTest;
 
@@ -11,7 +9,7 @@ public class LoggingBuilderTest {
     public void _01_CanBuildLoggingFactory() {
         var target = new LoggingBuilder();
         var factory = target.BuildLoggerFactory();
-        Assert.NotNull(factory);
+        NotNull(factory);
         var logger = factory.CreateLogger("LoggingBuilderTest");
         Console.WriteLine(logger.GetType());
         logger.LogInformation("_01_CanBuildLoggingFactory");
