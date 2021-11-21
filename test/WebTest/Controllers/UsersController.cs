@@ -40,7 +40,7 @@ namespace WebTest.Controllers {
         [HttpPost]
         public ActionResult Create() {
             var provider = HttpContext.RequestServices;
-            var session = provider.GetService<ISession>();
+            var session = provider.GetService<NHibernate.ISession>();
             var newyork = session.Query<City>()
                 .First(c => c.Name == "new york");
             var user = new AppUser() {
@@ -58,7 +58,7 @@ namespace WebTest.Controllers {
         public async Task<ActionResult> BatchCreate() {
             var provider = HttpContext.RequestServices;
             using var scope = provider.CreateScope();
-            var session = provider.GetService<ISession>();
+            var session = provider.GetService<NHibernate.ISession>();
             var manager = provider.GetService<UserManager<AppUser>>();
             using var tx = session.BeginTransaction();
             try {
