@@ -5,30 +5,28 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using WebTest.Entities;
 
-namespace WebTest.Controllers {
+namespace WebTest.Controllers;
 
-    [ApiController]
-    [Route("api/[controller]")]
-    public class RolesController : ControllerBase {
+[ApiController]
+[Route("api/[controller]")]
+public class RolesController : ControllerBase {
 
-        private RoleManager<AppRole> manager;
+    private RoleManager<AppRole> manager;
 
-        public RolesController(RoleManager<AppRole> manager) {
-            this.manager = manager;
+    public RolesController(RoleManager<AppRole> manager) {
+        this.manager = manager;
+    }
+
+    [Route("")]
+    public async Task<ActionResult<IList<AppRole>>> GetAll() {
+        if (!await manager.RoleExistsAsync("TestRole")) {
+            var role = new AppRole {
+                Name = "TestRole",
+                Description = "Test Role"
+            };
+            var result = await manager.CreateAsync(role);
         }
-
-        [Route("")]
-        public async Task<ActionResult<IList<AppRole>>> GetAll() {
-            if (!await manager.RoleExistsAsync("TestRole")) {
-                var role = new AppRole {
-                    Name = "TestRole",
-                    Description = "Test Role"
-                };
-                var result = await manager.CreateAsync(role);
-            }
-            return manager.Roles.ToList();
-        }
-
+        return manager.Roles.ToList();
     }
 
 }
