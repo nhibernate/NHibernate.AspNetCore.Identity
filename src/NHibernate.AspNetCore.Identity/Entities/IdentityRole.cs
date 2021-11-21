@@ -1,7 +1,5 @@
 using Microsoft.AspNetCore.Identity;
 
-namespace NHibernate.AspNetCore.Identity {
+namespace NHibernate.AspNetCore.Identity;
 
-    public class IdentityRole : IdentityRole<string> { }
-
-}
+public class IdentityRole : IdentityRole<string> { }
