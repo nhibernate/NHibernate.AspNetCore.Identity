@@ -1,6 +1,3 @@
-using System;
-using System.Collections.Generic;
-
 namespace WebTest.Models;
 
 public class PagedRequestModel {

@@ -1,5 +1,3 @@
-using System;
-
 namespace WebTest.Models;
 
 public class ErrorViewModel {

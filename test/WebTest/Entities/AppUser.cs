@@ -1,4 +1,3 @@
-using System;
 using NHibernate.Mapping.Attributes;
 using NHIdentityUser = NHibernate.AspNetCore.Identity.IdentityUser;
 

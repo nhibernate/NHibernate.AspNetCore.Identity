@@ -1,5 +1,3 @@
-using System;
-using System.Threading.Tasks;
 using WebTest.Models;
 
 namespace WebTest.Repositories;

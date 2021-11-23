@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace WebTest.Models;
+﻿namespace WebTest.Models;
 
 /// <summary></summary>
 public class TodoItemModel {
