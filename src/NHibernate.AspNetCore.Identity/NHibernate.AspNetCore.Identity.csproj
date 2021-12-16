@@ -7,8 +7,8 @@
     <Authors>beginor</Authors>
     <Description>ASPNET Core Identity provider that uses NHibernate for storage. (Build in support for PostgreSQL, SqlServer, MySql, Sqlite)</Description>
     <PackageId>NHibernate.AspNetCore.Identity</PackageId>
-    <PackageVersion>6.0.0</PackageVersion>
-    <PackageReleaseNotes>Update to dotnet 6.0.0 .</PackageReleaseNotes>
+    <PackageVersion>6.0.1</PackageVersion>
+    <PackageReleaseNotes>Update to dotnet 6.0.1 .</PackageReleaseNotes>
     <PackageTags>nhibernate aspnetcore identity provider</PackageTags>
     <PackageProjectUrl>https://github.com/nhibernate/NHibernate.AspNetCore.Identity</PackageProjectUrl>
     <PackageLicense>https://github.com/nhibernate/NHibernate.AspNetCore.Identity/blob/master/LICENSE.txt</PackageLicense>
