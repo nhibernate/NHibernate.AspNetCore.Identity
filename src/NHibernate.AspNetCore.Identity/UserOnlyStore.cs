@@ -21,7 +21,7 @@ public class UserOnlyStore<TUser> : UserStoreBase<TUser, string, IdentityUserCla
     public UserOnlyStore(
         ISession session,
         IdentityErrorDescriber describer
-    ) : base(describer ?? new IdentityErrorDescriber()) {
+    ) : base(describer) {
         this.session = session ?? throw new ArgumentNullException(nameof(session));
     }
 
