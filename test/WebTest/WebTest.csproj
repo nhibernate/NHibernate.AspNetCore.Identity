@@ -10,8 +10,8 @@
     <PackageReference Include="AutoMapper" Version="12.0.0" />
     <PackageReference Include="NHibernate" Version="5.3.14" />
     <PackageReference Include="NHibernate.Mapping.Attributes" Version="5.1.0" />
-    <PackageReference Include="NHibernate.Extensions.NpgSql" Version="6.0.12" />
-    <PackageReference Include="NHibernate.NetCore" Version="6.0.12" />
+    <PackageReference Include="NHibernate.Extensions.NpgSql" Version="6.0.13" />
+    <PackageReference Include="NHibernate.NetCore" Version="6.0.13" />
     <PackageReference Include="Npgsql" Version="6.0.7" />
   </ItemGroup>
   <ItemGroup>
