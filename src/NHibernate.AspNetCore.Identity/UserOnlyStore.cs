@@ -80,7 +80,7 @@ public class UserOnlyStore<TUser> : UserStoreBase<TUser, string, IdentityUserCla
         return IdentityResult.Success;
     }
 
-    public override async Task<TUser> FindByIdAsync(
+    public override async Task<TUser?> FindByIdAsync(
         string userId,
         CancellationToken cancellationToken = default
     ) {
@@ -91,7 +91,7 @@ public class UserOnlyStore<TUser> : UserStoreBase<TUser, string, IdentityUserCla
         return user;
     }
 
-    public override async Task<TUser> FindByNameAsync(
+    public override async Task<TUser?> FindByNameAsync(
         string normalizedUserName,
         CancellationToken cancellationToken = default
     ) {
@@ -104,7 +104,7 @@ public class UserOnlyStore<TUser> : UserStoreBase<TUser, string, IdentityUserCla
         return user;
     }
 
-    protected override async Task<TUser> FindUserAsync(
+    protected override async Task<TUser?> FindUserAsync(
         string userId,
         CancellationToken cancellationToken
     ) {
@@ -117,7 +117,7 @@ public class UserOnlyStore<TUser> : UserStoreBase<TUser, string, IdentityUserCla
         return user;
     }
 
-    protected override async Task<IdentityUserLogin> FindUserLoginAsync(
+    protected override async Task<IdentityUserLogin?> FindUserLoginAsync(
         string userId,
         string loginProvider,
         string providerKey,
@@ -133,7 +133,7 @@ public class UserOnlyStore<TUser> : UserStoreBase<TUser, string, IdentityUserCla
         return userLogin;
     }
 
-    protected override async Task<IdentityUserLogin> FindUserLoginAsync(
+    protected override async Task<IdentityUserLogin?> FindUserLoginAsync(
         string loginProvider,
         string providerKey,
         CancellationToken cancellationToken
@@ -262,7 +262,7 @@ public class UserOnlyStore<TUser> : UserStoreBase<TUser, string, IdentityUserCla
         return await query.ToListAsync(cancellationToken);
     }
 
-    protected override async Task<IdentityUserToken> FindTokenAsync(
+    protected override async Task<IdentityUserToken?> FindTokenAsync(
         TUser user,
         string loginProvider,
         string name,
@@ -367,7 +367,7 @@ public class UserOnlyStore<TUser> : UserStoreBase<TUser, string, IdentityUserCla
         return logins;
     }
 
-    public override async Task<TUser> FindByEmailAsync(
+    public override async Task<TUser?> FindByEmailAsync(
         string normalizedEmail,
         CancellationToken cancellationToken = default
     ) {

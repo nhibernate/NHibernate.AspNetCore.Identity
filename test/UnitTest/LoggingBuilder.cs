@@ -5,7 +5,7 @@ namespace UnitTest;
 
 public class LoggingBuilder {
 
-    private ServiceProvider provider;
+    private ServiceProvider? provider;
 
     private readonly IServiceCollection services = new ServiceCollection();
 
@@ -16,7 +16,7 @@ public class LoggingBuilder {
             });
             provider = services.BuildServiceProvider();
         }
-        return provider.GetService<ILoggerFactory>();
+        return provider.GetService<ILoggerFactory>()!;
     }
 
 }

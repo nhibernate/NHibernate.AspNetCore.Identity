@@ -27,7 +27,7 @@ public class RoleStoreTest : BaseTest, IDisposable {
     }
 
     public void Dispose() {
-        store?.Dispose();
+        store.Dispose();
     }
 
     [Test]
@@ -53,12 +53,13 @@ public class RoleStoreTest : BaseTest, IDisposable {
         True(result.Succeeded);
 
         role = await store.FindByIdAsync(role.Id, CancellationToken.None);
-        AreEqual(role.Id, role.Id);
+        NotNull(role);
+        AreEqual(role!.Id, role.Id);
         AreEqual(role.Name, role.Name);
 
-        var normalizedName = role.NormalizedName;
+        var normalizedName = role.NormalizedName!;
         role = await store.FindByNameAsync(normalizedName, CancellationToken.None);
-        AreEqual(normalizedName, role.NormalizedName);
+        AreEqual(normalizedName, role!.NormalizedName);
 
         var claim = new Claim("test", "test");
 
@@ -79,5 +80,3 @@ public class RoleStoreTest : BaseTest, IDisposable {
     }
 
 }
-
-

@@ -9,9 +9,9 @@ namespace WebTest.Controllers;
 [Route("api/[controller]")]
 public class TodoController : Controller {
 
-    private ITodoItemRepository repo;
-    private UserManager<AppUser> userMgr;
-    private ILogger<TodoController> logger;
+    private ITodoItemRepository? repo;
+    private UserManager<AppUser>? userMgr;
+    private ILogger<TodoController>? logger;
 
     public TodoController(
         ITodoItemRepository repo,
@@ -49,11 +49,11 @@ public class TodoController : Controller {
         TodoItemSearchModel model
     ) {
         try {
-            var result = await repo.SearchAsync(model);
+            var result = await repo!.SearchAsync(model);
             return result;
         }
         catch (Exception ex) {
-            logger.LogError(ex, "Can not search todo items.");
+            logger!.LogError(ex, "Can not search todo items.");
             return StatusCode(500);
         }
     }
@@ -63,7 +63,7 @@ public class TodoController : Controller {
     [ProducesResponseType(404)]
     public async Task<ActionResult<TodoItemModel>> GetById(long id) {
         try {
-            var model = await repo.GetByIdAsync(id);
+            var model = await repo!.GetByIdAsync(id);
             if (model == null) {
                 return NotFound();
             }

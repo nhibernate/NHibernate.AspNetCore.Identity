@@ -30,8 +30,8 @@ public class UserStoreTest : BaseTest, IDisposable {
     }
 
     public void Dispose() {
-        store?.Dispose();
-        sessionFactory?.Dispose();
+        store.Dispose();
+        sessionFactory.Dispose();
     }
 
     [Test]
@@ -70,16 +70,18 @@ public class UserStoreTest : BaseTest, IDisposable {
         var lockouts = await store.Users
             .Where(u => u.LockoutEnabled)
             .CountAsync();
-        True(lockouts > 0);
+        IsTrue(lockouts > 0);
 
         user = await store.FindByEmailAsync(user.NormalizedEmail);
-        True(user.Id == id);
+        NotNull(user);
+        IsTrue(user!.Id == id);
 
-        user = await store.FindByNameAsync(user.NormalizedUserName);
-        True(user.Id == id);
+        user = await store.FindByNameAsync(user.NormalizedUserName!);
+        NotNull(user);
+        True(user!.Id == id);
 
         user = await store.FindByIdAsync(id);
-        True(user.Id == id);
+        True(user!.Id == id);
 
         var claim = new Claim("Test", Guid.NewGuid().ToString("N"));
         await store.AddClaimsAsync(user, new [] { claim });
@@ -100,7 +102,7 @@ public class UserStoreTest : BaseTest, IDisposable {
         await store.SetTokenAsync(
             user,
             loginInfo.LoginProvider,
-            loginInfo.ProviderDisplayName,
+            loginInfo.ProviderDisplayName!,
             loginInfo.ProviderKey,
             CancellationToken.None
         );
@@ -108,7 +110,7 @@ public class UserStoreTest : BaseTest, IDisposable {
         await store.RemoveTokenAsync(
             user,
             loginInfo.LoginProvider,
-            loginInfo.ProviderDisplayName,
+            loginInfo.ProviderDisplayName!,
             CancellationToken.None
         );
 

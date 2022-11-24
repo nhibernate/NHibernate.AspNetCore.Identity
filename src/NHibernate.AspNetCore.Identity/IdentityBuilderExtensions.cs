@@ -8,14 +8,14 @@ public static class IdentityBuilderExtensions {
     public static IdentityBuilder AddHibernateStores(
         this IdentityBuilder builder
     ) {
-        AddStores(builder.Services, builder.UserType, builder.RoleType);
+        AddStores(builder.Services, builder.UserType, builder.RoleType!);
         return builder;
     }
 
     private static void AddStores(
         IServiceCollection services,
         System.Type userType,
-        System.Type roleType
+        System.Type? roleType
     ) {
         if (roleType != null) {
             // register user store type

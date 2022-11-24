@@ -13,7 +13,7 @@ public class UserStore<TUser, TRole> :
     public UserStore(
         ISession session,
         IdentityErrorDescriber errorDescriber
-    ) : base(errorDescriber ?? new IdentityErrorDescriber()) {
+    ) : base(errorDescriber) {
         this.session = session ?? throw new ArgumentNullException(nameof(session));
     }
 
@@ -84,7 +84,7 @@ public class UserStore<TUser, TRole> :
         return IdentityResult.Success;
     }
 
-    public override async Task<TUser> FindByIdAsync(
+    public override async Task<TUser?> FindByIdAsync(
         string userId,
         CancellationToken cancellationToken = default
     ) {
@@ -95,7 +95,7 @@ public class UserStore<TUser, TRole> :
         return user;
     }
 
-    public override async Task<TUser> FindByNameAsync(
+    public override async Task<TUser?> FindByNameAsync(
         string normalizedUserName,
         CancellationToken cancellationToken = default
     ) {
@@ -108,7 +108,7 @@ public class UserStore<TUser, TRole> :
         return user;
     }
 
-    protected override async Task<TRole> FindRoleAsync(
+    protected override async Task<TRole?> FindRoleAsync(
         string normalizedRoleName,
         CancellationToken cancellationToken
     ) {
@@ -121,7 +121,7 @@ public class UserStore<TUser, TRole> :
         return role;
     }
 
-    protected override async Task<IdentityUserRole> FindUserRoleAsync(
+    protected override async Task<IdentityUserRole?> FindUserRoleAsync(
         string userId,
         string roleId,
         CancellationToken cancellationToken
@@ -135,7 +135,7 @@ public class UserStore<TUser, TRole> :
         return userRole;
     }
 
-    protected override async Task<TUser> FindUserAsync(
+    protected override async Task<TUser?> FindUserAsync(
         string userId,
         CancellationToken cancellationToken
     ) {
@@ -148,7 +148,7 @@ public class UserStore<TUser, TRole> :
         return user;
     }
 
-    protected override async Task<IdentityUserLogin> FindUserLoginAsync(
+    protected override async Task<IdentityUserLogin?> FindUserLoginAsync(
         string userId,
         string loginProvider,
         string providerKey,
@@ -164,7 +164,7 @@ public class UserStore<TUser, TRole> :
         return userLogin;
     }
 
-    protected override async Task<IdentityUserLogin> FindUserLoginAsync(
+    protected override async Task<IdentityUserLogin?> FindUserLoginAsync(
         string loginProvider,
         string providerKey,
         CancellationToken cancellationToken
@@ -439,7 +439,7 @@ public class UserStore<TUser, TRole> :
         return logins;
     }
 
-    public override async Task<TUser> FindByLoginAsync(
+    public override async Task<TUser?> FindByLoginAsync(
         string loginProvider,
         string providerKey,
         CancellationToken cancellationToken = default
@@ -457,7 +457,7 @@ public class UserStore<TUser, TRole> :
         return null;
     }
 
-    public override async Task<TUser> FindByEmailAsync(
+    public override async Task<TUser?> FindByEmailAsync(
         string normalizedEmail,
         CancellationToken cancellationToken = default
     ) {
@@ -509,7 +509,7 @@ public class UserStore<TUser, TRole> :
         return new List<TUser>();
     }
 
-    protected override async Task<IdentityUserToken> FindTokenAsync(
+    protected override async Task<IdentityUserToken?> FindTokenAsync(
         TUser user,
         string loginProvider,
         string name,
@@ -532,7 +532,7 @@ public class UserStore<TUser, TRole> :
         TUser user,
         string loginProvider,
         string name,
-        string value,
+        string? value,
         CancellationToken cancellationToken
     ) {
         cancellationToken.ThrowIfCancellationRequested();

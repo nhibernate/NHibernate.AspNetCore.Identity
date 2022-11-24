@@ -12,7 +12,7 @@ public class RoleStore<TRole>
     public RoleStore(
         ISession session,
         IdentityErrorDescriber describer
-    ) : base(describer ?? new IdentityErrorDescriber()) {
+    ) : base(describer) {
         this.session = session ?? throw new ArgumentNullException(nameof(session));
     }
 
@@ -83,7 +83,7 @@ public class RoleStore<TRole>
         return Task.FromResult(role.Id);
     }
 
-    public override Task<string> GetRoleNameAsync(
+    public override Task<string?> GetRoleNameAsync(
         TRole role,
         CancellationToken cancellationToken = default
     ) {
@@ -95,7 +95,7 @@ public class RoleStore<TRole>
         return Task.FromResult(role.Name);
     }
 
-    public override async Task<TRole> FindByIdAsync(
+    public override async Task<TRole?> FindByIdAsync(
         string roleId,
         CancellationToken cancellationToken = default
     ) {
@@ -106,7 +106,7 @@ public class RoleStore<TRole>
         return role;
     }
 
-    public override async Task<TRole> FindByNameAsync(
+    public override async Task<TRole?> FindByNameAsync(
         string normalizedRoleName,
         CancellationToken cancellationToken = default
     ) {
@@ -136,7 +136,7 @@ public class RoleStore<TRole>
 
         var claims = await RoleClaims
             .Where(rc => rc.RoleId == role.Id)
-            .Select(c => new Claim(c.ClaimType, c.ClaimValue))
+            .Select(c => new Claim(c.ClaimType!, c.ClaimValue!))
             .ToListAsync(cancellationToken);
         return claims;
     }
