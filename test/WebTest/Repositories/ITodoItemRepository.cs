@@ -8,7 +8,7 @@ public interface ITodoItemRepository {
 
     Task DeleteAsync(long id);
 
-    Task<TodoItemModel> GetByIdAsync(long id);
+    Task<TodoItemModel?> GetByIdAsync(long id);
 
     Task UpdateAsync(long id, TodoItemModel model);
 

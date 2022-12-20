@@ -8,7 +8,7 @@ namespace WebTest.Entities;
 public class AppUser : NHIdentityUser {
 
     [Property(Column = "create_time", Type = "datetime", NotNull = true, Generated = PropertyGeneration.Insert, Update = false, Insert = false)]
-    public virtual DateTime CreateTime { get; set; }
+    public virtual DateTime? CreateTime { get; set; }
 
     [Property(Column = "last_login", Type = "datetime", NotNull = false)]
     public virtual DateTime? LastLogin { get; set; }
@@ -17,6 +17,6 @@ public class AppUser : NHIdentityUser {
     public virtual int LoginCount { get; set; }
 
     [ManyToOne(Column = "city_id", NotFound = NotFoundMode.Ignore)]
-    public virtual City City { get; set; }
+    public virtual City? City { get; set; }
 
 }

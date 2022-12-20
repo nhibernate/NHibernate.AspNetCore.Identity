@@ -9,36 +9,25 @@ namespace WebTest.Controllers;
 [Route("api/[controller]")]
 public class TodoController : Controller {
 
-    private ITodoItemRepository? repo;
-    private UserManager<AppUser>? userMgr;
-    private ILogger<TodoController>? logger;
+    private ITodoItemRepository repo;
+    private UserManager<AppUser> userMgr;
+    private ILogger<TodoController> logger;
 
     public TodoController(
         ITodoItemRepository repo,
         UserManager<AppUser> userMgr,
         ILogger<TodoController> logger
     ) {
-        if (repo == null) {
-            throw new ArgumentNullException(nameof(repo));
-        }
-        if (userMgr == null) {
-            throw new ArgumentNullException(nameof(userMgr));
-        }
-        if (logger == null) {
-            throw new ArgumentNullException(nameof(logger));
-        }
-        this.repo = repo;
-        this.userMgr = userMgr;
-        this.logger = logger;
+        this.repo = repo ?? throw new ArgumentNullException(nameof(repo));
+        this.userMgr = userMgr ?? throw new ArgumentNullException(nameof(userMgr));
+        this.logger = logger ?? throw new ArgumentNullException(nameof(logger));
     }
 
     protected override void Dispose(
         bool disposing
     ) {
         if (disposing) {
-            repo = null;
-            userMgr = null;
-            logger = null;
+            // dispose managed resource here.
         }
         base.Dispose(disposing);
     }
@@ -49,7 +38,7 @@ public class TodoController : Controller {
         TodoItemSearchModel model
     ) {
         try {
-            var result = await repo!.SearchAsync(model);
+            var result = await repo.SearchAsync(model);
             return result;
         }
         catch (Exception ex) {
@@ -63,14 +52,14 @@ public class TodoController : Controller {
     [ProducesResponseType(404)]
     public async Task<ActionResult<TodoItemModel>> GetById(long id) {
         try {
-            var model = await repo!.GetByIdAsync(id);
+            var model = await repo.GetByIdAsync(id);
             if (model == null) {
                 return NotFound();
             }
             return model;
         }
         catch (Exception ex) {
-            logger.LogError(ex, "Can not read todo items.");
+            logger?.LogError(ex, "Can not read todo items.");
             return StatusCode(500);
         }
     }
@@ -80,9 +69,17 @@ public class TodoController : Controller {
         [FromBody]TodoItemModel model
     ) {
         try {
-            var user = await userMgr.FindByNameAsync(User.Identity.Name);
-            model.UserId = user.Id;
-            model.UserName = user.UserName;
+            var identity = User.Identity;
+            if (identity == null) {
+                return Unauthorized();
+            }
+            var username = identity.Name;
+            if (string.IsNullOrEmpty(username)) {
+                return Unauthorized();
+            }
+            var user = await userMgr.FindByNameAsync(username);
+            model.UserId = user?.Id ?? string.Empty;
+            model.UserName = user?.UserName ?? string.Empty;
             await repo.CreateAsync(model);
             return model;
         }

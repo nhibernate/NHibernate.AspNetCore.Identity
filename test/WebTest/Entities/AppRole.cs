@@ -8,6 +8,6 @@ namespace WebTest.Entities;
 public class AppRole : NHIdentityRole {
 
     [Property(Column = "description", Type = "string", Length = 256, NotNull = false)]
-    public virtual string Description { get; set; }
+    public virtual string? Description { get; set; }
 
 }

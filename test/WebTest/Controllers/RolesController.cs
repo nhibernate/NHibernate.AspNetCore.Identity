@@ -8,10 +8,10 @@ namespace WebTest.Controllers;
 [Route("api/[controller]")]
 public class RolesController : ControllerBase {
 
-    private RoleManager<AppRole> manager;
+    private readonly RoleManager<AppRole> manager;
 
     public RolesController(RoleManager<AppRole> manager) {
-        this.manager = manager;
+        this.manager = manager ?? throw new ArgumentNullException(nameof(manager));
     }
 
     [Route("")]
