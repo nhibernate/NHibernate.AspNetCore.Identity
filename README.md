@@ -2,6 +2,8 @@
 
 ASP.NET Core Identity Provider implemented with NHibernate
 
+![ASP.NET Core Identity with nhibernate](./database/identity-nh.svg)
+
 ![Database diagram](./database/db_schema.png)
 
 Nuget package:
