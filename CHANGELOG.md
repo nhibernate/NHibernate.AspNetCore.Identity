@@ -1,5 +1,11 @@
 # Changelogs for NHibernate.AspNetCore.Identity
 
+## 7.0.9
+
+- Update to .NET 7.0.9;
+- Update Identity.Core to 7.0.9;
+- Update NHibernate to 5.4.4;
+
 ## 7.0.8
 
 - Update to .NET 7.0.8;
