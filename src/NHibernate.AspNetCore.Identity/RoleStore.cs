@@ -4,17 +4,11 @@ using NHibernate.Linq;
 
 namespace NHibernate.AspNetCore.Identity;
 
-public class RoleStore<TRole>
-    : RoleStoreBase<TRole, string, IdentityUserRole, IdentityRoleClaim> where TRole : IdentityRole {
-
-    private readonly ISession session;
-
-    public RoleStore(
-        ISession session,
-        IdentityErrorDescriber describer
-    ) : base(describer) {
-        this.session = session ?? throw new ArgumentNullException(nameof(session));
-    }
+public class RoleStore<TRole>(
+    ISession session,
+    IdentityErrorDescriber describer
+) : RoleStoreBase<TRole, string, IdentityUserRole, IdentityRoleClaim>(describer)
+    where TRole : IdentityRole {
 
     public override async Task<IdentityResult> CreateAsync(
         TRole role,

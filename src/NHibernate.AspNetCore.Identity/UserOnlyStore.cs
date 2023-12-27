@@ -4,10 +4,12 @@ using NHibernate.Linq;
 
 namespace NHibernate.AspNetCore.Identity;
 
-public class UserOnlyStore<TUser> : UserStoreBase<TUser, string, IdentityUserClaim, IdentityUserLogin, IdentityUserToken>,
-    IProtectedUserStore<TUser> where TUser : IdentityUser {
-
-    private readonly ISession session;
+public class UserOnlyStore<TUser>(
+    ISession session,
+    IdentityErrorDescriber describer
+) : UserStoreBase<TUser, string, IdentityUserClaim, IdentityUserLogin, IdentityUserToken>(describer),
+    IProtectedUserStore<TUser>
+    where TUser : IdentityUser {
 
     public override IQueryable<TUser> Users => session.Query<TUser>();
 
@@ -16,14 +18,6 @@ public class UserOnlyStore<TUser> : UserStoreBase<TUser, string, IdentityUserCla
     private IQueryable<IdentityUserLogin> UserLogins => session.Query<IdentityUserLogin>();
 
     private IQueryable<IdentityUserToken> UserTokens => session.Query<IdentityUserToken>();
-
-
-    public UserOnlyStore(
-        ISession session,
-        IdentityErrorDescriber describer
-    ) : base(describer) {
-        this.session = session ?? throw new ArgumentNullException(nameof(session));
-    }
 
     public override async Task<IdentityResult> CreateAsync(
         TUser user,

@@ -4,18 +4,12 @@ using NHibernate.Linq;
 
 namespace NHibernate.AspNetCore.Identity;
 
-public class UserStore<TUser, TRole> :
-    UserStoreBase<TUser, TRole, string, IdentityUserClaim, IdentityUserRole, IdentityUserLogin, IdentityUserToken, IdentityRoleClaim>,
-    IProtectedUserStore<TUser> where TUser : IdentityUser where TRole : IdentityRole {
-
-    private readonly ISession session;
-
-    public UserStore(
-        ISession session,
-        IdentityErrorDescriber errorDescriber
-    ) : base(errorDescriber) {
-        this.session = session ?? throw new ArgumentNullException(nameof(session));
-    }
+public class UserStore<TUser, TRole>(
+    ISession session,
+    IdentityErrorDescriber errorDescriber
+) : UserStoreBase<TUser, TRole, string, IdentityUserClaim, IdentityUserRole, IdentityUserLogin, IdentityUserToken, IdentityRoleClaim>(errorDescriber),
+    IProtectedUserStore<TUser>
+    where TUser : IdentityUser where TRole : IdentityRole {
 
     public override IQueryable<TUser> Users => session.Query<TUser>();
 
