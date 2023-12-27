@@ -1,5 +1,11 @@
 # Changelogs for NHibernate.AspNetCore.Identity
 
+## 8.0.1
+
+- Update NHibernate to 5.5.0;
+- Update Npgsql to 8.0.1;
+- Other nuget package updates.
+
 ## 8.0.0
 
 - Update to .NET 8.0.0;
