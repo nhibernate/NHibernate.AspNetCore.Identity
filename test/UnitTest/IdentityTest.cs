@@ -14,7 +14,7 @@ public class IdentityTest : BaseTest {
         AddByCodeMapping(cfg);
         cfg.BuildMappings();
         var sf = cfg.BuildSessionFactory();
-        IsNotNull(sf);
+        That(sf, Is.Not.Null);
         QueryUsers(sf);
     }
 
@@ -25,7 +25,7 @@ public class IdentityTest : BaseTest {
         AddXmlMapping(cfg);
         cfg.BuildMappings();
         var sf = cfg.BuildSessionFactory();
-        IsNotNull(sf);
+        That(sf, Is.Not.Null);
         QueryUsers(sf);
     }
 
@@ -36,7 +36,7 @@ public class IdentityTest : BaseTest {
         AddAttributesMapping(cfg);
         cfg.BuildMappings();
         var sf = cfg.BuildSessionFactory();
-        IsNotNull(sf);
+        That(sf, Is.Not.Null);
         QueryUsers(sf);
     }
 
@@ -47,13 +47,13 @@ public class IdentityTest : BaseTest {
         AddAttributesMapping(cfg);
         cfg.BuildMappings();
         var sf = cfg.BuildSessionFactory();
-        IsNotNull(sf);
+        That(sf, Is.Not.Null);
         using var session = sf.OpenSession();
         var cities = session.Query<City>().ToList();
-        IsNotEmpty(cities);
+        That(sf, Is.Not.Empty);
         foreach (var city in cities) {
-            Greater(city.Id, 0);
-            NotNull(city.Name);
+            That(city.Id, Is.GreaterThan(0));
+            That(city.Name, Is.Not.Null);
         }
     }
 
@@ -64,7 +64,7 @@ public class IdentityTest : BaseTest {
         AddAttributesMapping(cfg);
         cfg.BuildMappings();
         var sf = cfg.BuildSessionFactory();
-        IsNotNull(sf);
+        That(sf, Is.Not.Null);
         using var session = sf.OpenSession();
         var tx = session.BeginTransaction();
         var city = new City {
@@ -72,7 +72,7 @@ public class IdentityTest : BaseTest {
         };
         session.Save(city);
         session.Flush();
-        Greater(city.Id, 0);
+        That(city.Id, Is.GreaterThan(0));
         tx.Rollback();
     }
 
@@ -81,7 +81,7 @@ public class IdentityTest : BaseTest {
         var users = session.Query<AppUser>()
             .Where(u => u.LoginCount > 0)
             .ToList();
-        GreaterOrEqual(users.Count, 0);
+        That(users.Count, Is.GreaterThanOrEqualTo(0));
     }
 
 }

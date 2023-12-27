@@ -37,8 +37,8 @@ public class UserStoreTest : BaseTest, IDisposable {
     [Test]
     public async Task _01_CanQueryAllUsers() {
         var users = await store.Users.ToListAsync();
-        NotNull(users);
-        True(users.Count >= 0);
+        That(users, Is.Not.Null);
+        That(users.Count, Is.GreaterThan(0));
     }
 
     [Test]
@@ -57,39 +57,39 @@ public class UserStoreTest : BaseTest, IDisposable {
             SecurityStamp = null
         };
         var result = await store.CreateAsync(user);
-        IsTrue(result.Succeeded);
+        That(result.Succeeded);
         var id = user.Id;
-        IsNotEmpty(id);
-        IsNotEmpty(user.ConcurrencyStamp);
+        That(id, Is.Not.Empty);
+        That(user.ConcurrencyStamp, Is.Not.Empty);
 
         user.LockoutEnabled = true;
         user.LockoutEnd = DateTimeOffset.UtcNow.AddMinutes(20);
         result = await store.UpdateAsync(user);
-        True(result.Succeeded);
+        That(result.Succeeded);
 
         var lockouts = await store.Users
             .Where(u => u.LockoutEnabled)
             .CountAsync();
-        IsTrue(lockouts > 0);
+        That(lockouts > 0);
 
         user = await store.FindByEmailAsync(user.NormalizedEmail);
-        NotNull(user);
-        IsTrue(user!.Id == id);
+        That(user, Is.Not.Null);
+        That(user!.Id == id);
 
         user = await store.FindByNameAsync(user.NormalizedUserName!);
-        NotNull(user);
-        True(user!.Id == id);
+        That(user, Is.Not.Null);
+        That(user!.Id == id);
 
         user = await store.FindByIdAsync(id);
-        True(user!.Id == id);
+        That(user!.Id == id);
 
         var claim = new Claim("Test", Guid.NewGuid().ToString("N"));
         await store.AddClaimsAsync(user, new [] { claim });
         var claims = await store.GetClaimsAsync(user);
-        True(claims.Count > 0);
+        That(claims.Count > 0);
 
         var users = await store.GetUsersForClaimAsync(claim);
-        IsNotEmpty(users);
+        That(users, Is.Not.Empty);
 
         await store.RemoveClaimsAsync(user, claims);
 
@@ -121,7 +121,7 @@ public class UserStoreTest : BaseTest, IDisposable {
         );
 
         result = await store.DeleteAsync(user);
-        True(result.Succeeded);
+        That(result.Succeeded);
     }
 
     [Test]
