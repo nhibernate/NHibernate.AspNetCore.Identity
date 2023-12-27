@@ -43,65 +43,58 @@ public class ConfigTest : BaseTest, IDisposable {
 
     [Test]
     public void _01_CanQueryUsers() {
-        using (var session = GetSessionFactory().OpenSession()) {
-            var query = session.Query<IdentityUser>();
-            var count = query.ToList().Count;
-            That(count, Is.GreaterThanOrEqualTo(0));
-        }
+        using var session = GetSessionFactory().OpenSession();
+        var query = session.Query<IdentityUser>();
+        var count = query.ToList().Count;
+        That(count, Is.GreaterThanOrEqualTo(0));
     }
 
     [Test]
     public void _02_CanQueryRoles() {
-        using (var session = GetSessionFactory().OpenSession()) {
-            var query = session.Query<IdentityRole>();
-            var count = query.ToList().Count;
-            That(count, Is.GreaterThanOrEqualTo(0));
-        }
+        using var session = GetSessionFactory().OpenSession();
+        var query = session.Query<IdentityRole>();
+        var count = query.ToList().Count;
+        That(count, Is.GreaterThanOrEqualTo(0));
     }
 
     [Test]
     public void _03_CanQueryRoleClaims() {
-        using (var session = GetSessionFactory().OpenSession()) {
-            var query = session.Query<IdentityRoleClaim>();
-            var count = query.ToList().Count;
-            That(count, Is.GreaterThanOrEqualTo(0));
-        }
+        using var session = GetSessionFactory().OpenSession();
+        var query = session.Query<IdentityRoleClaim>();
+        var count = query.ToList().Count;
+        That(count, Is.GreaterThanOrEqualTo(0));
     }
 
     [Test]
     public void _04_CanQueryUserClaims() {
-        using (var session = GetSessionFactory().OpenSession()) {
-            var query = session.Query<IdentityUserClaim>();
-            var count = query.ToList().Count;
-            That(count, Is.GreaterThanOrEqualTo(0));
-        }
+        using var session = GetSessionFactory().OpenSession();
+        var query = session.Query<IdentityUserClaim>();
+        var count = query.ToList().Count;
+        That(count, Is.GreaterThanOrEqualTo(0));
     }
 
     [Test]
     public void _05_CanQueryUserLogins() {
-        using (var session = GetSessionFactory().OpenSession()) {
-            var query = session.Query<IdentityUserLogin>();
-            var count = query.ToList().Count;
-            That(count, Is.GreaterThanOrEqualTo(0));
-        }
+        using var session = GetSessionFactory().OpenSession();
+        var query = session.Query<IdentityUserLogin>();
+        var count = query.ToList().Count;
+        That(count, Is.GreaterThanOrEqualTo(0));
     }
 
     [Test]
     public void _06_CanQueryUserTokens() {
-        using (var session = GetSessionFactory().OpenSession()) {
-            var query = session.Query<IdentityUserToken>();
-            var count = query.ToList().Count;
-            That(count, Is.GreaterThanOrEqualTo(0));
-        }
+        using var session = GetSessionFactory().OpenSession();
+        var query = session.Query<IdentityUserToken>();
+        var count = query.ToList().Count;
+        That(count, Is.GreaterThanOrEqualTo(0));
     }
 
     [Test]
     public void _07_CanQueryUserRoles() {
-        using (var session = GetSessionFactory().OpenSession()) {
-            var query = session.Query<IdentityUserRole>();
-            var count = query.ToList().Count;
-            That(count, Is.GreaterThanOrEqualTo(0));
-        }
+        using var session = GetSessionFactory().OpenSession();
+        var query = session.Query<IdentityUserRole>();
+        var count = query.ToList().Count;
+        That(count, Is.GreaterThanOrEqualTo(0));
     }
 
     [Test]
@@ -112,12 +105,11 @@ public class ConfigTest : BaseTest, IDisposable {
 
     [Test]
     public void _09_CanQueryUserWithCity() {
-        using (var session = GetSessionFactory().OpenSession()) {
-            var user = session.Query<AppUser>()
-                .First();
-            That(user, Is.Not.Null);
-            That(user?.City?.Name, Is.Not.Null);
-        }
+        using var session = GetSessionFactory().OpenSession();
+        var user = session.Query<AppUser>()
+            .First();
+        That(user, Is.Not.Null);
+        That(user?.City?.Name, Is.Not.Null);
     }
 
 }
