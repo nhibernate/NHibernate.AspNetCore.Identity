@@ -32,7 +32,6 @@ alter table public.app_users
 alter table public.app_users
     add constraint fk_app_users_city_id foreign key (city_id)
     references public.cities (id) match simple
-    on update no action
-    on delete no action
+    on update cascade
+    on delete cascade
     not valid;
-

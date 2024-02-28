@@ -8,8 +8,8 @@ create table public.todo_items
     constraint pk_todo_items primary key (id),
     constraint fk_todo_items_users foreign key (user_id)
         references public.app_users (id) match simple
-        on update no action
-        on delete no action
+        on update cascade
+        on delete cascade
 )
 with (
     oids = false
