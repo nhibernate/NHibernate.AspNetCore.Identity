@@ -1,5 +1,10 @@
 # Changelogs for NHibernate.AspNetCore.Identity
 
+## 8.0.7
+
+- Update to .NET 8.0.6;
+- Update Identity.Core to 8.0.6;
+
 ## 8.0.6
 
 - Update to .NET 8.0.4;
