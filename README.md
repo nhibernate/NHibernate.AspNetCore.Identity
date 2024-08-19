@@ -12,6 +12,7 @@ Nuget package:
 
 ## About Version
 
+- 8.0.x is compatible with .Net 8.0.x;
 - 7.0.x is compatible with .Net 7.0.x;
 - 6.0.x is compatible with .Net 6.0.x;
 - 5.0.x is compatible with .Net 5.0.x;
