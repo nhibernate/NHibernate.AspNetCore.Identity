@@ -87,7 +87,7 @@ public class Startup {
             app.UseExceptionHandler("/Home/Error");
         }
 
-        app.UseStaticFiles();
+        app.MapStaticAssets();
 
         app.UseRouting();
 
@@ -97,8 +97,9 @@ public class Startup {
         app.MapControllerRoute(
             name: "default",
             pattern: "{controller=Home}/{action=Index}/{id?}"
-        );
-        app.MapRazorPages();
+        ).WithStaticAssets();
+        app.MapRazorPages()
+            .WithStaticAssets();
     }
 
 }

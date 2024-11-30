@@ -7,7 +7,7 @@ public static class ConfigurationExtensions {
 
     public static Configuration AddIdentityMappings(this Configuration cfg) {
         var dialect = cfg.GetProperty(NHibernate.Cfg.Environment.Dialect);
-        if (dialect.IndexOf("PostgreSQL", StringComparison.OrdinalIgnoreCase) > -1) {
+        if (dialect.IndexOf("PostgreSQL", StringComparison.OrdinalIgnoreCase) > -1 || dialect.IndexOf("Npgsql", StringComparison.OrdinalIgnoreCase) > -1) {
             cfg.AddIdentityMappingsForPostgres();
         }
         else if (dialect.IndexOf("MySQL", StringComparison.OrdinalIgnoreCase) > -1) {
