@@ -1,0 +1,19 @@
+<Solution>
+  <Configurations>
+    <Platform Name="Any CPU" />
+    <Platform Name="x64" />
+    <Platform Name="x86" />
+  </Configurations>
+  <Folder Name="/assets/">
+    <File Path="CHANGELOG.md" />
+    <File Path="push-package.sh" />
+    <File Path="README.md" />
+  </Folder>
+  <Folder Name="/src/">
+    <Project Path="src/NHibernate.AspNetCore.Identity/NHibernate.AspNetCore.Identity.csproj" />
+  </Folder>
+  <Folder Name="/test/">
+    <Project Path="test/UnitTest/UnitTest.csproj" />
+    <Project Path="test/WebTest/WebTest.csproj" />
+  </Folder>
+</Solution>
