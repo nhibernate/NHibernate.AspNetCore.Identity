@@ -8,8 +8,8 @@
     <Authors>beginor</Authors>
     <Description>ASPNET Core Identity provider that uses NHibernate for storage. (Build in support for PostgreSQL, SqlServer, MySql, Sqlite)</Description>
     <PackageId>NHibernate.AspNetCore.Identity</PackageId>
-    <PackageVersion>9.0.2</PackageVersion>
-    <PackageReleaseNotes>Update to .NET 9.0.3;Update Identity.Core to 9.0.3;Migrate to new slnx solution format;</PackageReleaseNotes>
+    <PackageVersion>9.0.3</PackageVersion>
+    <PackageReleaseNotes>Update to .NET 9.0.5;Update Identity.Core to 9.0.5;</PackageReleaseNotes>
     <PackageTags>nhibernate aspnetcore identity provider</PackageTags>
     <PackageProjectUrl>https://github.com/nhibernate/NHibernate.AspNetCore.Identity</PackageProjectUrl>
     <PackageLicenseFile>LICENSE.txt</PackageLicenseFile>
