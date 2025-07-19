@@ -35,6 +35,9 @@ public class RoleStoreTest : BaseTest, IDisposable {
         var roleList = await store.Roles.ToListAsync();
         That(roleList, Is.Not.Null);
         That(roleList.Count, Is.GreaterThanOrEqualTo(0));
+        foreach (var role in roleList) {
+            Console.WriteLine($"role:: id: {role.Id}, name: {role.Name}, normalized name: {role.NormalizedName}, concurrency stamp: {role.ConcurrencyStamp}");
+        }
     }
 
     [Test]

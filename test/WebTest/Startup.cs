@@ -65,7 +65,9 @@ public class Startup {
             var mapperConfig = new AutoMapper.MapperConfiguration(
                 configure => {
                     configure.AddMaps(typeof(WebTest.MappingProfile).Assembly);
-                });
+                },
+                serviceProvider.GetService<ILoggerFactory>()
+            );
             var mapper = mapperConfig.CreateMapper();
             return mapper;
         });
