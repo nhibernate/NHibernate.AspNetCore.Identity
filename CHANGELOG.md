@@ -1,5 +1,11 @@
 # Changelogs for NHibernate.AspNetCore.Identity
 
+## 9.0.4
+
+- Update to .NET 9.0.7;
+- Update Identity.Core to 9.0.7;
+- Manage package versions centrally;
+
 ## 9.0.3
 
 - Update to .NET 9.0.5;
