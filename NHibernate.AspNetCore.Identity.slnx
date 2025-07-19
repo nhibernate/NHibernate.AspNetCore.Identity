@@ -8,6 +8,7 @@
     <File Path="CHANGELOG.md" />
     <File Path="push-package.sh" />
     <File Path="README.md" />
+    <File Path="Directory.Packages.props" />
   </Folder>
   <Folder Name="/src/">
     <Project Path="src/NHibernate.AspNetCore.Identity/NHibernate.AspNetCore.Identity.csproj" />
