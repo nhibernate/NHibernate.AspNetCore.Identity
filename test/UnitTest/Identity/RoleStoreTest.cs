@@ -1,6 +1,6 @@
 ﻿using System.Security.Claims;
 using NHibernate.AspNetCore.Identity;
-using NHibernate.NetCore;
+using NHibernate.Extensions.NetCore;
 using NHibernate.Linq;
 using Microsoft.AspNetCore.Identity;
 using NHIdentityRole = NHibernate.AspNetCore.Identity.IdentityRole;

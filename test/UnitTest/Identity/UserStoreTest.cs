@@ -1,7 +1,7 @@
 using System.Security.Claims;
 using Microsoft.AspNetCore.Identity;
 using NHibernate.AspNetCore.Identity;
-using NHibernate.NetCore;
+using NHibernate.Extensions.NetCore;
 using NHibernate;
 using NHibernate.Linq;
 using NHIdentityUser = NHibernate.AspNetCore.Identity.IdentityUser;

@@ -1,5 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using NHibernate.NetCore;
+using NHibernate.Extensions.NetCore;
 using NHibernate.AspNetCore.Identity;
 using NHibernate.Cfg;
 using WebTest.Repositories;

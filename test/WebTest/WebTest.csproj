@@ -11,7 +11,7 @@
     <PackageReference Include="NHibernate" />
     <PackageReference Include="NHibernate.Mapping.Attributes" />
     <PackageReference Include="NHibernate.Extensions.Npgsql" />
-    <PackageReference Include="NHibernate.NetCore" />
+    <PackageReference Include="NHibernate.Extensions.NetCore" />
     <PackageReference Include="Npgsql" />
   </ItemGroup>
   <ItemGroup>

@@ -1,7 +1,7 @@
 using NHibernate;
 using NHibernate.Cfg;
 using NHibernate.AspNetCore.Identity;
-using NHibernate.NetCore;
+using NHibernate.Extensions.NetCore;
 using NHibernate.Tool.hbm2ddl;
 using WebTest.Entities;
 
