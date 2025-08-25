@@ -1,6 +1,6 @@
 #!/bin/bash -e
-export PACKAGE_VERSION="9.0.5"
-export PACKAGE_RELEASE_NOTES="Update to .NET 9.0.8;Update Identity.Core to 9.0.8;"
+export PACKAGE_VERSION="9.0.6"
+export PACKAGE_RELEASE_NOTES="Update NHibernate to 5.5.3;"
 export PACKAGE_TAGS="nhibernate, aspnetcore, identity"
 
 PROJECTS=( \
