@@ -17,10 +17,10 @@
     <PackageVersion Include="SQLitePCLRaw.bundle_e_sqlite3" Version="2.1.11" />
     <PackageVersion Include="AutoMapper" Version="15.0.1" />
     <PackageVersion Include="Dapper" Version="2.1.66" />
-    <PackageVersion Include="NHibernate" Version="5.5.2" />
+    <PackageVersion Include="NHibernate" Version="5.5.3" />
     <PackageVersion Include="NHibernate.Mapping.Attributes" Version="5.1.0" />
-    <PackageVersion Include="NHibernate.Extensions.Npgsql" Version="9.0.7" />
-    <PackageVersion Include="NHibernate.Extensions.NetCore" Version="9.0.7" />
+    <PackageVersion Include="NHibernate.Extensions.Npgsql" Version="9.0.8" />
+    <PackageVersion Include="NHibernate.Extensions.NetCore" Version="9.0.8" />
     <PackageVersion Include="Npgsql" Version="9.0.3" />
     <PackageVersion Include="NUnit" Version="4.4.0" />
     <PackageVersion Include="NUnit3TestAdapter" Version="5.1.0" />
