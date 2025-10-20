@@ -1,5 +1,11 @@
 # Changelogs for NHibernate.AspNetCore.Identity
 
+# 9.0.7
+
+- Update to .NET 9.0.10
+- Update NHibernate to 5.6.0;
+- Update other nuget packages;
+
 # 9.0.6
 
 - Update NHibernate to 5.5.3;
