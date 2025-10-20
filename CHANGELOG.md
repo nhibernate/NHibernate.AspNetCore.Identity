@@ -2,7 +2,7 @@
 
 # 9.0.7
 
-- Update to .NET 9.0.10
+- Update to .NET 9.0.10;
 - Update NHibernate to 5.6.0;
 - Update other nuget packages;
 
