@@ -61,15 +61,9 @@ public class Startup {
             options.SuppressModelStateInvalidFilter = true;
         });
 
-        services.AddSingleton<AutoMapper.IMapper>(serviceProvider => {
-            var mapperConfig = new AutoMapper.MapperConfiguration(
-                configure => {
-                    configure.AddMaps(typeof(WebTest.MappingProfile).Assembly);
-                },
-                serviceProvider.GetService<ILoggerFactory>()
-            );
-            var mapper = mapperConfig.CreateMapper();
-            return mapper;
+        services.AddAutoMapper(configure => {
+            configure.LicenseKey = null;
+            configure.AddMaps(typeof(WebTest.MappingProfile).Assembly);
         });
 
         services.AddScoped<ITodoItemRepository, TodoItemRepository>();
