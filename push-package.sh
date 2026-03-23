@@ -1,6 +1,6 @@
 #!/bin/bash -e
-export PACKAGE_VERSION="10.0.0"
-export PACKAGE_RELEASE_NOTES="Update to .NET 10.0.0;Update other nuget packages;"
+export PACKAGE_VERSION="10.0.1"
+export PACKAGE_RELEASE_NOTES="Update to .NET 10.0.5; Update Identity.Core to 10.0.5; Update other nuget packages;"
 export PACKAGE_TAGS="nhibernate, aspnetcore, identity"
 
 PROJECTS=( \
