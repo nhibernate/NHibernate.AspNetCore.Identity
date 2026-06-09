@@ -1,9 +1,9 @@
 -- auto-generated definition
 create table AspNetRoles (
   Id nvarchar(32) not null,
-  Name nvarchar(256),
-  NormalizedName nvarchar(256),
-  ConcurrencyStamp nvarchar(1024),
+  Name nvarchar(64),
+  NormalizedName nvarchar(64),
+  ConcurrencyStamp nvarchar(36),
   constraint pk_AspNetRoles primary key (id)
 )
 go
@@ -30,9 +30,9 @@ create table AspNetUsers (
   Email nvarchar(256),
   NormalizedEmail nvarchar(256),
   EmailConfirmed bit not null,
-  PasswordHash nvarchar(1024),
-  SecurityStamp nvarchar(1024),
-  ConcurrencyStamp nvarchar(1024),
+  PasswordHash nvarchar(256),
+  SecurityStamp nvarchar(64),
+  ConcurrencyStamp nvarchar(36),
   PhoneNumber nvarchar(1024),
   PhoneNumberConfirmed bit not null,
   TwoFactorEnabled bit not null,
