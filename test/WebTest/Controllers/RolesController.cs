@@ -1,6 +1,6 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using WebTest.Entities;
+using IdentityRole = NHibernate.AspNetCore.Identity.IdentityRole;
 
 namespace WebTest.Controllers;
 
@@ -8,20 +8,22 @@ namespace WebTest.Controllers;
 [Route("api/[controller]")]
 public class RolesController : ControllerBase {
 
-    private readonly RoleManager<AppRole> manager;
+    private readonly RoleManager<IdentityRole> manager;
 
-    public RolesController(RoleManager<AppRole> manager) {
+    public RolesController(RoleManager<IdentityRole> manager) {
         this.manager = manager ?? throw new ArgumentNullException(nameof(manager));
     }
 
     [Route("")]
-    public async Task<ActionResult<IList<AppRole>>> GetAll() {
+    public async Task<ActionResult<IList<IdentityRole>>> GetAll() {
         if (!await manager.RoleExistsAsync("TestRole")) {
-            var role = new AppRole {
-                Name = "TestRole",
-                Description = "Test Role"
+            var role = new IdentityRole {
+                Name = "TestRole"
             };
             var result = await manager.CreateAsync(role);
+            if (!result.Succeeded) {
+                return StatusCode(500, result.Errors);
+            }
         }
         return manager.Roles.ToList();
     }

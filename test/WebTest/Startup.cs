@@ -2,7 +2,9 @@
 using NHibernate.Extensions.NetCore;
 using NHibernate.AspNetCore.Identity;
 using NHibernate.Cfg;
-using WebTest.Repositories;
+
+using NHIdentityUser = NHibernate.AspNetCore.Identity.IdentityUser;
+using NHIdentityRole = NHibernate.AspNetCore.Identity.IdentityRole;
 
 namespace WebTest;
 
@@ -29,29 +31,11 @@ public class Startup {
         cfg.AddIdentityMappings();
         // using default xml mapping.
         cfg.AddAssembly(typeof(Startup).Assembly);
-        // using `NHibernate.Mapping.ByCode`, please comment the line above,
-        // and uncomment line flowing lines;
-        // var modelMapper = new NHibernate.Mapping.ByCode.ModelMapper();
-        // modelMapper.AddMapping<WebTest.Entities.AppRoleMapping>();
-        // modelMapper.AddMapping<WebTest.Entities.AppUserMapping>();
-        // modelMapper.AddMapping<WebTest.Entities.TodoItemMapping>();
-        // var mappings = modelMapper.CompileMappingForAllExplicitlyAddedEntities();
-        // cfg.AddMapping(mappings);
-        // using `NHibernate.Mapping.Attributes`
-        // NHibernate.Mapping.Attributes.HbmSerializer.Default.Validate = true;
-        // var stream = NHibernate.Mapping.Attributes.HbmSerializer.Default.Serialize(
-        //     typeof(Startup).Assembly
-        // );
-        // cfg.AddInputStream(stream);
 
         services.AddHibernate(cfg);
-        services.AddDefaultIdentity<WebTest.Entities.AppUser>()
-            .AddRoles<WebTest.Entities.AppRole>()
+        services.AddDefaultIdentity<NHIdentityUser>()
+            .AddRoles<NHIdentityRole>()
             .AddHibernateStores();
-
-        // services.AddRouting(opts => {
-        //     opts.LowercaseUrls = true;
-        // });
 
         services.AddControllersWithViews();
 
@@ -60,13 +44,6 @@ public class Startup {
             options.SuppressInferBindingSourcesForParameters = true;
             options.SuppressModelStateInvalidFilter = true;
         });
-
-        services.AddAutoMapper(configure => {
-            configure.LicenseKey = null;
-            configure.AddMaps(typeof(WebTest.MappingProfile).Assembly);
-        });
-
-        services.AddScoped<ITodoItemRepository, TodoItemRepository>();
     }
 
     // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

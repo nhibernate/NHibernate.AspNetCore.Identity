@@ -18,7 +18,6 @@ public class RoleStoreTest : BaseTest, IDisposable {
         loggerFactory.UseAsHibernateLoggerFactory();
         var cfg = ConfigNHibernate();
         cfg.AddIdentityMappings();
-        AddXmlMapping(cfg);
         var sessionFactory = cfg.BuildSessionFactory();
         store = new RoleStore<NHIdentityRole>(
             sessionFactory.OpenSession(),

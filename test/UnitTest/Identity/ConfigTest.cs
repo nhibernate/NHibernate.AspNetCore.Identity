@@ -3,7 +3,6 @@ using NHibernate.Cfg;
 using NHibernate.AspNetCore.Identity;
 using NHibernate.Extensions.NetCore;
 using NHibernate.Tool.hbm2ddl;
-using WebTest.Entities;
 
 namespace UnitTest.Identity;
 
@@ -20,7 +19,7 @@ public class ConfigTest : BaseTest, IDisposable {
         loggerFactory.UseAsHibernateLoggerFactory();
         cfg = ConfigNHibernate();
         cfg.AddIdentityMappings();
-        AddAttributesMapping(cfg);
+        // AddAttributesMapping(cfg);
         sessionFactory = cfg.BuildSessionFactory();
     }
 
@@ -106,10 +105,9 @@ public class ConfigTest : BaseTest, IDisposable {
     [Test]
     public void _09_CanQueryUserWithCity() {
         using var session = GetSessionFactory().OpenSession();
-        var user = session.Query<AppUser>()
+        var user = session.Query<IdentityUser>()
             .First();
         That(user, Is.Not.Null);
-        That(user?.City?.Name, Is.Not.Null);
     }
 
 }

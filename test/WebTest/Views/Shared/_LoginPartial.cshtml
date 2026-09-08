@@ -1,10 +1,10 @@
 ﻿@using Microsoft.AspNetCore.Identity
-@inject SignInManager<WebTest.Entities.AppUser> SignInManager
-@inject UserManager<WebTest.Entities.AppUser> UserManager
+@using IdentityUser = NHibernate.AspNetCore.Identity.IdentityUser;
+@inject SignInManager<IdentityUser> SignInManager
+@inject UserManager<IdentityUser> UserManager
 
 <ul class="navbar-nav">
-@if (SignInManager.IsSignedIn(User))
-{
+@if (SignInManager.IsSignedIn(User)) {
     <li class="nav-item">
         <a  class="nav-link text-dark" asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage">Hello @User.Identity?.Name!</a>
     </li>
