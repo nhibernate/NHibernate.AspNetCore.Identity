@@ -7,7 +7,6 @@
   </PropertyGroup>
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.Identity.UI" />
-    <PackageReference Include="AutoMapper" />
     <PackageReference Include="NHibernate" />
     <PackageReference Include="NHibernate.Mapping.Attributes" />
     <PackageReference Include="NHibernate.Extensions.Npgsql" />
