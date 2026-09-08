@@ -1,6 +1,6 @@
 #!/bin/bash -e
-export PACKAGE_VERSION="10.0.2"
-export PACKAGE_RELEASE_NOTES="Align MSSQL schema column lengths with NHibernate mappings;Update Identity.Core to 10.0.9;"
+export PACKAGE_VERSION="10.0.3"
+export PACKAGE_RELEASE_NOTES="Update to .NET 10.0.11;Update Identity.Core to 10.0.11;Update NHibernate to 5.7.0;Update other nuget packages;"
 export PACKAGE_TAGS="nhibernate, aspnetcore, identity"
 
 PROJECTS=( \

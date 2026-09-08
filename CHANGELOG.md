@@ -1,5 +1,12 @@
 # Changelogs for NHibernate.AspNetCore.Identity
 
+## 10.0.3
+
+- Update to .NET 10.0.11;
+- Update Identity.Core to 10.0.11;
+- Update NHibernate to 5.7.0;
+- Update other nuget packages;
+
 ## 10.0.2
 
 - Align MSSQL schema column lengths with NHibernate mappings;
