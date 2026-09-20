@@ -1,5 +1,13 @@
 # Changelogs for NHibernate.AspNetCore.Identity
 
+## 10.0.4
+
+- Update to .NET 10.0.12;
+- Update Identity.Core to 10.0.12;
+- Update NHibernate.Extensions.Npgsql to 10.0.5;
+- Update NHibernate.Extensions.NetCore to 10.0.5;
+- Update other nuget packages;
+
 ## 10.0.3
 
 - Update to .NET 10.0.11;
