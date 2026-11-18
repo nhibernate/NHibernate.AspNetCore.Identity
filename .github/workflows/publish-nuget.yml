@@ -1,0 +1,47 @@
+name: publish-nuget
+
+on:
+  push:
+    tags: ["[0-9]*"]
+  workflow_dispatch:
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      id-token: write # required to request the GitHub OIDC token
+    steps:
+      - uses: actions/checkout@v7
+
+      - uses: actions/setup-dotnet@v6
+        with:
+          dotnet-version: 10.0.x
+
+      - name: Check tag matches release.env
+        if: startsWith(github.ref, 'refs/tags/')
+        run: |
+          source ./release.env
+          test "refs/tags/$PACKAGE_VERSION" = "$GITHUB_REF" \
+            || { echo "tag $GITHUB_REF does not match PACKAGE_VERSION=$PACKAGE_VERSION"; exit 1; }
+
+      - name: Pack
+        run: |
+          source ./release.env
+          for proj in src/*/*.csproj; do
+            dotnet pack "$proj" -c Release --output ./nupkgs/
+          done
+
+      - name: NuGet login (OIDC -> temporary API key)
+        id: login
+        uses: NuGet/login@v1
+        with:
+          # nuget.org profile name of the trusted publishing policy owner
+          user: ${{ vars.NUGET_USER }}
+
+      - name: Push packages
+        run: |
+          dotnet nuget push ./nupkgs/*.nupkg \
+            --source https://api.nuget.org/v3/index.json \
+            --api-key "${{ steps.login.outputs.NUGET_API_KEY }}" \
+            --skip-duplicate

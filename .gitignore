@@ -6,3 +6,6 @@ bin
 *.user
 *.db3
 .DS_Store
+
+# local pack output
+nupkgs/

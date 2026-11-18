@@ -1,5 +1,12 @@
 # Changelogs for NHibernate.AspNetCore.Identity
 
+## 10.0.5
+
+- Update Microsoft packages to 10.0.15;
+- Update Microsoft.NET.Test.Sdk to 18.12.0, NUnit to 5.0.0, NUnit3TestAdapter to 6.3.1;
+- Update NHibernate to 5.7.1, NHibernate.Extensions to 10.0.6;
+- Publish through nuget.org Trusted Publishing instead of a long-lived API key;
+
 ## 10.0.4
 
 - Update to .NET 10.0.12;

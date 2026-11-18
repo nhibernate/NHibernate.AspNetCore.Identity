@@ -11,7 +11,7 @@
     <PackageVersion>$(PACKAGE_VERSION)</PackageVersion>
     <PackageReleaseNotes>$(PACKAGE_RELEASE_NOTES)</PackageReleaseNotes>
     <PackageTags>$(PACKAGE_TAGS)</PackageTags>
-    <PackageProjectUrl>https://github.com/nhibernate/NHibernate.AspNetCore.Identity</PackageProjectUrl>
+    <PackageProjectUrl>$(PACKAGE_PROJECT_URL)</PackageProjectUrl>
     <PackageLicenseFile>LICENSE.txt</PackageLicenseFile>
     <PackageReadmeFile>README.md</PackageReadmeFile>
   </PropertyGroup>

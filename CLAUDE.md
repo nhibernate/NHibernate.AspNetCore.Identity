@@ -62,19 +62,19 @@ WebTest is a sample MVC app with PostgreSQL. Requires:
 
 ## Packaging
 
-Edit `push-package.sh` to set the version and metadata, then execute it:
+Release metadata lives in `release.env` (sourced by both the local script and CI).
+Publishing uses nuget.org Trusted Publishing via `.github/workflows/publish-nuget.yml`,
+triggered by pushing a version tag — see `docs/publish-nuget.md`.
 
 ```sh
-# 1. Edit push-package.sh
-export PACKAGE_VERSION="10.0.1"
-export PACKAGE_RELEASE_NOTES="Release notes here"
-export PACKAGE_TAGS="nhibernate, aspnetcore, identity"
-
-# 2. Run the script
+# 1. Update CHANGELOG.md and release.env (PACKAGE_VERSION, PACKAGE_RELEASE_NOTES)
+# 2. Pack locally to verify (output in nupkgs/, not pushed)
 ./push-package.sh
-```
 
-The script handles `dotnet pack` and `dotnet nuget push` to NuGet.org.
+# 3. Commit, tag and push; the tag triggers the publish workflow
+git tag 10.0.5
+git push origin master 10.0.5
+```
 
 ## Database Scripts
 
