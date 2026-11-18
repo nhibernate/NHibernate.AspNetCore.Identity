@@ -6,7 +6,8 @@
   </Configurations>
   <Folder Name="/assets/">
     <File Path="CHANGELOG.md" />
-    <File Path="push-package.sh" />
+    <File Path="release.env" />
+    <File Path="docs/publish-nuget.md" />
     <File Path="README.md" />
     <File Path="Directory.Packages.props" />
   </Folder>

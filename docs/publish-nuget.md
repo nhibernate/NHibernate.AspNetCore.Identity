@@ -63,10 +63,11 @@ Settings → Secrets and variables → Actions → Variables → New repository 
 
 1. 更新 `CHANGELOG.md`；
 2. 修改 `release.env` 的 `PACKAGE_VERSION` 和 `PACKAGE_RELEASE_NOTES`；
-3. 本地打包验证（产物在 `nupkgs/`，不推送）：
+3. 本地打包验证（产物在 `nupkgs/`，已 gitignore，不推送）：
 
 ```bash
-./push-package.sh
+source ./release.env
+dotnet pack src/NHibernate.AspNetCore.Identity -c Release --output ./nupkgs/
 ```
 
 4. 提交后打标签并推送，标签触发工作流：
@@ -77,6 +78,17 @@ git push origin master 10.0.5
 ```
 
 5. 在 Actions 里确认 run 成功，再到 nuget.org 确认包已出现（验证和索引最长约 1 小时）。
+
+## 6. 本仓库当前配置
+
+| 项 | 值 |
+| --- | --- |
+| 策略名称 | `nhibernate-aspnetcore-identity` |
+| Package owner | `beginor` |
+| Repository | `nhibernate/NHibernate.AspNetCore.Identity` |
+| Workflow File | `publish-nuget.yml` |
+| Glob | `NHibernate.AspNetCore.Identity` |
+| GitHub 变量 | `NUGET_USER=beginor` |
 
 ## 常见问题
 
